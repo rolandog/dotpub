@@ -1,0 +1,83 @@
+                      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                                 DOTPUB
+                       rolandog’s public dotfiles
+
+                             Rolando Garza
+                           rolandog@gmail.com
+                      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+                               2021-12-03
+
+
+Table of Contents
+─────────────────
+
+1. Downloading dotfiles
+2. Installing dotfiles
+3. Pushing local changes
+4. Online resources
+.. 1. Programmer’s dotfiles
+.. 2. Online discussions or tutorials
+
+
+One of the common things that brings programmers together is dealing
+with “dotfiles”—configuration files that often begin with a “`.'”
+character.
+
+This repository is meant to be cloned inside `~.dotfiles/.pub/', and
+from that directory, package’s dotfiles are meant to be installed by
+running `stow PACKAGE'.
+
+
+1 Downloading dotfiles
+══════════════════════
+
+  This repository is meant to be cloned inside `~.dotfiles/.pub/':
+
+  ┌────
+  │ mkdir -p ~/.dotfiles/.pub
+  │ git clone https://git.sr.ht/~rolandog/dotpub ~/.dotfiles/.pub
+  │ cd ~/.dotfiles/.pub
+  └────
+
+
+2 Installing dotfiles
+═════════════════════
+
+  After cloning, one can “install” the dotfiles of a certain `package'
+  by running:
+
+  ┌────
+  │ stow PACKAGE
+  └────
+
+
+3 Pushing local changes
+═══════════════════════
+
+  The first time we want to push additional changes back:
+
+  ┌────
+  │ git remote add origin git@git.sr.ht:~rolandog/dotpub
+  │ git push --set-upstream origin main
+  └────
+
+
+4 Online resources
+══════════════════
+
+4.1 Programmer’s dotfiles
+─────────────────────────
+
+  • <https://github.com/podiki/dot.me>
+  • <https://github.com/kalkayan/dotfiles>
+  • <https://github.com/gfarrell/dotfiles>
+
+
+4.2 Online discussions or tutorials
+───────────────────────────────────
+
+  • <https://news.ycombinator.com/item?id=11071754>
+  • <https://news.ycombinator.com/item?id=11070797>
+  • <https://www.atlassian.com/git/tutorials/dotfiles>
