@@ -13,6 +13,6 @@ tasks:
       cat ~/.ssh/known_hosts
       git remote add github git@github.com:rolandog/dotpub.gitZZZ
       git branch -M main
-      git push --prune github +refs/remotes/origin/*:refs/heads/* +refs/tags/*:refs/tags/*
+      git push -u github --prune github +refs/remotes/origin/*:refs/heads/* +refs/tags/*:refs/tags/* main
       echo "done"
 
