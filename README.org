@@ -1,0 +1,216 @@
+#+title: Dotfile management
+#+subtitle: Comparison of two different methods
+#+date: 2021-12-03
+#+setupfile: ~/org/conf/setup-en-bib-a4.config
+#+filetags: :dotfiles:configuration:git:notes:management:
+#+LATEX_HEADER: \definecolor{backcolor}{rgb}{0.22,0.05,0.17}
+#+LATEX_HEADER: \definecolor{codecolor}{rgb}{1.0,1.0,1.0}
+#+LATEX_HEADER: \definecolor{commentcolor}{rgb}{0.77,0.63,0.0}
+#+LATEX_HEADER: \definecolor{fillcolor}{rgb}{0.45,0.62,0.81}
+#+LATEX_HEADER: \definecolor{keywordcolor}{rgb}{0.54,0.87,0.20}
+#+LATEX_HEADER: \definecolor{keywordcolor2}{rgb}{0.94,0.16,0.16}
+#+LATEX_HEADER: \definecolor{numbercolor}{rgb}{0.33,0.34,0.32}
+#+LATEX_HEADER: \definecolor{rulecolor}{rgb}{0.20,0.89,0.89}
+#+LATEX_HEADER: \definecolor{rulesepcolor}{rgb}{0.99,0.91,0.31}
+#+LATEX_HEADER: \definecolor{stringcolor}{rgb}{0.68,0.5,0.66}
+#+LATEX_HEADER: \lstset{
+#+LATEX_HEADER:     backgroundcolor=\color{backcolor},
+#+LATEX_HEADER:     basicstyle=\footnotesize\ttfamily\color{codecolor},
+#+LATEX_HEADER:     breakatwhitespace=true,
+#+LATEX_HEADER:     breaklines=true,
+#+LATEX_HEADER:     commentstyle=\itshape\color{commentcolor},
+#+LATEX_HEADER:     %escapeinside={\%*}{*)},
+#+LATEX_HEADER:     %extendedchars=true,
+#+LATEX_HEADER:     fillcolor=\color{fillcolor},
+#+LATEX_HEADER:     frame=single,
+#+LATEX_HEADER:     %framerule=5pt,
+#+LATEX_HEADER:     %framexbottommargin=2pt,
+#+LATEX_HEADER:     %framexleftmargin=5mm,
+#+LATEX_HEADER:     %framextopmargin=2pt,
+#+LATEX_HEADER:     inputencoding=utf8,
+#+LATEX_HEADER:     keywordstyle=\bfseries\color{keywordcolor},
+#+LATEX_HEADER:     keywordstyle=[2]\bfseries\color{keywordcolor2},
+#+LATEX_HEADER:     language=bash,
+#+LATEX_HEADER:     literate=
+#+LATEX_HEADER:       {`}{\textasciigrave}1
+#+LATEX_HEADER:       {ϑ}{{$\vartheta$}}1
+#+LATEX_HEADER:       {Π}{{$\Pi$}}1
+#+LATEX_HEADER:       {∞}{{$\infty$}}1
+#+LATEX_HEADER:       {𝜏}{{$\tau$}}1
+#+LATEX_HEADER:       {π}{{$\pi$}}1
+#+LATEX_HEADER:       {α}{{$\alpha$}}1
+#+LATEX_HEADER:       {ρ}{{$\rho$}}1
+#+LATEX_HEADER:       {Θ}{{$\Theta$}}1
+#+LATEX_HEADER:       ,
+#+LATEX_HEADER:     %morekeywords={sudo,apt,install},
+#+LATEX_HEADER:     numbers=left,
+#+LATEX_HEADER:     %numbersep=5pt,
+#+LATEX_HEADER:     numberstyle=\tiny\color{numbercolor},
+#+LATEX_HEADER:     rulecolor=\color{rulecolor},
+#+LATEX_HEADER:     rulesepcolor=\color{rulesepcolor},
+#+LATEX_HEADER:     showspaces=false,
+#+LATEX_HEADER:     showstringspaces=false,
+#+LATEX_HEADER:     stepnumber=1,
+#+LATEX_HEADER:     stringstyle=\color{stringcolor},
+#+LATEX_HEADER:     tabsize=4,
+#+LATEX_HEADER:     %title=\lstname,
+#+LATEX_HEADER:     upquote=true
+#+LATEX_HEADER: }
+
+#+begin_abstract
+One of the common things that brings programmers together is dealing
+with "dotfiles"---configuration files that often begin with a "=.="
+character.  In my particular use-case, I needed to be able to use both
+a public and a private repository.
+
+The method I ended up with is to create "virtual packages" with GNU
+Stow, which then creates symlinks to the files contained inside these
+packages' directories (kind of like copy/pasting from the package
+directory to the home directory, while preserving any folders inside
+the package's directory).
+#+end_abstract
+* TODO using GNU Stow [0/4]
+- [ ] Document process
+- [ ] Show example structure
+- [ ] Show example public files
+- [ ] Show example private files?
+* DONE using aliases [8/8]
+CLOSED: [2021-12-03 vr 18:37]
+:LOGBOOK:
+- State "DONE"       from "IN-PROGRESS" [2021-12-03 vr 18:37]
+- State "IN-PROGRESS" from "TODO"       [2021-12-03 vr 18:33]
+:END:
+I tried to use an intuitive method that only required using Git
+[cite:@Paolucci2016].  Since I wanted to have both a public and a
+private repository, this seemed like it would work:
+
+- =dotpub status=
+- =dotpub add .bashrc=
+- =dotpub commit -m "Add .bashrc"=
+- =dotpub push=
+
+And, similarly for private repositories:
+- =dotpriv status=
+- =dotpriv add .bashrc=
+- =dotpriv commit -m "Add .bashrc"=
+- =dotpriv push=
+
+However this would've required setting both the =README= and =COPYING=
+files in the =~/= directory, and not being able to have different
+contents for both repositories.
+
+I've included the configuration I had gone through, in case I want to
+go back.
+** =.dotpub= alias [4/4]
+*** DONE Setup
+CLOSED: [2021-12-03 vr 18:36]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2021-12-03 vr 18:36]
+:END:
+#+NAME: pubsetup
+#+ATTR_LATEX: :options alsoletter={-},basicstyle=\footnotesize\ttfamily\color{codecolor},name=setup,morekeywords={dotpub,dotpriv,git,rsync,rm,alias},morekeywords=[2]{status,add,push,init,clone,config,remote,commit,set-url} :float nil
+#+BEGIN_SRC bash -n :exports code :eval never :dir ~ :wrap SRC text
+  git init --bare $HOME/.dotpub
+  echo ".dotpub" >> .gitignore
+  alias dotpub='git --git-dir=$HOME/.dotpub/ --work-tree=$HOME'
+  dotpub remote add origin git@git.sr.ht:~rolandog/dotpub
+  dotpub pull
+#+END_SRC
+*** DONE Cloning
+CLOSED: [2021-12-03 vr 18:36]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2021-12-03 vr 18:36]
+:END:
+#+NAME: pubcloning
+#+ATTR_LATEX: :options alsoletter={-},basicstyle=\footnotesize\ttfamily\color{codecolor},name=pubsetup,morekeywords={dotpub,dotpriv,git,rsync,rm,alias},morekeywords=[2]{status,add,push,init,clone,config,remote,commit,set-url} :float nil
+#+BEGIN_SRC bash -n :exports code :eval never :dir ~ :wrap SRC text
+  git clone --separate-git-dir=$HOME/.dotpub https://git.sr.ht/~rolandog/dotpub .dotpub-tmp
+  rsync --recursive --verbose --exclude '.git' .dotpub-tmp/ $HOME/
+  rm --recursive .dotpub-tmp
+#+END_SRC
+*** DONE Configuration
+CLOSED: [2021-12-03 vr 18:36]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2021-12-03 vr 18:36]
+:END:
+#+NAME: pubconfig
+#+ATTR_LATEX: :options alsoletter={-},basicstyle=\footnotesize\ttfamily\color{codecolor},name=pubconfig,morekeywords={dotpub,dotpriv,git,rsync,rm,alias},morekeywords=[2]{status,add,push,init,clone,config,remote,commit,set-url} :float nil
+#+BEGIN_SRC bash -n :exports code :eval never :dir ~ :wrap SRC text
+  dotpub config status.showUntrackedFiles no
+  dotpub remote set-url origin git@git.sr.ht:~rolandog/dotpub
+#+END_SRC
+*** DONE Usage
+CLOSED: [2021-12-03 vr 18:36]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2021-12-03 vr 18:36]
+:END:
+#+NAME: pubusage
+#+ATTR_LATEX: :options alsoletter={-},basicstyle=\footnotesize\ttfamily\color{codecolor},name=pubusage,morekeywords={dotpub,dotpriv,git,rsync,rm,alias},morekeywords=[2]{status,add,push,init,clone,config,remote,commit,set-url} :float nil
+#+BEGIN_SRC bash -n :exports code :eval never :dir ~ :wrap SRC text
+  dotpub status
+  dotpub add .bashrc
+  dotpub commit -m 'Add bashrc'
+  dotpub push
+#+END_SRC
+** =.dotpriv= alias [4/4]
+*** DONE Setup
+CLOSED: [2021-12-03 vr 18:36]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2021-12-03 vr 18:36]
+:END:
+#+NAME: privsetup
+#+ATTR_LATEX: :options alsoletter={-},basicstyle=\footnotesize\ttfamily\color{codecolor},name=privsetup,morekeywords={dotpub,dotpriv,git,rsync,rm,alias},morekeywords=[2]{status,add,push,init,clone,config,remote,commit,set-url} :float nil
+#+BEGIN_SRC bash -n :exports code :eval never :dir ~ :wrap SRC text
+  git init --bare $HOME/.dotpriv
+  echo ".dotpriv" >> .gitignore
+  alias dotpriv='git --git-dir=$HOME/.dotpriv/ --work-tree=$HOME'
+  dotpriv remote add origin git@git.sr.ht:~rolandog/dotpriv
+  dotpriv pull
+#+END_SRC
+*** DONE Cloning
+CLOSED: [2021-12-03 vr 18:36]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2021-12-03 vr 18:36]
+:END:
+#+NAME: privcloning
+#+ATTR_LATEX: :options alsoletter={-},basicstyle=\footnotesize\ttfamily\color{codecolor},name=privcloning,morekeywords={dotpub,dotpriv,git,rsync,rm,alias},morekeywords=[2]{status,add,push,init,clone,config,remote,commit,set-url} :float nil
+#+BEGIN_SRC bash -n :exports code :eval never :dir ~ :wrap SRC text
+  git clone --separate-git-dir=$HOME/.dotpriv https://git.sr.ht/~rolandog/dotpriv .dotpriv-tmp
+  rsync --recursive --verbose --exclude '.git' .dotpriv-tmp/ $HOME/
+  rm --recursive .dotpriv-tmp
+#+END_SRC
+*** DONE Configuration
+CLOSED: [2021-12-03 vr 18:37]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2021-12-03 vr 18:37]
+:END:
+#+NAME: privconfig
+#+ATTR_LATEX: :options alsoletter={-},basicstyle=\footnotesize\ttfamily\color{codecolor},name=privconfig,morekeywords={dotpub,dotpriv,git,rsync,rm,alias},morekeywords=[2]{status,add,push,init,clone,config,remote,commit,set-url} :float nil
+#+BEGIN_SRC bash -n :exports code :eval never :dir ~ :wrap SRC text
+  dotpriv config status.showUntrackedFiles no
+  dotpriv remote set-url origin git@git.sr.ht:~rolandog/dotpriv
+#+END_SRC
+*** DONE Usage
+CLOSED: [2021-12-03 vr 18:37]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2021-12-03 vr 18:37]
+:END:
+#+NAME: privusage
+#+ATTR_LATEX: :options alsoletter={-},basicstyle=\footnotesize\ttfamily\color{codecolor},name=privusage,morekeywords={dotpub,dotpriv,git,rsync,rm,alias},morekeywords=[2]{status,add,push,init,clone,config,remote,commit,set-url} :float nil
+#+BEGIN_SRC bash -n :exports code :eval never :dir ~ :wrap SRC text
+  dotpriv status
+  dotpriv add .gitconfig
+  dotpriv commit -m 'Add gitconfig'
+  dotpriv push
+#+END_SRC
+* Online resources
+** Programmer's dotfiles
+- https://github.com/podiki/dot.me
+- https://github.com/kalkayan/dotfiles
+- https://github.com/gfarrell/dotfiles
+** Online discussions or tutorials
+- https://news.ycombinator.com/item?id=11071754
+- https://news.ycombinator.com/item?id=11070797
+- https://www.atlassian.com/git/tutorials/dotfiles
+* References                                                         :ignore:
+#+print_bibliography:
