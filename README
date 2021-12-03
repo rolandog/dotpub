@@ -1,0 +1,189 @@
+                 _____________________________________
+
+                           DOTFILE MANAGEMENT
+                  Comparison of two different methods
+
+                             Rolando Garza
+                           rolandog@gmail.com
+                 _____________________________________
+
+
+                               2021-12-03
+
+
+Table of Contents
+_________________
+
+1. using GNU Stow
+2. using aliases
+.. 1. `.dotpub' alias
+..... 1. Setup
+..... 2. Cloning
+..... 3. Configuration
+..... 4. Usage
+.. 2. `.dotpriv' alias
+..... 1. Setup
+..... 2. Cloning
+..... 3. Configuration
+..... 4. Usage
+3. Online resources
+.. 1. Programmer's dotfiles
+.. 2. Online discussions or tutorials
+
+
+One of the common things that brings programmers together is dealing
+with "dotfiles"---configuration files that often begin with a "`.'"
+character.  In my particular use-case, I needed to be able to use both a
+public and a private repository.
+
+The method I ended up with is to create "virtual packages" with GNU
+Stow, which then creates symlinks to the files contained inside these
+packages' directories (kind of like copy/pasting from the package
+directory to the home directory, while preserving any folders inside the
+package's directory).
+
+
+1 using GNU Stow
+================
+
+  - [ ] Document process
+  - [ ] Show example structure
+  - [ ] Show example public files
+  - [ ] Show example private files?
+
+
+2 using aliases
+===============
+
+  I tried to use an intuitive method that only required using Git
+  \autocite{Paolucci2016}.  Since I wanted to have both a public and a
+  private repository, this seemed like it would work:
+
+  - `dotpub status'
+  - `dotpub add .bashrc'
+  - `dotpub commit -m "Add .bashrc"'
+  - `dotpub push'
+
+  And, similarly for private repositories:
+  - `dotpriv status'
+  - `dotpriv add .bashrc'
+  - `dotpriv commit -m "Add .bashrc"'
+  - `dotpriv push'
+
+  However this would've required setting both the `README' and `COPYING'
+  files in the `~/' directory, and not being able to have different
+  contents for both repositories.
+
+  I've included the configuration I had gone through, in case I want to
+  go back.
+
+
+2.1 `.dotpub' alias
+~~~~~~~~~~~~~~~~~~~
+
+2.1.1 Setup
+-----------
+
+  ,----
+  | 1  git init --bare $HOME/.dotpub
+  | 2  echo ".dotpub" >> .gitignore
+  | 3  alias dotpub='git --git-dir=$HOME/.dotpub/ --work-tree=$HOME'
+  | 4  dotpub remote add origin git@git.sr.ht:~rolandog/dotpub
+  | 5  dotpub pull
+  `----
+
+
+2.1.2 Cloning
+-------------
+
+  ,----
+  | 1  git clone --separate-git-dir=$HOME/.dotpub https://git.sr.ht/~rolandog/dotpub .dotpub-tmp
+  | 2  rsync --recursive --verbose --exclude '.git' .dotpub-tmp/ $HOME/
+  | 3  rm --recursive .dotpub-tmp
+  `----
+
+
+2.1.3 Configuration
+-------------------
+
+  ,----
+  | 1  dotpub config status.showUntrackedFiles no
+  | 2  dotpub remote set-url origin git@git.sr.ht:~rolandog/dotpub
+  `----
+
+
+2.1.4 Usage
+-----------
+
+  ,----
+  | 1  dotpub status
+  | 2  dotpub add .bashrc
+  | 3  dotpub commit -m 'Add bashrc'
+  | 4  dotpub push
+  `----
+
+
+2.2 `.dotpriv' alias
+~~~~~~~~~~~~~~~~~~~~
+
+2.2.1 Setup
+-----------
+
+  ,----
+  | 1  git init --bare $HOME/.dotpriv
+  | 2  echo ".dotpriv" >> .gitignore
+  | 3  alias dotpriv='git --git-dir=$HOME/.dotpriv/ --work-tree=$HOME'
+  | 4  dotpriv remote add origin git@git.sr.ht:~rolandog/dotpriv
+  | 5  dotpriv pull
+  `----
+
+
+2.2.2 Cloning
+-------------
+
+  ,----
+  | 1  git clone --separate-git-dir=$HOME/.dotpriv https://git.sr.ht/~rolandog/dotpriv .dotpriv-tmp
+  | 2  rsync --recursive --verbose --exclude '.git' .dotpriv-tmp/ $HOME/
+  | 3  rm --recursive .dotpriv-tmp
+  `----
+
+
+2.2.3 Configuration
+-------------------
+
+  ,----
+  | 1  dotpriv config status.showUntrackedFiles no
+  | 2  dotpriv remote set-url origin git@git.sr.ht:~rolandog/dotpriv
+  `----
+
+
+2.2.4 Usage
+-----------
+
+  ,----
+  | 1  dotpriv status
+  | 2  dotpriv add .gitconfig
+  | 3  dotpriv commit -m 'Add gitconfig'
+  | 4  dotpriv push
+  `----
+
+
+3 Online resources
+==================
+
+3.1 Programmer's dotfiles
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  - <https://github.com/podiki/dot.me>
+  - <https://github.com/kalkayan/dotfiles>
+  - <https://github.com/gfarrell/dotfiles>
+
+
+3.2 Online discussions or tutorials
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  - <https://news.ycombinator.com/item?id=11071754>
+  - <https://news.ycombinator.com/item?id=11070797>
+  - <https://www.atlassian.com/git/tutorials/dotfiles>
+
+
