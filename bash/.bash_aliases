@@ -11,10 +11,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-### dotfiles
-alias dotpub='git --git-dir=$HOME/.dotpub/ --work-tree=$HOME'
-alias dotpriv='git --git-dir=$HOME/.dotpriv/ --work-tree=$HOME'
-
 ### ls
 # some more ls aliases
 alias ll='ls -alF'

@@ -1,0 +1,8 @@
+--dir=$HOME/.dotfiles/.pub
+--target=$HOME
+#--override=bin
+#--override=man
+#--ignore='perllocal\.pod'
+#--ignore='\.packlist'
+#--ignore='\.bs'
+
