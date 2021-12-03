@@ -1,0 +1,134 @@
+### youtube-dl userwide configuration
+# located in ~/.config/youtube-dl/config
+
+# The configuration options are grouped in a similar manner as they
+# are listed in: https://github.com/ytdl-org/youtube-dl/
+
+
+### GENERAL OPTIONS
+# Continue on download errors, for example to skip unavailable videos
+# in a playlist
+--ignore-errors
+
+# Do not emit color codes in output
+# NOTE: to be used when passing text output to another script
+--no-color
+
+
+### NETWORK OPTIONS
+# Use the specified HTTP/HTTPS/SOCKS proxy. To enable SOCKS proxy,
+# specify a proper scheme. For example socks5://127.0.0.1:1080/. Pass
+# in an empty string (--proxy "") for direct connection
+# --proxy 127.0.0.1:3128
+
+
+### DOWNLOAD OPTIONS
+# Set file xattribute ytdl.filesize with expected file size
+#--xattr-set-filesize
+
+
+### FILESYSTEM OPTIONS
+# Output filename template, see the "OUTPUT TEMPLATE" for all the info
+--output "~/Downloads/videos/%(uploader)s_%(title)s.%(ext)s"
+
+# Restrict filenames to only ASCII characters, and avoid "&" and
+# spaces in filenames
+--restrict-filenames
+
+# Do not use the Last-modified header to set the file modification
+# time
+# --no-mtime
+
+# Write video description to a .description file
+#--write-description
+
+# Write video metadata to a .info.json file
+#--write-info-json
+
+# Write video annotations to a .annotations.xml file
+--write-annotations
+
+
+### THUMBNAIL OPTIONS
+# Write thumbnail image to disk
+--write-thumbnail
+
+
+### VERBOSITY / SIMULATION OPTIONS
+# Do NOT contact the youtube-dl server for debugging
+--no-call-home
+
+
+### VIDEO FORMAT OPTIONS
+# Video format code, see the "FORMAT SELECTION" for all the info
+--format "bestvideo[height<=?1080]+bestaudio/best"
+
+# Prefer free video formats unless a specific one is requested
+--prefer-free-formats
+
+# If a merge is required (e.g. bestvideo+bestaudio), output to given
+# container format.  One of mkv, mp4, ogg, webm, flv.  Ignored if no
+# merge is required
+--merge-output-format "webm"
+
+
+### SUBTITLE OPTIONS
+# Write subtitle file
+--write-sub
+
+# Download all the available subtitles of the video
+--all-subs
+
+# Subtitle format, accepts formats preference, for example: "srt" or
+# "ass/srt/best"
+--sub-format "srt/vtt/best"
+
+# Languages of the subtitles to download (optional) separated by
+# commas, use --list-subs for available language tags
+# --sub-lang "en,es,nl"
+
+
+### AUTHENTICATION OPTIONS
+# Use .netrc authentication data
+#--netrc
+
+# File to read cookies from and dump cookie jar in
+#--cookies "~/.config/youtube-dl/cookie-jar"
+
+
+### POST-PROCESSING OPTIONS
+# Convert video files to audio-only files (requires ffmpeg/avconv and
+# ffprobe/avprobe)
+# --extract-audio
+
+# Embed subtitles in the video (only for mp4, webm and mkv videos)
+--embed-subs
+
+# Embed thumbnail in the audio as cover art
+#--embed-thumbnail
+
+# Write metadata to the video file
+--add-metadata
+
+# Parse additional metadata like song title / artist from the video
+# title.  The format syntax is the same as --output.  Regular
+# expression with named capture groups may also be used.  The parsed
+# parameters replace existing values.  Example: --metadata-from-title
+# "%(artist)s - %(title)s" matches a title like "Coldplay - Paradise".
+# Example (regex): --metadata-from-title
+# "(?P<artist>.+?) - (?P<title>.+)"
+# --metadata-from-title FORMAT
+
+# Write metadata to the video file's xattrs (using dublin core and xdg
+# standards)
+#--xattrs
+
+# Automatically correct known faults of the file.  One of never (do
+# nothing), warn (only emit a warning), detect_or_warn (the default;
+# fix file if we can, warn otherwise)
+--fixup "detect_or_warn"
+
+# Convert the subtitles to other format (currently supported:
+# srt|ass|vtt|lrc)
+--convert-subs "vtt"
+
