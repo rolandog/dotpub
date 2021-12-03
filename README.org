@@ -21,6 +21,44 @@ This repository is meant to be cloned inside =~.dotfiles/.pub/=:
   git clone https://git.sr.ht/~rolandog/dotpub ~/.dotfiles/.pub
   cd ~/.dotfiles/.pub
 #+END_SRC
+* Inspecting dotfiles
+This is a way to inspect our current repository:
+#+BEGIN_SRC bash :exports both :results output :cache yes :dir ~/.dotfiles/.pub :wrap SRC text
+  tree -Fa -I '.git' --dirsfirst ~/.dotfiles/.pub
+#+END_SRC
+
+#+RESULTS[21e9a9ebb64b96272027cc33aa00fef5b58a0c77]:
+#+begin_SRC text
+/home/rolandog/.dotfiles/.pub
+├── bash/
+│   ├── .bash_aliases
+│   ├── .bash_colors
+│   ├── .bash_logout
+│   ├── .bashrc
+│   └── .profile
+├── emacs/
+│   └── .emacs
+├── stow/
+│   └── .stow-global-ignore
+├── vim/
+│   ├── .local/
+│   │   └── bin/
+│   │       └── vwtags.py
+│   └── .vimrc
+├── youtube-dl/
+│   └── .config/
+│       └── youtube-dl/
+│           └── config
+├── .build.yml
+├── COPYING
+├── .gitignore
+├── README
+├── README.org
+├── .stow-local-ignore
+└── .stowrc
+
+9 directories, 17 files
+#+end_SRC
 
 * Installing dotfiles
 After cloning, one can "install" the dotfiles of a certain =package=

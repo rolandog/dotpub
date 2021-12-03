@@ -15,9 +15,10 @@ Table of Contents
 _________________
 
 1. Downloading dotfiles
-2. Installing dotfiles
-3. Pushing local changes
-4. Online resources
+2. Inspecting dotfiles
+3. Installing dotfiles
+4. Pushing local changes
+5. Online resources
 .. 1. Programmer's dotfiles
 .. 2. Online discussions or tutorials
 
@@ -43,7 +44,48 @@ running `stow PACKAGE'.
   `----
 
 
-2 Installing dotfiles
+2 Inspecting dotfiles
+=====================
+
+  This is a way to inspect our current repository:
+  ,----
+  | tree -Fa -I '.git' --dirsfirst ~/.dotfiles/.pub
+  `----
+
+  ,----
+  | /home/rolandog/.dotfiles/.pub
+  | ├── bash/
+  | │   ├── .bash_aliases
+  | │   ├── .bash_colors
+  | │   ├── .bash_logout
+  | │   ├── .bashrc
+  | │   └── .profile
+  | ├── emacs/
+  | │   └── .emacs
+  | ├── stow/
+  | │   └── .stow-global-ignore
+  | ├── vim/
+  | │   ├── .local/
+  | │   │   └── bin/
+  | │   │       └── vwtags.py
+  | │   └── .vimrc
+  | ├── youtube-dl/
+  | │   └── .config/
+  | │       └── youtube-dl/
+  | │           └── config
+  | ├── .build.yml
+  | ├── COPYING
+  | ├── .gitignore
+  | ├── README
+  | ├── README.org
+  | ├── .stow-local-ignore
+  | └── .stowrc
+  | 
+  | 9 directories, 17 files
+  `----
+
+
+3 Installing dotfiles
 =====================
 
   After cloning, one can "install" the dotfiles of a certain `package'
@@ -54,7 +96,7 @@ running `stow PACKAGE'.
   `----
 
 
-3 Pushing local changes
+4 Pushing local changes
 =======================
 
   The first time we want to push additional changes back:
@@ -65,10 +107,10 @@ running `stow PACKAGE'.
   `----
 
 
-4 Online resources
+5 Online resources
 ==================
 
-4.1 Programmer's dotfiles
+5.1 Programmer's dotfiles
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
   - <https://github.com/podiki/dot.me>
@@ -76,7 +118,7 @@ running `stow PACKAGE'.
   - <https://github.com/gfarrell/dotfiles>
 
 
-4.2 Online discussions or tutorials
+5.2 Online discussions or tutorials
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   - <https://news.ycombinator.com/item?id=11071754>
