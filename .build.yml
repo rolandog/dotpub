@@ -7,7 +7,7 @@ tasks:
   - fetch-and-validate-github-key-fingerprint: |
       ssh-keyscan -t rsa github.com > github_host
       ssh-keygen -lf github_host > github_fingerprint
-      grep -R "this should fail" github_fingerprint
+      grep -R "nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8" github_fingerprint
   - mirror-to-github: |
       echo -e "Host github.com\n    IdentityFile ~/.ssh/id_rsa\n    IdentitiesOnly yes\n    BatchMode yes\n" >> ~/.ssh/config
       cat github_host >> ~/.ssh/known_hosts
