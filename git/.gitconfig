@@ -1,0 +1,14 @@
+[user]
+	name = Rolando Garza
+	email = rolandog@gmail.com
+[core]
+	editor = emacs
+[color]
+	status = auto
+	branch = auto
+	interactive = auto
+	diff = auto
+[pull]
+	rebase = false
+[init]
+	defaultBranch = main
