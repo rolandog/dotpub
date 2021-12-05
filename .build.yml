@@ -4,13 +4,15 @@ secrets:
 sources:
   - https://git.sr.ht/~rolandog/dotpub
 tasks:
-  - fetch-and-validate-github-key-fingerprint: |
-      ssh-keyscan -t rsa github.com > github_host
-      ssh-keygen -lf github_host > github_fingerprint
-      grep -R "nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8" github_fingerprint
-  - mirror-to-github: |
+  - validate-gh-fingerprint-and-config-ssh: |
+      tmp_dir=$(mktemp -d -p $HOME)
+      ssh-keyscan -t rsa github.com > $tmp_dir/github_host
+      ssh-keygen -lf $tmp_dir/github_host > $tmp_dir/github_fingerprint
+      grep -R "nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8" $tmp_dir/github_fingerprint
+      cat $tmp_dir/github_host >> ~/.ssh/known_hosts
+      rm -rf $tmp_dir
       echo -e "Host github.com\n    IdentityFile ~/.ssh/id_rsa\n    IdentitiesOnly yes\n    BatchMode yes\n" >> ~/.ssh/config
-      cat github_host >> ~/.ssh/known_hosts
+  - mirror-to-github: |
       cd ~/dotpub
       git remote add github git@github.com:rolandog/dotpub.git
       git push --prune github +refs/remotes/origin/*:refs/heads/* +refs/tags/*:refs/tags/* main
