@@ -29,7 +29,8 @@
 
 ### FILESYSTEM OPTIONS
 # Output filename template, see the "OUTPUT TEMPLATE" for all the info
---output "~/Downloads/videos/%(uploader)s_%(title)s.%(ext)s"
+# https://github.com/ytdl-org/youtube-dl/blob/master/README.md#output-template
+--output "~/Downloads/videos/%(extractor)s_%(uploader)s_%(title)s.%(ext)s"
 
 # Restrict filenames to only ASCII characters, and avoid "&" and
 # spaces in filenames
@@ -46,12 +47,12 @@
 #--write-info-json
 
 # Write video annotations to a .annotations.xml file
---write-annotations
+#--write-annotations
 
 
 ### THUMBNAIL OPTIONS
 # Write thumbnail image to disk
---write-thumbnail
+#--write-thumbnail
 
 
 ### VERBOSITY / SIMULATION OPTIONS
@@ -74,14 +75,14 @@
 
 ### SUBTITLE OPTIONS
 # Write subtitle file
---write-sub
+#--write-sub
 
 # Download all the available subtitles of the video
---all-subs
+#--all-subs
 
 # Subtitle format, accepts formats preference, for example: "srt" or
 # "ass/srt/best"
---sub-format "srt/vtt/best"
+#--sub-format "srt/vtt/best"
 
 # Languages of the subtitles to download (optional) separated by
 # commas, use --list-subs for available language tags
@@ -102,7 +103,7 @@
 # --extract-audio
 
 # Embed subtitles in the video (only for mp4, webm and mkv videos)
---embed-subs
+#--embed-subs
 
 # Embed thumbnail in the audio as cover art
 #--embed-thumbnail
@@ -130,5 +131,5 @@
 
 # Convert the subtitles to other format (currently supported:
 # srt|ass|vtt|lrc)
---convert-subs "vtt"
+#--convert-subs "vtt"
 
