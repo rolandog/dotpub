@@ -14,25 +14,48 @@
 Table of Contents
 _________________
 
-1. Downloading dotfiles
-2. Inspecting dotfiles
-3. Installing dotfiles
-4. Pushing local changes
-5. Online resources
+1. What is this?
+.. 1. But,... why?
+.. 2. TL;DR?
+2. Downloading dotfiles
+3. Inspecting dotfiles
+4. Installing dotfiles
+5. Pushing local changes
+6. Online resources
 .. 1. Programmer's dotfiles
 .. 2. Online discussions or tutorials
 
 
-One of the common things that brings programmers together is dealing
-with "dotfiles"---configuration files that often begin with a "`.'"
-character.
-
-This repository is meant to be cloned inside `~.dotfiles/.pub/', and
-from that directory, package's dotfiles are meant to be installed by
-running `stow PACKAGE'.
 
 
-1 Downloading dotfiles
+
+1 What is this?
+===============
+
+  This is Rolando Garza's personal repository of public configuration
+  files and utility scripts for the programs he uses on an almost daily
+  basis.
+
+
+1.1 But,... why?
+~~~~~~~~~~~~~~~~
+
+  The intent of sharing this publicly is that these files may hopefully
+  be of some use to others.
+
+
+1.2 TL;DR?
+~~~~~~~~~~
+
+  This repository is meant to be cloned inside `~.dotfiles/.pub/', and
+  from that directory, package's dotfiles are meant to be installed by
+  running `stow PACKAGE' inside that subdirectory (using [GNU Stow]).
+
+
+[GNU Stow] <https://www.gnu.org/software/stow/manual/stow.html>
+
+
+2 Downloading dotfiles
 ======================
 
   This repository is meant to be cloned inside `~.dotfiles/.pub/':
@@ -44,7 +67,7 @@ running `stow PACKAGE'.
   `----
 
 
-2 Inspecting dotfiles
+3 Inspecting dotfiles
 =====================
 
   This is a way to inspect our current repository:
@@ -127,7 +150,7 @@ running `stow PACKAGE'.
   `----
 
 
-3 Installing dotfiles
+4 Installing dotfiles
 =====================
 
   After cloning, one can "install" the dotfiles of a certain `package'
@@ -138,7 +161,7 @@ running `stow PACKAGE'.
   `----
 
 
-4 Pushing local changes
+5 Pushing local changes
 =======================
 
   The first time we want to push additional changes back:
@@ -149,10 +172,10 @@ running `stow PACKAGE'.
   `----
 
 
-5 Online resources
+6 Online resources
 ==================
 
-5.1 Programmer's dotfiles
+6.1 Programmer's dotfiles
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
   - <https://github.com/podiki/dot.me>
@@ -160,7 +183,7 @@ running `stow PACKAGE'.
   - <https://github.com/gfarrell/dotfiles>
 
 
-5.2 Online discussions or tutorials
+6.2 Online discussions or tutorials
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   - <https://news.ycombinator.com/item?id=11071754>

@@ -4,15 +4,17 @@
 #+setupfile: ~/org/conf/setup-en-bib-a4.config
 #+filetags: :dotfiles:configuration:git:notes:management:
 
-#+begin_abstract
-One of the common things that brings programmers together is dealing
-with "dotfiles"---configuration files that often begin with a "=.="
-character.
-
+* What is this?
+This is Rolando Garza's personal repository of public configuration
+files and utility scripts for the programs he uses on an almost daily
+basis.
+** But,... why?
+The intent of sharing this publicly is that these files may
+hopefully be of some use to others.
+** TL;DR?
 This repository is meant to be cloned inside =~.dotfiles/.pub/=, and
 from that directory, package's dotfiles are meant to be installed by
-running =stow PACKAGE=.
-#+end_abstract
+running =stow PACKAGE= inside that subdirectory (using [[https://www.gnu.org/software/stow/manual/stow.html][GNU Stow]]).
 * Downloading dotfiles
 This repository is meant to be cloned inside =~.dotfiles/.pub/=:
 

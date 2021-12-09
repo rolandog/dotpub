@@ -1,24 +1,25 @@
----
-date: '2021-12-03'
-subtitle: 'rolandog\''s public dotfiles'
-title: dotpub
----
+## What is this?
 
-::: {.abstract}
-One of the common things that brings programmers together is dealing
-with \"dotfiles\"---configuration files that often begin with a \"`.`\"
-character.
+This is Rolando Garza's personal repository of public configuration
+files and utility scripts for the programs he uses on an almost daily
+basis.
+
+### But,... why?
+
+The intent of sharing this publicly is that these files may
+hopefully be of some use to others.
+
+### TL;DR?
 
 This repository is meant to be cloned inside `~.dotfiles/.pub/`, and
-from that directory, package\'s dotfiles are meant to be installed by
-running `stow PACKAGE`.
-:::
+from that directory, package's dotfiles are meant to be installed by
+running `stow PACKAGE` inside that subdirectory (using [GNU Stow](https://www.gnu.org/software/stow/manual/stow.html)).
 
 ## Downloading dotfiles
 
 This repository is meant to be cloned inside `~.dotfiles/.pub/`:
 
-``` {.bash exports="code" eval="never" dir="~" wrap="SRC text"}
+``` bash
 mkdir -p ~/.dotfiles/.pub
 git clone https://git.sr.ht/~rolandog/dotpub ~/.dotfiles/.pub
 cd ~/.dotfiles/.pub
@@ -28,11 +29,11 @@ cd ~/.dotfiles/.pub
 
 This is a way to inspect our current repository:
 
-``` {.bash exports="both" results="output" cache="yes" dir="~/.dotfiles/.pub" wrap="SRC text"}
+``` bash
 tree -Fan -I '.git' --charset=ascii --dirsfirst ~/.dotfiles/.pub
 ```
 
-``` {.text}
+``` text
 /home/rolandog/.dotfiles/.pub
 |-- bash/
 |   |-- .bash_aliases
@@ -108,10 +109,10 @@ tree -Fan -I '.git' --charset=ascii --dirsfirst ~/.dotfiles/.pub
 
 ## Installing dotfiles
 
-After cloning, one can \"install\" the dotfiles of a certain `package`
+After cloning, one can "install" the dotfiles of a certain `package`
 by running:
 
-``` {.bash exports="code" eval="never" dir="~/.dotfiles/.pub" wrap="SRC text"}
+``` bash
 stow PACKAGE
 ```
 
@@ -119,21 +120,21 @@ stow PACKAGE
 
 The first time we want to push additional changes back:
 
-``` {.bash exports="code" eval="never" dir="~/.dotfiles/.pub" wrap="SRC text"}
+``` bash
 git remote add origin git@git.sr.ht:~rolandog/dotpub
 git push --set-upstream origin main
 ```
 
 ## Online resources
 
-### Programmer\'s dotfiles
+### Programmer's dotfiles
 
--   <https://github.com/podiki/dot.me>
--   <https://github.com/kalkayan/dotfiles>
--   <https://github.com/gfarrell/dotfiles>
+  - <https://github.com/podiki/dot.me>
+  - <https://github.com/kalkayan/dotfiles>
+  - <https://github.com/gfarrell/dotfiles>
 
 ### Online discussions or tutorials
 
--   <https://news.ycombinator.com/item?id=11071754>
--   <https://news.ycombinator.com/item?id=11070797>
--   <https://www.atlassian.com/git/tutorials/dotfiles>
+  - <https://news.ycombinator.com/item?id=11071754>
+  - <https://news.ycombinator.com/item?id=11070797>
+  - <https://www.atlassian.com/git/tutorials/dotfiles>
