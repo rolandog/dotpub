@@ -54,6 +54,25 @@ This is a way to inspect our current repository:
 |           `-- htoprc
 |-- lynx/
 |   `-- .lynxrc
+|-- org/
+|   `-- .local/
+|       `-- share/
+|           `-- org/
+|               `-- setup/
+|                   |-- en-a4.config
+|                   |-- en-letter.config
+|                   |-- es-a4.config
+|                   |-- es-letter.config
+|                   |-- nl-a4.config
+|                   `-- nl-letter.config
+|-- pandoc/
+|   `-- .local/
+|       `-- share/
+|           `-- pandoc/
+|               |-- filters/
+|               |   |-- cleanup-markdown-metadata.lua
+|               |   `-- move-markdown-abstract.lua
+|               `-- style/
 |-- ssh/
 |   `-- .ssh/
 |       |-- config
@@ -65,25 +84,22 @@ This is a way to inspect our current repository:
 |       |-- user-dirs.dirs
 |       `-- user-dirs.locale
 |-- vim/
-|   |-- .local/
-|   |   `-- bin/
-|   |       `-- vwtags.py
 |   `-- .vimrc
 |-- youtube-dl/
 |   `-- .config/
 |       `-- youtube-dl/
 |           `-- config
 |-- .build.yml
-|-- cleanup_markdown.py
 |-- COPYING
 |-- .gitignore
+|-- Makefile
 |-- README
 |-- README.md
 |-- README.org
 |-- .stow-local-ignore
 `-- .stowrc
 
-21 directories, 33 files
+30 directories, 38 files
 #+end_SRC
 
 * Installing dotfiles
