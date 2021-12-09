@@ -1,0 +1,46 @@
+:root {
+    /* Light theme */
+    --nc-hl-1: #EEFF70;
+    --nc-hl-2: #8FFF85;
+    --nc-hl-3: #85E9FF;
+    --nc-hl-4: #FFB070;
+    --nc-hl-5: #FFADEF;
+
+    /* Dark theme */
+    --nc-d-hl-1: #11008F;
+    --nc-d-hl-2: #70007A;
+    --nc-d-hl-3: #7A1600;
+    --nc-d-hl-4: #004F8F;
+    --nc-d-hl-5: #005210;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --nc-hl-1: var(--nc-d-hl-1);
+        --nc-hl-2: var(--nc-d-hl-2);
+        --nc-hl-3: var(--nc-d-hl-3);
+        --nc-hl-4: var(--nc-d-hl-4);
+        --nc-hl-5: var(--nc-d-hl-5);
+    }
+}
+
+.hl1 {
+    background-color: var(--nc-hl-1);
+}
+
+.hl2 {
+    background-color: var(--nc-hl-2);
+}
+
+.hl3 {
+    background-color: var(--nc-hl-3);
+}
+
+.hl4 {
+    background-color: var(--nc-hl-4);
+}
+
+.hl5 {
+    background-color: var(--nc-hl-5);
+}
+
