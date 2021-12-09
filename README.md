@@ -1,16 +1,18 @@
 ---
-abstract: |
-  One of the common things that brings programmers together is dealing
-  with \"dotfiles\"---configuration files that often begin with a \"`.`\"
-  character.
-
-  This repository is meant to be cloned inside `~.dotfiles/.pub/`, and
-  from that directory, package\'s dotfiles are meant to be installed by
-  running `stow PACKAGE`.
 date: '2021-12-03'
 subtitle: 'rolandog\''s public dotfiles'
 title: dotpub
 ---
+
+::: {.abstract}
+One of the common things that brings programmers together is dealing
+with \"dotfiles\"---configuration files that often begin with a \"`.`\"
+character.
+
+This repository is meant to be cloned inside `~.dotfiles/.pub/`, and
+from that directory, package\'s dotfiles are meant to be installed by
+running `stow PACKAGE`.
+:::
 
 ## Downloading dotfiles
 
