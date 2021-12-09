@@ -24,66 +24,80 @@ This repository is meant to be cloned inside =~.dotfiles/.pub/=:
 * Inspecting dotfiles
 This is a way to inspect our current repository:
 #+BEGIN_SRC bash :exports both :results output :cache yes :dir ~/.dotfiles/.pub :wrap SRC text
-  tree -Fa -I '.git' --dirsfirst ~/.dotfiles/.pub
+  tree -Fan -I '.git' --charset=ascii --dirsfirst ~/.dotfiles/.pub
 #+END_SRC
 
-#+RESULTS[21e9a9ebb64b96272027cc33aa00fef5b58a0c77]:
+#+RESULTS[a4844caf716f46d18412c8331805c91007ed72cd]:
 #+begin_SRC text
 /home/rolandog/.dotfiles/.pub
-├── bash/
-│   ├── .bash_aliases
-│   ├── .bash_colors
-│   ├── .bash_logout
-│   ├── .bashrc
-│   └── .profile
-├── emacs/
-│   └── .emacs
-├── firewall/
-│   ├── firewall.sh*
-│   └── unfirewall.sh*
-├── gpg/
-│   └── .gnupg/
-│       ├── dirmngr.conf
-│       ├── gpg-agent.conf
-│       └── gpg.conf
-├── ssh/
-│   └── .ssh/
-│       ├── config
-│       └── known_hosts
-├── stow/
-│   └── .stow-global-ignore
-├── vim/
-│   ├── .local/
-│   │   └── bin/
-│   │       └── vwtags.py
-│   └── .vimrc
-├── youtube-dl/
-│   └── .config/
-│       └── youtube-dl/
-│           └── config
-├── .build.yml
-├── COPYING
-├── .gitignore
-├── README
-├── README.org
-├── .stow-local-ignore
-└── .stowrc
+|-- bash/
+|   |-- .bash_aliases
+|   |-- .bash_colors
+|   |-- .bash_logout
+|   |-- .bashrc
+|   `-- .profile
+|-- emacs/
+|   `-- .emacs
+|-- firewall/
+|   |-- firewall.sh*
+|   `-- unfirewall.sh*
+|-- git/
+|   `-- .gitconfig
+|-- gpg/
+|   `-- .gnupg/
+|       |-- dirmngr.conf
+|       |-- gpg-agent.conf
+|       `-- gpg.conf
+|-- htop/
+|   `-- .config/
+|       `-- htop/
+|           `-- htoprc
+|-- lynx/
+|   `-- .lynxrc
+|-- ssh/
+|   `-- .ssh/
+|       |-- config
+|       `-- known_hosts
+|-- stow/
+|   `-- .stow-global-ignore
+|-- user-dirs/
+|   `-- .config/
+|       |-- user-dirs.dirs
+|       `-- user-dirs.locale
+|-- vim/
+|   |-- .local/
+|   |   `-- bin/
+|   |       `-- vwtags.py
+|   `-- .vimrc
+|-- youtube-dl/
+|   `-- .config/
+|       `-- youtube-dl/
+|           `-- config
+|-- .build.yml
+|-- cleanup_markdown.py
+|-- COPYING
+|-- .gitignore
+|-- README
+|-- README.md
+|-- README.org
+|-- .stow-local-ignore
+`-- .stowrc
 
-14 directories, 25 files
+21 directories, 33 files
 #+end_SRC
 
 * Installing dotfiles
 After cloning, one can "install" the dotfiles of a certain =package=
 by running:
 
-#+BEGIN_SRC bash :exports code :eval never :dir ~ :wrap SRC text
+#+BEGIN_SRC bash :exports code :eval never :dir ~/.dotfiles/.pub :wrap SRC text
   stow PACKAGE
 #+END_SRC
 
 * Pushing local changes
 The first time we want to push additional changes back:
 
-#+BEGIN_SRC bash :exports code :eval never :dir ~ :wrap SRC text
+#+BEGIN_SRC bash :exports code :eval never :dir ~/.dotfiles/.pub :wrap SRC text
   git remote add origin git@git.sr.ht:~rolandog/dotpub
   git push --set-upstream origin main
 #+END_SRC
