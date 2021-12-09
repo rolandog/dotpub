@@ -49,39 +49,81 @@ running `stow PACKAGE'.
 
   This is a way to inspect our current repository:
   ,----
-  | tree -Fa -I '.git' --dirsfirst ~/.dotfiles/.pub
+  | tree -Fan -I '.git' --charset=ascii --dirsfirst ~/.dotfiles/.pub
   `----
 
   ,----
   | /home/rolandog/.dotfiles/.pub
-  | ├── bash/
-  | │   ├── .bash_aliases
-  | │   ├── .bash_colors
-  | │   ├── .bash_logout
-  | │   ├── .bashrc
-  | │   └── .profile
-  | ├── emacs/
-  | │   └── .emacs
-  | ├── stow/
-  | │   └── .stow-global-ignore
-  | ├── vim/
-  | │   ├── .local/
-  | │   │   └── bin/
-  | │   │       └── vwtags.py
-  | │   └── .vimrc
-  | ├── youtube-dl/
-  | │   └── .config/
-  | │       └── youtube-dl/
-  | │           └── config
-  | ├── .build.yml
-  | ├── COPYING
-  | ├── .gitignore
-  | ├── README
-  | ├── README.org
-  | ├── .stow-local-ignore
-  | └── .stowrc
+  | |-- bash/
+  | |   |-- .bash_aliases
+  | |   |-- .bash_colors
+  | |   |-- .bash_logout
+  | |   |-- .bashrc
+  | |   `-- .profile
+  | |-- emacs/
+  | |   `-- .emacs
+  | |-- firewall/
+  | |   |-- firewall.sh*
+  | |   `-- unfirewall.sh*
+  | |-- git/
+  | |   `-- .gitconfig
+  | |-- gpg/
+  | |   `-- .gnupg/
+  | |       |-- dirmngr.conf
+  | |       |-- gpg-agent.conf
+  | |       `-- gpg.conf
+  | |-- htop/
+  | |   `-- .config/
+  | |       `-- htop/
+  | |           `-- htoprc
+  | |-- lynx/
+  | |   `-- .lynxrc
+  | |-- org/
+  | |   `-- .local/
+  | |       `-- share/
+  | |           `-- org/
+  | |               `-- setup/
+  | |                   |-- en-a4.config
+  | |                   |-- en-letter.config
+  | |                   |-- es-a4.config
+  | |                   |-- es-letter.config
+  | |                   |-- nl-a4.config
+  | |                   `-- nl-letter.config
+  | |-- pandoc/
+  | |   `-- .local/
+  | |       `-- share/
+  | |           `-- pandoc/
+  | |               |-- filters/
+  | |               |   |-- cleanup-markdown-metadata.lua
+  | |               |   `-- move-markdown-abstract.lua
+  | |               `-- style/
+  | |-- ssh/
+  | |   `-- .ssh/
+  | |       |-- config
+  | |       `-- known_hosts
+  | |-- stow/
+  | |   `-- .stow-global-ignore
+  | |-- user-dirs/
+  | |   `-- .config/
+  | |       |-- user-dirs.dirs
+  | |       `-- user-dirs.locale
+  | |-- vim/
+  | |   `-- .vimrc
+  | |-- youtube-dl/
+  | |   `-- .config/
+  | |       `-- youtube-dl/
+  | |           `-- config
+  | |-- .build.yml
+  | |-- COPYING
+  | |-- .gitignore
+  | |-- Makefile
+  | |-- README
+  | |-- README.md
+  | |-- README.org
+  | |-- .stow-local-ignore
+  | `-- .stowrc
   | 
-  | 9 directories, 17 files
+  | 30 directories, 38 files
   `----
 
 
