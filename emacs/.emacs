@@ -409,6 +409,7 @@
  '(custom-enabled-themes '(manoj-dark))
  '(org-agenda-files
    '("/home/rolandog/org/schedule.org" "/home/rolandog/org/albeda-a2-studiewijzer.org" "/home/rolandog/org/journal.org" "/home/rolandog/org/projects.org" "/home/rolandog/org/gtd.org" "/home/rolandog/org/dates.org"))
+ '(org-export-backends '(ascii beamer html icalendar latex md odt))
  '(org-file-apps
    '((auto-mode . emacs)
      ("\\.mm\\'" . default)
