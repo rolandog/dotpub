@@ -96,6 +96,7 @@
    (python . t)
    (shell . t)
    (blockdiag . t)
+   (dot . t)
    (js . t)))
 
 ;; fontify code in code blocks
