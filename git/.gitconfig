@@ -19,3 +19,5 @@
 	program = gpg
 #[includeIf "gitdir:~/projects/"]
 #	path = ~/.gitconfig-personal
+[alias]
+	logs = log --pretty='format:%h %G? %aN  %s'
