@@ -1,6 +1,7 @@
 [user]
 	name = Rolando Garza
 	email = rolandog@gmail.com
+	signingkey = E726BC7BEF39923D
 [core]
 	editor = emacs
 [color]
@@ -12,3 +13,9 @@
 	rebase = false
 [init]
 	defaultBranch = main
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg
+#[includeIf "gitdir:~/projects/"]
+#	path = ~/.gitconfig-personal
