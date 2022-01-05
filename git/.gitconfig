@@ -1,7 +1,9 @@
-[user]
-	name = Rolando Garza
-	email = rolandog@gmail.com
-	signingkey = E726BC7BEF39923D
+; default is personal account
+[includeIf "gitdir:~/"]
+	path = ~/.gitconfig-personal
+; will overwrite previous values
+[includeIf "gitdir/i:~/Documents/work/"]
+	path = ~/.gitconfig-professional
 [core]
 	editor = emacs
 [color]
@@ -17,7 +19,5 @@
 	gpgsign = true
 [gpg]
 	program = gpg
-#[includeIf "gitdir:~/projects/"]
-#	path = ~/.gitconfig-personal
 [alias]
 	logs = log --pretty='format:%h %G? %aN  %s'
