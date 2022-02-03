@@ -321,6 +321,14 @@
 ;; if you want colored source code then you need to include the color package
 (add-to-list 'org-latex-packages-alist '("" "xcolor"))
 
+;; include the option to use the "letter" class in LaTeX
+(add-to-list 'org-latex-classes
+        '("letter"
+         "\\documentclass{letter}"
+         ("\\section{%s}" . "\\section*{%s}")
+         ("\\subsection{%s}" . "\\subsection*{%s}")
+         ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+
 ;; PDF export via PDFLaTeX
 (setq org-latex-pdf-process (list "latexmk -bibtex -f -file-line-error -interaction=nonstopmode -output-format=pdf -pdf -shell-escape %f"))
 
