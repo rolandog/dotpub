@@ -70,7 +70,7 @@
 
 ;; add all descendant directories of a directory to your load-path
 ;; https://www.emacswiki.org/emacs/LoadPath
-(let ((default-directory  "~/.emacs.d/lisp/"))
+(let ((default-directory  "~/.config/emacs/lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
 
