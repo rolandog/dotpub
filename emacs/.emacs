@@ -68,6 +68,13 @@
   (unless (package-installed-p package)
     (package-install package)))
 
+;; add all descendant directories of a directory to your load-path
+;; https://www.emacswiki.org/emacs/LoadPath
+(let ((default-directory  "~/.emacs.d/lisp/"))
+  (normal-top-level-add-subdirs-to-load-path))
+
+
+
 ;; Disable the splash screen (to enable it agin, replace the t with nil)
 ;;(setq inhibit-splash-screen t)
 
@@ -85,6 +92,21 @@
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
+
+;; handle tel:-links
+;; (require 'org-dial)
+
+;; handle tel links
+;; https://www.reddit.com/r/orgmode/comments/myttgv/tel_link_for_phone_numbers/gvxblz7/
+(org-link-set-parameters "tel"
+    :follow #'org-tel-open)
+
+;; use skype to handle tel: links (using callto:)
+(defun org-tel-open (number _)
+  (start-process "Skype" "*skype*" "skype" (concat "callto:" number)))
+
+;; use skype to handle tel: links
+;; (setq org-dial-program "skype callto:")
 
 ;; org-babel configurations for the shell
 (require 'ob-shell)
