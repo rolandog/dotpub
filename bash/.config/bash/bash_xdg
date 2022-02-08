@@ -1,0 +1,14 @@
+### See https://wiki.archlinux.org/title/XDG_Base_Directory
+
+### bash
+export HISTFILE="$XDG_STATE_HOME"/bash/history
+
+### cabal
+export CABAL_CONFIG="$XDG_CONFIG_HOME"/cabal/config
+# CABAL_DIR may be put into XDG_DATA_HOME if needed
+export CABAL_DIR="$XDG_CACHE_HOME"/cabal
+
+### python
+# sets ~/.python_history to $XDG_STATE_HOME/python/python_history
+export PYTHONSTARTUP="$XDG_CONFIG_HOME"/python/python_startup.py
+
