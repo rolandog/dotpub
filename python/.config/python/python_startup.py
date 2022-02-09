@@ -17,14 +17,10 @@ References
 histfile = os.path.join(
     os.environ.get(
         "XDG_STATE_HOME",
-        default=os.path.join(
-            os.path.expanduser("~"),
-            ".local",
-            "state"
-        )
+        default=os.path.join(os.path.expanduser("~"), ".local", "state"),
     ),
     "python",
-    "history"
+    "history",
 )
 
 try:
@@ -32,7 +28,7 @@ try:
     # default history len is -1 (infinite), which may grow unruly
     readline.set_history_length(1000)
 except FileNotFoundError:
-    pass
+    if not os.path.isdir(os.path.dirname(histfile)):
+        os.path.mkdirs(os.path.dirname(histfile), mode=0o700)
 
 atexit.register(readline.write_history_file, histfile)
-
