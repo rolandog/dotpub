@@ -15,12 +15,18 @@ References
 """
 
 histfile = os.path.join(
-    os.path.expanduser("~"),
-    ".local",
-    "state",
+    os.environ.get(
+        "XDG_STATE_HOME",
+        default=os.path.join(
+            os.path.expanduser("~"),
+            ".local",
+            "state"
+        )
+    ),
     "python",
     "history"
 )
+
 try:
     readline.read_history_file(histfile)
     # default history len is -1 (infinite), which may grow unruly
