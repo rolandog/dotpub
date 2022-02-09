@@ -3,7 +3,7 @@ import os
 import readline
 
 """
-Sets ~/.python_history to $XDG_STATE_HOME/python/python_history
+Sets ~/.python_history to $XDG_STATE_HOME/python/history
 """
 
 histfile = os.path.join(
@@ -11,7 +11,7 @@ histfile = os.path.join(
     ".local",
     "state",
     "python",
-    "python_history"
+    "history"
 )
 try:
     readline.read_history_file(histfile)
