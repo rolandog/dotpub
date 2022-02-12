@@ -93,20 +93,11 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
 
-;; handle tel:-links
-;; (require 'org-dial)
-
-;; handle tel links
-;; https://www.reddit.com/r/orgmode/comments/myttgv/tel_link_for_phone_numbers/gvxblz7/
-(org-link-set-parameters "tel"
-    :follow #'org-tel-open)
-
-;; use skype to handle tel: links (using callto:)
-(defun org-tel-open (number _)
-  (start-process "Skype" "*skype*" "skype" (concat "callto:" number)))
+;; handle tel: links
+(require 'org-dial)
 
 ;; use skype to handle tel: links
-;; (setq org-dial-program "skype callto:")
+(setq org-dial-program "skype callto:")
 
 ;; org-babel configurations for the shell
 (require 'ob-shell)
@@ -201,7 +192,7 @@
  "latexmlmath \"%i\" --presentationmathml=%o")
 
 ;; instead of ODT, use docx
-(setq org-odt-preferred-output-format "docx")
+;(setq org-odt-preferred-output-format "docx")
 
 
 ;; couldn't manage to make Emacs open mp4 files with the default option
@@ -440,7 +431,7 @@
  '(custom-enabled-themes '(manoj-dark))
  '(org-agenda-files
    '("/home/rolandog/org/schedule.org" "/home/rolandog/org/albeda-a2-studiewijzer.org" "/home/rolandog/org/journal.org" "/home/rolandog/org/projects.org" "/home/rolandog/org/gtd.org" "/home/rolandog/org/dates.org"))
- '(org-export-backends '(ascii beamer html icalendar latex md odt))
+ '(org-export-backends '(ascii beamer html icalendar latex md odt texinfo))
  '(org-file-apps
    '((auto-mode . emacs)
      ("\\.mm\\'" . default)
