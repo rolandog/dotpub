@@ -8,7 +8,10 @@ export CABAL_CONFIG="$XDG_CONFIG_HOME"/cabal/config
 # CABAL_DIR may be put into XDG_DATA_HOME if needed
 export CABAL_DIR="$XDG_CACHE_HOME"/cabal
 
+### java
+export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
+
 ### python
-# sets ~/.python_history to $XDG_STATE_HOME/python/python_history
+# sets ~/.python_history to $XDG_STATE_HOME/python/history
 export PYTHONSTARTUP="$XDG_CONFIG_HOME"/python/python_startup.py
 
