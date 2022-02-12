@@ -28,6 +28,7 @@ try:
     # default history len is -1 (infinite), which may grow unruly
     readline.set_history_length(1000)
 except FileNotFoundError:
+    # if $XDG_STATE_HOME/python/ does not exist, create it
     if not os.path.isdir(os.path.dirname(histfile)):
         os.path.mkdirs(os.path.dirname(histfile), mode=0o700)
 
