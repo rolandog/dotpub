@@ -35,19 +35,40 @@ tree -Fan -I '.git' --charset=ascii --dirsfirst ~/.dotfiles/.pub
 
 ``` text
 /home/rolandog/.dotfiles/.pub
+|-- applications/
+|   `-- .local/
+|       `-- share/
+|           `-- applications/
+|               |-- oh-my-git.desktop
+|               |-- org-protocol.desktop
+|               `-- whatsapp.desktop
 |-- bash/
-|   |-- .bash_aliases
-|   |-- .bash_colors
-|   |-- .bash_logout
-|   |-- .bashrc
-|   `-- .profile
+|   |-- .config/
+|   |   `-- bash/
+|   |       |-- bash_aliases
+|   |       |-- bash_colors
+|   |       |-- bash_logout
+|   |       |-- bashrc
+|   |       |-- bash_xdg
+|   |       `-- profile
+|   |-- .bash_logout -> .config/bash/bash_logout
+|   |-- .bashrc -> .config/bash/bashrc
+|   `-- .profile -> .config/bash/profile
 |-- emacs/
-|   `-- .emacs
+|   `-- .config/
+|       `-- emacs/
+|           `-- init.el
 |-- firewall/
-|   |-- firewall.sh*
-|   `-- unfirewall.sh*
+|   `-- .local/
+|       `-- bin/
+|           |-- firewall.sh*
+|           `-- unfirewall.sh*
 |-- git/
-|   `-- .gitconfig
+|   `-- .config/
+|       `-- git/
+|           |-- config
+|           |-- config-personal
+|           `-- config-professional
 |-- gpg/
 |   `-- .gnupg/
 |       |-- dirmngr.conf
@@ -68,6 +89,12 @@ tree -Fan -I '.git' --charset=ascii --dirsfirst ~/.dotfiles/.pub
 |                   |-- en-letter.config
 |                   |-- es-a4.config
 |                   |-- es-letter.config
+|                   |-- letter-en-a4.config
+|                   |-- letter-en-letter.config
+|                   |-- letter-es-a4.config
+|                   |-- letter-es-letter.config
+|                   |-- letter-nl-a4.config
+|                   |-- letter-nl-letter.config
 |                   |-- nl-a4.config
 |                   `-- nl-letter.config
 |-- pandoc/
@@ -76,8 +103,13 @@ tree -Fan -I '.git' --charset=ascii --dirsfirst ~/.dotfiles/.pub
 |           `-- pandoc/
 |               |-- filters/
 |               |   |-- cleanup-markdown-metadata.lua
+|               |   |-- increment-header-level.lua
 |               |   `-- move-markdown-abstract.lua
 |               `-- style/
+|-- python/
+|   `-- .config/
+|       `-- python/
+|           `-- python_startup.py
 |-- ssh/
 |   `-- .ssh/
 |       |-- config
@@ -101,10 +133,11 @@ tree -Fan -I '.git' --charset=ascii --dirsfirst ~/.dotfiles/.pub
 |-- README
 |-- README.md
 |-- README.org
+|-- .stow
 |-- .stow-local-ignore
 `-- .stowrc
 
-30 directories, 38 files
+45 directories, 57 files
 ```
 
 ## Installing dotfiles
