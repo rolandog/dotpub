@@ -1,9 +1,9 @@
 ; default is personal account
 [includeIf "gitdir:~/"]
-	path = ~/.gitconfig-personal
+	path = ~/.config/git/config-personal
 ; will overwrite previous values
 [includeIf "gitdir/i:~/Documents/work/"]
-	path = ~/.gitconfig-professional
+	path = ~/.config/git/config-professional
 [core]
 	editor = emacs
 [color]
