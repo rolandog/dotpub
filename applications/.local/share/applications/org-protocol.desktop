@@ -1,0 +1,11 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Version=1.4
+Name=Org-Protocol
+Comment=A way to capture things with org-mode
+Icon=emacs-icon
+Exec=emacsclient %u
+Terminal=false
+MimeType=x-scheme-handler/org-protocol
+NoDisplay=true
