@@ -1,0 +1,14 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Version=1.4
+Name=WhatsApp Messenger
+Comment=WhatsApp in Kiosk mode
+Icon=/home/rolandog/.local/share/whatsapp/whatsapp.png
+GenericName=Instant Messaging
+GenericName[en]=Instant Messaging
+GenericName[es]=Mensajería Instantánea
+GenericName[nl]=Onmiddellijke Berichtgeving
+Exec=/usr/bin/firefox --kiosk --new-window https://web.whatsapp.com
+Terminal=false
+Categories=Network;Chat;

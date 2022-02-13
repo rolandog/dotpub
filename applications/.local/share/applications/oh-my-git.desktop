@@ -1,0 +1,15 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Version=1.4
+Name=Oh My Git!
+Comment=An open source game about learning Git!
+Icon=/home/rolandog/.local/share/Oh My Git/logo/oh-my-git.svg
+TryExec=/home/rolandog/.local/games/oh-my-git/oh-my-git
+Exec=/home/rolandog/.local/games/oh-my-git/oh-my-git
+Path=/home/rolandog/.local/games/oh-my-git
+Terminal=false
+Categories=Game;CardGame;
+Keywords=educational;game;git;
+PrefersNonDefaultGPU=true
+# SingleMainWindow=true
