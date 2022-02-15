@@ -31,3 +31,10 @@ if [ -d "$XDG_DATA_HOME" ] ; then
     XDG_DATA_DIRS="$XDG_DATA_HOME:$XDG_DATA_DIRS"
 fi
 
+### vim
+export GVIMINIT='let $MYGVIMRC = !has("nvim") ? "$XDG_CONFIG_HOME/vim/gvimrc" : "$XDG_CONFIG_HOME/nvim/init.gvim" | so $MYGVIMRC'
+export VIMINIT='let $MYVIMRC = !has("nvim") ? "$XDG_CONFIG_HOME/vim/vimrc" : "$XDG_CONFIG_HOME/nvim/init.vim" | so $MYVIMRC'
+
+export VISUAL="$(command -v emacs)"
+export EDITOR="$(command -v nano)"
+
