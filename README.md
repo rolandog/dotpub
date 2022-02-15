@@ -30,7 +30,14 @@ cd ~/.dotfiles/.pub
 This is a way to inspect our current repository:
 
 ``` bash
-tree -Fan -I '.git' --charset=ascii --dirsfirst ~/.dotfiles/.pub
+tree \
+    -Flan \
+    -I '.git' \
+    --charset=ascii \
+    --dirsfirst \
+    --noreport \
+    --prune \
+    ~/.dotfiles/.pub
 ```
 
 ``` text
@@ -101,11 +108,10 @@ tree -Fan -I '.git' --charset=ascii --dirsfirst ~/.dotfiles/.pub
 |   `-- .local/
 |       `-- share/
 |           `-- pandoc/
-|               |-- filters/
-|               |   |-- cleanup-markdown-metadata.lua
-|               |   |-- increment-header-level.lua
-|               |   `-- move-markdown-abstract.lua
-|               `-- style/
+|               `-- filters/
+|                   |-- cleanup-markdown-metadata.lua
+|                   |-- increment-header-level.lua
+|                   `-- move-markdown-abstract.lua
 |-- python/
 |   `-- .config/
 |       `-- python/
@@ -136,8 +142,6 @@ tree -Fan -I '.git' --charset=ascii --dirsfirst ~/.dotfiles/.pub
 |-- .stow
 |-- .stow-local-ignore
 `-- .stowrc
-
-45 directories, 57 files
 ```
 
 ## Installing dotfiles

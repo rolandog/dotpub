@@ -26,10 +26,17 @@ This repository is meant to be cloned inside =~.dotfiles/.pub/=:
 * Inspecting dotfiles
 This is a way to inspect our current repository:
 #+BEGIN_SRC bash :exports both :results output :cache yes :dir ~/.dotfiles/.pub :wrap SRC text
-  tree -Fan -I '.git' --charset=ascii --dirsfirst ~/.dotfiles/.pub
+  tree \
+      -Flan \
+      -I '.git' \
+      --charset=ascii \
+      --dirsfirst \
+      --noreport \
+      --prune \
+      ~/.dotfiles/.pub
 #+END_SRC
 
-#+RESULTS[a4844caf716f46d18412c8331805c91007ed72cd]:
+#+RESULTS[fa1b7d1417bd9fb7d9c9dceefe031fffa48dbdb0]:
 #+begin_SRC text
 /home/rolandog/.dotfiles/.pub
 |-- applications/
@@ -98,11 +105,10 @@ This is a way to inspect our current repository:
 |   `-- .local/
 |       `-- share/
 |           `-- pandoc/
-|               |-- filters/
-|               |   |-- cleanup-markdown-metadata.lua
-|               |   |-- increment-header-level.lua
-|               |   `-- move-markdown-abstract.lua
-|               `-- style/
+|               `-- filters/
+|                   |-- cleanup-markdown-metadata.lua
+|                   |-- increment-header-level.lua
+|                   `-- move-markdown-abstract.lua
 |-- python/
 |   `-- .config/
 |       `-- python/
@@ -133,8 +139,6 @@ This is a way to inspect our current repository:
 |-- .stow
 |-- .stow-local-ignore
 `-- .stowrc
-
-45 directories, 57 files
 #+end_SRC
 
 * Installing dotfiles
