@@ -1,7 +1,7 @@
 #+title: dotpub
 #+subtitle: rolandog's public dotfiles
 #+date: 2021-12-03
-#+setupfile: ~/org/conf/setup-en-bib-a4.config
+#+setupfile: ~/.local/share/org/setup/en-a4.config
 #+filetags: :dotfiles:configuration:git:notes:management:
 
 * What is this?
