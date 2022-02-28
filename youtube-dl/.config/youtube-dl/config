@@ -70,7 +70,7 @@
 # If a merge is required (e.g. bestvideo+bestaudio), output to given
 # container format.  One of mkv, mp4, ogg, webm, flv.  Ignored if no
 # merge is required
---merge-output-format "webm"
+--merge-output-format "mkv"
 
 
 ### SUBTITLE OPTIONS
