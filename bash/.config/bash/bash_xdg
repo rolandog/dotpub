@@ -1,35 +1,40 @@
+#!/usr/bin/sh
+
 ### See https://wiki.archlinux.org/title/XDG_Base_Directory
 
-
 ### bash
-export HISTFILE="$XDG_STATE_HOME"/bash/history
+HISTFILE="${XDG_STATE_HOME}/bash/history"
+export HISTFILE
 
 
 ### cabal
-export CABAL_CONFIG="$XDG_CONFIG_HOME"/cabal/config
+CABAL_CONFIG="${XDG_CONFIG_HOME}/cabal/config"
+export CABAL_CONFIG
 # CABAL_DIR may be put into XDG_DATA_HOME if needed
-export CABAL_DIR="$XDG_CACHE_HOME"/cabal
+CABAL_DIR="${XDG_CACHE_HOME}/cabal"
+export CABAL_DIR
 
 
 ### java
 # if _JAVA_OPTIONS is null
-if [ -z "$_JAVA_OPTIONS" ]; then
-  _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
+if [ -z "${_JAVA_OPTIONS}" ]; then
+  _JAVA_OPTIONS="-Djava.util.prefs.userRoot=${XDG_CONFIG_HOME}/java"
   export _JAVA_OPTIONS
 fi
 
 # if CDS_JVM_OPTS is null
-if [ -z "$CDS_JVM_OPTS" ]; then
-  CDS_JVM_OPTS=$_JAVA_OPTIONS
+if [ -z "${CDS_JVM_OPTS}" ]; then
+  CDS_JVM_OPTS="${_JAVA_OPTIONS}"
   export CDS_JVM_OPTS
 # prepend options to CDS_JVM_OPTS
 else
-  CDS_JVM_OPTS=$_JAVA_OPTIONS $CDS_JVM_OPTS
+  CDS_JVM_OPTS="${_JAVA_OPTIONS} ${CDS_JVM_OPTS}"
   export CDS_JVM_OPTS
 fi
 
 
 ### python
 # sets ~/.python_history to $XDG_STATE_HOME/python/history
-export PYTHONSTARTUP="$XDG_CONFIG_HOME"/python/python_startup.py
+PYTHONSTARTUP="${XDG_CONFIG_HOME}/python/python_startup.py"
+export PYTHONSTARTUP
 
