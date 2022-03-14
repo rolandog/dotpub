@@ -1,3 +1,5 @@
+#!/usr/bin/sh
+
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
 # exists.
@@ -9,32 +11,45 @@
 #umask 022
 
 # if running bash
-if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
-    fi
+if [ -n "${BASH_VERSION:-}" ]; then
+  # include .bashrc if it exists
+  if [ -f "${HOME}/.bashrc" ]; then
+  # shellcheck source=.bashrc
+  . "${HOME}/.bashrc"
+  fi
 fi
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$XDG_BIN_HOME" ] ; then
-    PATH="$XDG_BIN_HOME:$PATH"
+if [ -d "${XDG_BIN_HOME}" ] ; then
+  PATH="${XDG_BIN_HOME}:${PATH}"
 fi
 
 # set XDG_CONFIG_DIRS so it includes XDG_CONFIG_HOME if it exists
-if [ -d "$XDG_CONFIG_HOME" ] ; then
-    XDG_CONFIG_DIRS="$XDG_CONFIG_HOME:$XDG_CONFIG_DIRS"
+if [ -d "${XDG_CONFIG_HOME}" ] ; then
+  XDG_CONFIG_DIRS="${XDG_CONFIG_HOME}:${XDG_CONFIG_DIRS}"
 fi
 
 # set XDG_DATA_DIRS so it includes XDG_DATA_HOME if it exists
-if [ -d "$XDG_DATA_HOME" ] ; then
-    XDG_DATA_DIRS="$XDG_DATA_HOME:$XDG_DATA_DIRS"
+if [ -d "${XDG_DATA_HOME}" ] ; then
+  XDG_DATA_DIRS="${XDG_DATA_HOME}:${XDG_DATA_DIRS}"
 fi
 
 ### vim
-export GVIMINIT='let $MYGVIMRC = !has("nvim") ? "$XDG_CONFIG_HOME/vim/gvimrc" : "$XDG_CONFIG_HOME/nvim/init.gvim" | so $MYGVIMRC'
-export VIMINIT='let $MYVIMRC = !has("nvim") ? "$XDG_CONFIG_HOME/vim/vimrc" : "$XDG_CONFIG_HOME/nvim/init.vim" | so $MYVIMRC'
+GVIMINIT='let $MYGVIMRC = !has("nvim") ? '
+GVIMINIT="${GVIMINIT}"'"$XDG_CONFIG_HOME/vim/gvimrc" : '
+GVIMINIT="${GVIMINIT}"'"$XDG_CONFIG_HOME/nvim/init.gvim" | '
+GVIMINIT="${GVIMINIT}"'so $MYGVIMRC'
+export GVIMINIT
 
-export VISUAL="$(command -v emacs)"
-export EDITOR="$(command -v nano)"
+VIMINIT='let $MYVIMRC = !has("nvim") ? '
+VIMINIT="${VIMINIT}"'"$XDG_CONFIG_HOME/vim/vimrc" : '
+VIMINIT="${VIMINIT}"'"$XDG_CONFIG_HOME/nvim/init.vim" | '
+VIMINIT="${VIMINIT}"'so $MYVIMRC'
+export VIMINIT
+
+VISUAL="$(command -v emacs)"
+export VISUAL
+
+EDITOR="$(command -v nano)"
+export EDITOR
 
