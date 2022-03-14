@@ -1,0 +1,117 @@
+#!/usr/bin/sh
+
+### Custom functions
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+#   sleep 10; soundalert
+#alias alert='notify-send --urgency=low -i "$([[ $? == 0 ]] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+#alias soundalert='notify-send --urgency=low -i "$([[ $? == 0 ]] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*soundalert$//'\'')" && aplay -q $XDG_DATA_HOME/bash/wubba_lubba_dub-dub.wav'
+
+#######################################
+# Modified find_path to find command in path
+# Arguments:
+#   Command
+# Returns:
+#   Absolute path to a command, if it exists
+#######################################
+find_executable() {
+  if [ -z "${1}" ]; then
+    false
+    return
+  fi
+
+  #local PREV_IFS
+  #local dir
+  PREV_IFS="${IFS}"
+  IFS=":"
+  export IFS
+
+  for dir in ${PATH}; do
+    if [ -x "${dir}/${1}" ]; then
+      echo "${dir}/${1}"
+      IFS="${PREV_IFS}"
+      export IFS
+      true
+      return
+    fi
+  done
+
+  IFS="${PREV_IFS}"
+  export IFS
+  # echo "${1} not found"
+  false
+  return
+}
+
+#######################################
+# Is it an absolute path?
+# Arguments:
+#   Command
+# Returns:
+#   Absolute path to a command, if it exists
+#######################################
+is_abs_path_and_executable() {
+  # if [ "${1}" =~ ^/[-_/.a-zA-Z0-9]+$ ] && [ -x "${1}" ];
+  is_abs="$(echo "${1}" | grep -E '^/[-_/.a-zA-Z0-9]+$' -)"
+  if [ -n "${is_abs}" ] && [ -x "${1}" ]; then
+    true
+    return
+  else
+    false
+    return
+  fi
+}
+
+#######################################
+# POSIXLY correct which implementation
+# Arguments:
+#   Command
+# Returns:
+#   Absolute path to a command, if it exists
+#######################################
+pwhich() {
+  # if empty argument
+  if [ -z "${1}" ]; then
+    false
+    return
+  fi
+
+  # for results like: "/usr/bin/foo" or /home/user/.local/bin/bar
+  #local naive_command
+  naive_command="$(command -v "${1}")"
+  if is_abs_path_and_executable "${naive_command}"; then
+    echo "${naive_command}"
+    true
+    return
+  fi
+
+  # assemble sed script
+  #local regex
+  #local sed_script
+  regex="^alias [-_a-zA-Z0-9]+=[\\\"']([-_\/.a-zA-Z0-9]+)[[:space:]]*.+"
+  sed_script="s/${regex}/command -v \\1/p"
+  # for results like: alias foo="bar"; alias baz='/usr/bin/qux --quux'
+  #local aliased_command
+  #local parsed_alias
+  parsed_alias="$(command -v "${1}" | sed -nE --posix --sandbox -e "${sed_script}")"
+  aliased_command="$(echo "${parsed_alias}" | sh -s)"
+  if is_abs_path_and_executable "${aliased_command}"; then
+    echo "${aliased_command}"
+    true
+    return
+  fi
+
+  # for results like: alias ls='ls --color=auto'
+  #local nested_alias_command
+  nested_alias_command="$(find_executable "${1}")"
+  if [ -n "${nested_alias_command}" ]; then
+    echo "${nested_alias_command}"
+    true
+    return
+  fi
+  
+  # all else has failed, return false
+  false
+  return
+}
