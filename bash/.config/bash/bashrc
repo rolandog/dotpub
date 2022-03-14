@@ -1,30 +1,39 @@
+#!/usr/bin/sh
+
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
 ### Test if interactive
 # If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
+case "${-}" in
+  *i*) ;;
+  *) return;;
 esac
+
+# if running bash
+if [ -n "${BASH_VERSION:-}" ]; then
+  # append to the history file, don't overwrite it
+  shopt -s histappend
+fi
 
 ### History
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
 
-# append to the history file, don't overwrite it
-shopt -s histappend
-
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
 HISTFILESIZE=2000
 
+
 ### Window size
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+# if running bash
+if [ -n "${BASH_VERSION:-}" ]; then
+  # check the window size after each command and, if necessary,
+  # update the values of LINES and COLUMNS.
+  shopt -s checkwinsize
+fi
 
 ### Pathname expansion
 # If set, the pattern "**" used in a pathname expansion context will
@@ -33,12 +42,8 @@ shopt -s checkwinsize
 
 ### Compatibility
 # make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-### Identification
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
+if [ -x /usr/bin/lesspipe ]; then
+  eval "$(SHELL=/usr/bin/sh /usr/bin/lesspipe)"
 fi
 
 ### Color definitions
@@ -46,8 +51,9 @@ fi
 # $XDG_CONFIG_HOME/bash/bash_colors, instead of adding them here
 # directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
-if [ -f $XDG_CONFIG_HOME/bash/bash_colors ]; then
-    . $XDG_CONFIG_HOME/bash/bash_colors
+if [ -f "${XDG_CONFIG_HOME}/bash/bash_colors" ]; then
+  # shellcheck source=bash_colors
+  . "${XDG_CONFIG_HOME}/bash/bash_colors"
 fi
 
 ### Alias definitions
@@ -55,23 +61,37 @@ fi
 # $XDG_CONFIG_HOME/bash/bash_aliases, instead of adding them here
 # directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
-if [ -f $XDG_CONFIG_HOME/bash/bash_aliases ]; then
-    . $XDG_CONFIG_HOME/bash/bash_aliases
+if [ -f "${XDG_CONFIG_HOME}/bash/bash_aliases" ]; then
+  # shellcheck source=bash_aliases
+  . "${XDG_CONFIG_HOME}/bash/bash_aliases"
 fi
 
 ### Completions
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  # (instead of ~/.bash_completion and ~/bash_completion.d/)
-  BASH_COMPLETION_USER_DIR=$XDG_DATA_HOME/bash-completion/completions
-  BASH_COMPLETION_USER_FILE=$XDG_CONFIG_HOME/bash-completion/bash_completion
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
+# if we're using bash
+if [ -n "${BASH_VERSION:-}" ]; then
+  # enable programmable completion features (you don't need to enable
+  # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+  # sources /etc/bash.bashrc).
+  if ! shopt -oq posix; then
+    # (instead of ~/.bash_completion and ~/bash_completion.d/)
+    BASH_COMPLETION_USER_DIR="${XDG_DATA_HOME}/bash-completion/completions"
+    BASH_COMPLETION_USER_FILE="${XDG_CONFIG_HOME}/bash-completion/bash_completion"
+    if [ -f "/usr/share/bash-completion/bash_completion" ]; then
+      . "/usr/share/bash-completion/bash_completion"
+    elif [ -f "/etc/bash_completion" ]; then
+      . "/etc/bash_completion"
+    fi
   fi
+fi
+
+### Custom functions
+# You may want to put custom functions into a separate file like
+# $XDG_CONFIG_HOME/bash/bash_functions, instead of adding them here
+# directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+if [ -f "${XDG_CONFIG_HOME}/bash/bash_functions" ]; then
+  # shellcheck source=bash_functions
+  . "${XDG_CONFIG_HOME}/bash/bash_functions"
 fi
 
 ### Custom definitions
@@ -79,8 +99,9 @@ fi
 # $XDG_CONFIG_HOME/bash/bash_custom, instead of adding them here
 # directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
-if [ -f $XDG_CONFIG_HOME/bash/bash_custom ]; then
-    . $XDG_CONFIG_HOME/bash/bash_custom
+if [ -f "${XDG_CONFIG_HOME}/bash/bash_custom" ]; then
+  # shellcheck source=bash_custom
+  . "${XDG_CONFIG_HOME}/bash/bash_custom"
 fi
 
 ### XDG support
@@ -88,7 +109,8 @@ fi
 # workarounds or solutions.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 # See https://wiki.archlinux.org/title/XDG_Base_Directory
-if [ -f $XDG_CONFIG_HOME/bash/bash_xdg ]; then
-    . $XDG_CONFIG_HOME/bash/bash_xdg
+if [ -f "${XDG_CONFIG_HOME}/bash/bash_xdg" ]; then
+  # shellcheck source=bash_xdg
+  . "${XDG_CONFIG_HOME}/bash/bash_xdg"
 fi
 
