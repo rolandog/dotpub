@@ -3,3 +3,5 @@
 # emacs autosave files
 \#.*\#
 
+# generated file
+git/.config/git/global.gitignore
