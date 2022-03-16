@@ -145,7 +145,7 @@ ifeq "$(shell find $(GITIGNORE_FETCH_HEAD) -mmin +1440)" ""
 DAILY_TARGET:=
 # if head is older than 1 day
 else
-DAILY_TARGET:=.git-pull-now
+DAILY_TARGET:=git-pull-now
 endif
 
 # our own custom additions
