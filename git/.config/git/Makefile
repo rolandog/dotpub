@@ -1,3 +1,4 @@
+#!/usr/bin/make
 ##Makefile: {local, foo, bar, ..., baz}.gitignore -> .gitignore
 ##
 ##This Makefile does the following things:
@@ -11,12 +12,12 @@
 # Example usage:
 ##MAKE TARGET                     OUTCOME
 ##----------------                ---------------------------------------------
-# all                             Execute '.gitignore' and 'documents'
-# clean                           Removes all generated documents
-# gitignore-repo                  Pull changes from the gitignore repository
+# all                             Make global.gitignore; pulls after >=1 day
+# clean                           Removes all generated files
+# git-pull-now                    Force pull from gitignore dir
+# global.gitignore                Concatenate .gitignore files
 # help                            (default) Display this help section
 # info                            Displays environment information
-# .gitignore                      [git] Concatenate updated .gitignore files
 
 
 # ##############################################################################
@@ -208,7 +209,7 @@ ALL_TARGETS:=$(strip\
 # ##############################################################################
 
 .PHONY: all
-all : $(ALL_TARGETS); @ ## Make global.gitignore; pull if +1 day
+all : $(ALL_TARGETS); @ ## Make global.gitignore; pulls after >=1 day
 
 .PHONY: clean
 clean:; @ ## Removes all generated files
