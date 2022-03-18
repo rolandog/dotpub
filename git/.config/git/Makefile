@@ -1,23 +1,50 @@
 #!/usr/bin/make
-##Makefile: {local, foo, bar, ..., baz}.gitignore -> .gitignore
+
+# ##############################################################################
+# license
+# ##############################################################################
+
+# Makefile (dotpub): automating rolandog's dotfiles tasks
+# Copyright (C) 2022  Rolando Garza
+
+# This file is part of dotpub.
+
+# dotpub is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# dotpub is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with dotpub.  If not, see <https://www.gnu.org/licenses/>.
+
+
+# ##############################################################################
+# usage
+# ##############################################################################
+
+##usage: make [TARGET]...
+##  or:  VARIABLE=value make [TARGET]...
+##  or:  make [help]
+##  or:  make [info]
+##  or:  make [license]
+##  or:  make [version]
 ##
-##This Makefile does the following things:
-## 
-##    1. Updates a repository with gitignore files from:
-##       <https://github.com/github/gitignore>
-## 
-##    2. Merges specified .gitignore files into one single file
+##Pull from gitignore repository and merge into global.gitignore.
 ##
-#
-# Example usage:
-##MAKE TARGET                     OUTCOME
-##----------------                ---------------------------------------------
-# all                             Make global.gitignore; pulls after >=1 day
-# clean                           Removes all generated files
-# git-pull-now                    Force pull from gitignore dir
-# global.gitignore                Concatenate .gitignore files
-# help                            (default) Display this help section
-# info                            Displays environment information
+##Targets:
+#  all                        make global.gitignore; pulls after >=1 day
+#  clean                      removes all generated files
+#  git-pull-now               git pull in gitignore dir
+#  global.gitignore           concatenate .gitignore files
+#  help                       (default) show this help message and exit
+#  info                       show environment information and exit
+#  license                    show license information and exit
+#  version                    show program version number and exit
 
 
 # ##############################################################################
@@ -28,7 +55,7 @@
 .POSIX:
 
 # only use one shell (when used with .POSIX, it breaks '@' prefixes)
-# .ONESHELL:
+.ONESHELL:
 
 # ensure that we display the help message when nothing is specified with make
 .DEFAULT_GOAL := help
@@ -43,98 +70,127 @@
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
+# force a particular shell
+# SHELL=/usr/bin/bash
+
 # see Windows Compatibility in References
 # SHELL=C:/Windows/System32/cmd.exe
 
 # detect which shell we're running
-WHICH_SH := $(shell which $(SHELL))
-IS_BASH := $(findstring "bash","$(WHICH_SH)")
+WHICH_SH := $(shell command -v $(SHELL))
+FIND_BASH := $(findstring bash,$(WHICH_SH))
+
+# test for bash
+ifeq ($(FIND_BASH),bash)
+IS_BASH := true
+else
+IS_BASH := false
+endif
 
 # pass options to the shell (detect bash, otherwise infer /bin/sh)
-ifeq "$(IS_BASH)" "bash"
+ifeq ($(IS_BASH),true)
 .SHELLFLAGS := -eu -o pipefail -c
 else
 .SHELLFLAGS := -ec
-# .SHELLFLAGS += -o errexit -o nounset
 endif
 
-# detect which echo we're running
-ECHO := $(shell which echo)
 
 # ##############################################################################
-# Platform detection
+# platform detection
 # ##############################################################################
-UNAME_STRING := $(shell uname)
 
-# Linux
-ifeq "$(UNAME_STRING)" "Linux"
+# system information
+UNAME := $(shell uname)
+
+# linux
+ifeq ($(UNAME),Linux)
 OS = Linux
 
-# MacOS
-else ifeq "$(UNAME_STRING)" "Darwin"
+# mac
+else ifeq ($(UNAME),Darwin)
 OS = Darwin
 
-# Windows
-else ifeq "$(shell echo $(UNAME_STRING) \
- | grep 'MSYS\|MINGW\|CYGWIN' \
- >/dev/null && echo Windows)" "Windows"
+# windows
+else ifeq ($(shell echo $(UNAME) | grep -q 'MSYS\|MINGW\|CYGWIN' && echo t),t)
 OS = Windows
 
-# Other
+# other
 else
-OS = $(UNAME_STRING)
+OS = $(UNAME)
 endif
 
+
 # ##############################################################################
-# Formatting Functions
+# formatting functions
 # ##############################################################################
 
-# callable variables that help with formatting and display of information
-# they're passed to 
+# helper variables
+comma:= ,
+empty:=
+percent:= %
+space:= $(empty) $(empty)
+define newline
 
-# Formats a string as a title section in the console.
-# Param:
+
+endef
+
+# helper functions to format and display information
+
+# formats a string as a title section in the console.
+# param:
 #   1. String to format.
-title = $(ECHO) -e "\x1b[1m\x1b[32m\#\#\#\# $1\x1b[0m" 1>&2;
+ifeq ($(IS_BASH),true)
+title = echo -e '\x1b[1m\x1b[32m\#\#\# $1\x1b[0m' 1>&2;
+else
+title = echo '\#\#\# $1';
+endif
 
-# Formats a string into an 'OK' message in the console.
-# Param:
+# formats a string into an 'OK' message in the console.
+# param:
 #   1. String to format.
-ok = $(ECHO) -e "\x1b[1m\x1b[32m[OK] $1\x1b[0m" 1>&2;
+ifeq ($(IS_BASH),true)
+ok = echo -e '\x1b[1m\x1b[32m[OK] $1\x1b[0m' 1>&2;
+else
+ok = echo '[OK] $1';
+endif
 
-# Formats a string into an 'OK' message in the console.
-# Param:
+# formats a string into an 'OK' message in the console.
+# param:
 #   1. String to format.
-print = $(ECHO) -e "$1" 1>&2;
+ifeq ($(IS_BASH),true)
+print = echo -e '$1' 1>&2;
+else
+print = echo '$1';
+endif
 
-# Returns the name and value of a variable
-# Param:
+# returns the name and value of a variable
+# param:
 #   1. A text string of the variable's name
 print_variable = $(call print,    $1 = $($1))
 
-# Returns the name and value of a group of variables
-# Param:
+# returns the name and value of a group of variables
+# param:
 #   1. A list of text strings of the variables' names
 print_variables = $(foreach variable,$(1),$(call print_variable,$(variable)))
 
-# Returns the name and value of a variable
-# Param:
+# returns the name and value of a variable
+# param:
 #   1. A text string of the variable's name
 list_items = $(foreach item,$(1),\n        $(item))
 
-# Returns the name and value of a list variable
-# Param:
+# returns the name and value of a list variable
+# param:
 #   1. A text string of the variable's name
 print_list_variable = $(call print,    $1 = $(call list_items,$($1)))
 
-# Returns the name and value of a group of list variables
-# Param:
+# returns the name and value of a group of list variables
+# param:
 #   1. A list of text strings of the variables' names
 print_list_variables = $(foreach variable,$(1),$(call print_list_variable,$(variable)))
 
 
 # ##############################################################################
-# Git
+# git
 # ##############################################################################
 
 # requirements for the gitignore file
@@ -142,7 +198,7 @@ GITIGNORE_DIR:=$(XDG_DATA_HOME)/gitignore
 GITIGNORE_FETCH_HEAD:=$(GITIGNORE_DIR)/.git/FETCH_HEAD
 
 # if head is newer than 1 day
-ifeq "$(shell find $(GITIGNORE_FETCH_HEAD) -mmin +1440)" ""
+ifeq ($(shell find $(GITIGNORE_FETCH_HEAD) -mmin +1440),)
 DAILY_TARGET:=
 # if head is older than 1 day
 else
@@ -175,23 +231,88 @@ GITIGNORE_FILES+=\
  Python.gitignore\
  TeX.gitignore)
 
+
 # ##############################################################################
-# Documents to Process (Sources, Targets, Intermediates)
+# informative variables
 # ##############################################################################
 
-# helper variables
-comma:= ,
-empty:=
-percent:= %
-space:= $(empty) $(empty)
+AWK_PATTERN:=/^[^\t].+?:.*?\#\#/
+ifeq ($(IS_BASH),true)
+AWK_PRINT:='$(AWK_PATTERN) { printf "\033[36m  %-25s\033[0m %s\n", $$1, $$NF }'
+else
+AWK_PRINT:='$(AWK_PATTERN) {printf "  %-25s %s\n", $$1, $$NF}'
+endif
 
-# Declare definition files
+# license variables
+AUTHOR = Rolando Garza
+THIS_FILE=Makefile
+THIS_PROGRAM=dotpub
+VERSION_NO = 0.0.1
+YEAR=$(shell date -u +'%Y')
+
+# bottom part from help
+define HELP_TEXT
+
+Report bugs to: <https://todo.sr.ht/~rolandog/$(THIS_PROGRAM)>
+$(THIS_PROGRAM) home page: <https://sr.ht/~rolandog/$(THIS_PROGRAM)>
+Source <https://git.sr.ht/~rolandog/$(THIS_PROGRAM)/tree/main/item/$(THIS_FILE)>
+endef
+
+HELP:=$(subst $(newline),\n,${HELP_TEXT})
+
+# text for printed license
+define LICENSE_TEXT
+$(THIS_FILE) ($(THIS_PROGRAM)): automating dotfile tasks
+Copyright (C) $(YEAR)  $(AUTHOR)
+
+This file is part of $(THIS_PROGRAM).
+
+$(THIS_PROGRAM) is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+$(THIS_PROGRAM) is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with $(THIS_PROGRAM).  If not, see <https://www.gnu.org/licenses/>.
+endef
+
+LICENSE:=$(subst $(newline),\n,${LICENSE_TEXT})
+
+# text for version info
+define VERSION_TEXT
+$(THIS_FILE) ($(THIS_PROGRAM)) $(VERSION_NO)
+  shell: $(WHICH_SH)
+
+Copyright (C) $(YEAR)  $(AUTHOR).
+License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Written by $(AUTHOR).
+endef
+
+VERSION:=$(subst $(newline),\n,${VERSION_TEXT})
+
+
+# ##############################################################################
+# files to process
+# ##############################################################################
+
+# track this Makefile
+THIS_MAKEFILE := $(firstword $(MAKEFILE_LIST))
+
+# declare secondary files
 SECONDARY_FILES:=
 
-# Output files that are costly to produce
+# output files that are costly to produce
 PRECIOUS_FILES:=global.gitignore
 
-# Declare files that may be pre-processed or are intermediary
+# declare files that may be pre-processed or are intermediary
 INTERMEDIATE_FILES:=
 
 # define documents to be removed
@@ -200,73 +321,84 @@ CLEANUP_FILES:=$(strip\
  $(INTERMEDIATE_FILES)\
  $(SECONDARY_FILES))
 
+# targets run when executing 'make all'
 ALL_TARGETS:=$(strip\
  $(DAILY_TARGET)\
  $(PRECIOUS_FILES))
 
 # ##############################################################################
-# Targets
+# targets
 # ##############################################################################
 
 .PHONY: all
-all : $(ALL_TARGETS); @ ## Make global.gitignore; pulls after >=1 day
+all : $(ALL_TARGETS); @ ## make global.gitignore; pulls after >=1 day
 
 .PHONY: clean
-clean:; @ ## Removes all generated files
-	rm $(CLEANUP_FILES)
-	@$(call ok,"clean")
+clean:; @ ## removes all generated files
+	@rm $(CLEANUP_FILES)
+	@$(call ok,clean)
 
-# special target to ensure target is build once every day
+# perform 'git pull' inside gitignore dir
 .PHONY: git-pull-now
-git-pull-now:: ; @ ## Force pull from gitignore dir
+git-pull-now:: ; @ ## git pull in gitignore dir
 git-pull-now:: $(GITIGNORE_DIR)
 	git -C $< pull
-	@$(call ok,"$@")
+	@$(call ok,$@)
 
 # ensure we're up-to-date with current gitignore standards
-global.gitignore : $(GITIGNORE_FILES); @ ## Concatenate .gitignore files
+global.gitignore : $(GITIGNORE_FILES); @ ## concatenate .gitignore files
 	cat $^ > $@
-	@$(call ok,"$@")
+	@$(call ok,$@)
 
 .PHONY: help
-help: $(firstword $(MAKEFILE_LIST)); @ ## (default) Display this help section
-# Display any lines that start with ##
+help: $(THIS_MAKEFILE); @ ## (default) show this help message and exit
+# display any lines that start with ##
 	@sed -n 's/^##//p' $<
-# Find rules and format them accordingly
-	@awk -F ':|##' \
-		'/^[^\t].+?:.*?##/ \
-		{\
-			printf "\033[36m%-30s\033[0m %s\n", $$1, $$NF \
-		}' $<
+# find target rules and format them accordingly
+	@awk -F ':|##' $(AWK_PRINT) $<
+# display footer
+	@$(call print,$(HELP))
  
 .PHONY: info
-info:; @ ## Displays environment information
-	@$(call title,"OS and Environment Info")
-	@$(call print_variables,OS WHICH_SH MAKEFLAGS)
-	@$(call title,"Git Files")
+info:; @ ## show environment information and exit
+# os and environment info
+	@$(call title,os and environment info)
+	@$(call print_variables,OS WHICH_SH .SHELLFLAGS MAKEFLAGS MAKECMDGOALS)
+# git options and files
+	@$(call title,git files)
 	@$(call print_variables,GITIGNORE_DIR)
 	@$(call print_list_variable,GITIGNORE_FILES)
-	@$(call title,"Secondary Files")
+# secondary files
+	@$(call title,secondary files)
 	@$(call print_variables,SECONDARY_FILES)
-	@$(call title,"Intermediate Files")
+# intermediate files
+	@$(call title,intermediate files)
 	@$(call print_variables,INTERMEDIATE_FILES)
-	@$(call title,"Precious Files")
+# precious files
+	@$(call title,precious files)
 	@$(call print_variables,PRECIOUS_FILES)
-	@$(call ok,"info")
 
-# TODO Create tests
+.PHONY: license
+license:; @ ## show license information and exit
+	@$(call print,$(LICENSE))
+
+.PHONY: version
+version:; @ ## show program version number and exit
+	@$(call print,$(VERSION))
+
+# TODO create tests
 # .PHONY: test
-# tests:: ; @ # Perform Makefile, git, and .gitignore tests
+# tests:: ; @ # perform Makefile, git, and .gitignore tests
 # tests:: test-help test-info test-git test-clean
 #	
 
-# TODO Review Meta-Programming via eval and call functions
+# TODO review meta-programming via eval and call functions
 # Perhaps we might be able to reduce the size of this Makefile
 # https://make.mad-scientist.net/the-eval-function/
 
 
 # ##############################################################################
-# Git related targets (.gitignore file related)
+# git related targets (.gitignore file related)
 # ##############################################################################
 
 # empty recipe to avoid false-positive automatic rule generation
@@ -277,17 +409,17 @@ $(GITIGNORE_FILES): | $(GITIGNORE_DIR);
 # but now we're specifically pulling updates from the repo as a separate step
 $(GITIGNORE_DIR) :
 	[ -n "$(find $@/.git/FETCH_HEAD -mmin +1440)" ] && git -C $@ pull
-	@$(call ok,"$@")
+	@$(call ok,$@)
 
 
 # ##############################################################################
-# Pattern matching and conversions
+# pattern matching and conversions
 # ##############################################################################
 
 
 
 # ##############################################################################
-# Special Targets
+# special targets
 # ##############################################################################
 
 # tells make to not automatically delete files;

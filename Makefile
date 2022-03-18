@@ -36,14 +36,14 @@
 ##
 ##Run common tasks in dotfiles directory.
 ##
-##Available targets:
-#  all                        Runs everything, except clean, help, and info
-#  clean                      Removes all generated documents
-#  documents                  Create the documents (md, pdf, txt, epub?)
+##Targets:
+#  all                        runs everything, except clean, help, and info
+#  clean                      removes all generated documents
+#  documents                  create the documents (md, pdf, txt, epub?)
 #  help                       (default) show this help message and exit
 #  info                       show environment information and exit
 #  license                    show license information and exit
-#  version                    show program's version number and exit
+#  version                    show program version number and exit
 #  %.md                       [pandoc] parse %.org to %.md file(s)
 
 
@@ -70,22 +70,25 @@
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
+# force a particular shell
+# SHELL=/usr/bin/bash
+
 # see Windows Compatibility in References
 # SHELL=C:/Windows/System32/cmd.exe
 
 # detect which shell we're running
 WHICH_SH := $(shell command -v $(SHELL))
-FIND_BASH := $(findstring "bash",$(WHICH_SH))
+FIND_BASH := $(findstring bash,$(WHICH_SH))
 
 # test for bash
-ifeq "$(FIND_BASH)" "bash"
-IS_BASH := "true"
+ifeq ($(FIND_BASH),bash)
+IS_BASH := true
 else
-IS_BASH := "false"
+IS_BASH := false
 endif
 
 # pass options to the shell (detect bash, otherwise infer /bin/sh)
-ifeq "$(IS_BASH)" "true"
+ifeq ($(IS_BASH),true)
 .SHELLFLAGS := -eu -o pipefail -c
 else
 .SHELLFLAGS := -ec
@@ -93,27 +96,27 @@ endif
 
 
 # ##############################################################################
-# Platform detection
+# platform detection
 # ##############################################################################
-UNAME_STRING := $(shell uname)
 
-# Linux
-ifeq "$(UNAME_STRING)" "Linux"
+# system information
+UNAME := $(shell uname)
+
+# linux
+ifeq ($(UNAME),Linux)
 OS = Linux
 
-# MacOS
-else ifeq "$(UNAME_STRING)" "Darwin"
+# mac
+else ifeq ($(UNAME),Darwin)
 OS = Darwin
 
-# Windows
-else ifeq "$(shell echo $(UNAME_STRING) \
- | grep 'MSYS\|MINGW\|CYGWIN' \
- >/dev/null && echo Windows)" "Windows"
+# windows
+else ifeq ($(shell echo $(UNAME) | grep -q 'MSYS\|MINGW\|CYGWIN' && echo t),t)
 OS = Windows
 
-# Other
+# other
 else
-OS = $(UNAME_STRING)
+OS = $(UNAME)
 endif
 
 
@@ -133,55 +136,55 @@ endef
 
 # helper functions to format and display information
 
-# Formats a string as a title section in the console.
-# Param:
+# formats a string as a title section in the console.
+# param:
 #   1. String to format.
-ifeq "$(IS_BASH)" "true"
-title = echo -e "\x1b[1m\x1b[32m\#\#\# $1\x1b[0m" 1>&2;
+ifeq ($(IS_BASH),true)
+title = echo -e '\x1b[1m\x1b[32m\#\#\# $1\x1b[0m' 1>&2;
 else
 title = echo '\#\#\# $1';
 endif
 
-# Formats a string into an 'OK' message in the console.
-# Param:
+# formats a string into an 'OK' message in the console.
+# param:
 #   1. String to format.
-ifeq "$(IS_BASH)" "true"
-ok = echo -e "\x1b[1m\x1b[32m[OK] $1\x1b[0m" 1>&2;
+ifeq ($(IS_BASH),true)
+ok = echo -e '\x1b[1m\x1b[32m[OK] $1\x1b[0m' 1>&2;
 else
 ok = echo '[OK] $1';
 endif
 
-# Formats a string into an 'OK' message in the console.
-# Param:
+# formats a string into an 'OK' message in the console.
+# param:
 #   1. String to format.
-ifeq "$(IS_BASH)" "true"
-print = echo -e "$1" 1>&2;
+ifeq ($(IS_BASH),true)
+print = echo -e '$1' 1>&2;
 else
 print = echo '$1';
 endif
 
-# Returns the name and value of a variable
-# Param:
+# returns the name and value of a variable
+# param:
 #   1. A text string of the variable's name
 print_variable = $(call print,    $1 = $($1))
 
-# Returns the name and value of a group of variables
-# Param:
+# returns the name and value of a group of variables
+# param:
 #   1. A list of text strings of the variables' names
 print_variables = $(foreach variable,$(1),$(call print_variable,$(variable)))
 
-# Returns the name and value of a variable
-# Param:
+# returns the name and value of a variable
+# param:
 #   1. A text string of the variable's name
 list_items = $(foreach item,$(1),\n        $(item))
 
-# Returns the name and value of a list variable
-# Param:
+# returns the name and value of a list variable
+# param:
 #   1. A text string of the variable's name
 print_list_variable = $(call print,    $1 = $(call list_items,$($1)))
 
-# Returns the name and value of a group of list variables
-# Param:
+# returns the name and value of a group of list variables
+# param:
 #   1. A list of text strings of the variables' names
 print_list_variables = $(foreach variable,$(1),$(call print_list_variable,$(variable)))
 
@@ -191,7 +194,7 @@ print_list_variables = $(foreach variable,$(1),$(call print_list_variable,$(vari
 # ##############################################################################
 
 AWK_PATTERN:=/^[^\t].+?:.*?\#\#/
-ifeq "$(IS_BASH)" "true"
+ifeq ($(IS_BASH),true)
 AWK_PRINT:='$(AWK_PATTERN) { printf "\033[36m  %-25s\033[0m %s\n", $$1, $$NF }'
 else
 AWK_PRINT:='$(AWK_PATTERN) {printf "  %-25s %s\n", $$1, $$NF}'
@@ -202,7 +205,7 @@ AUTHOR = Rolando Garza
 THIS_FILE=Makefile
 THIS_PROGRAM=dotpub
 VERSION_NO = 0.0.1
-YEAR=$(shell date -u +"%Y")
+YEAR=$(shell date -u +'%Y')
 
 # bottom part from help
 define HELP_TEXT
@@ -216,7 +219,7 @@ HELP:=$(subst $(newline),\n,${HELP_TEXT})
 
 # text for printed license
 define LICENSE_TEXT
-$(THIS_FILE) ($(THIS_PROGRAM)): automating rolandog's dotfiles tasks
+$(THIS_FILE) ($(THIS_PROGRAM)): automating dotfile tasks
 Copyright (C) $(YEAR)  $(AUTHOR)
 
 This file is part of $(THIS_PROGRAM).
@@ -261,7 +264,7 @@ VERSION:=$(subst $(newline),\n,${VERSION_TEXT})
 PANDOC=$(shell command -v pandoc)
 
 # pandoc version
-PANDOC_VERSION=$(shell $(PANDOC) -v | grep "^pandoc")
+PANDOC_VERSION=$(shell $(PANDOC) -v | grep '^pandoc')
 
 PANDOC_OPTIONS=\
  --from=org+citations\
@@ -276,7 +279,7 @@ PANDOC_MD_OPTIONS=\
 #--to=markdown+citations+footnotes+smart+task_lists+tex_math_dollars+yaml_metadata_block
 #--lua-filter move-markdown-abstract.lua
 
-# Pandoc for md
+# pandoc for md
 PANDOC_MD = $(strip $(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_MD_OPTIONS))
 
 
@@ -284,20 +287,21 @@ PANDOC_MD = $(strip $(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_MD_OPTIONS))
 # files to process
 # ##############################################################################
 
-# These are the output docs from the script
+# these are the output docs from the script
 OUTPUT_DOCS:=\
  README.md
 # README.txt
 
+# track this Makefile
 THIS_MAKEFILE := $(firstword $(MAKEFILE_LIST))
 
-# Declare definition files
+# declare secondary files
 SECONDARY_FILES:=
 
-# Output files that are costly to produce
+# output files that are costly to produce
 PRECIOUS_FILES:=$(OUTPUT_DOCS)
 
-# Declare files that may be pre-processed or are intermediary
+# declare files that may be pre-processed or are intermediary
 INTERMEDIATE_FILES:=
 
 # define documents to be removed
@@ -306,41 +310,42 @@ CLEANUP_FILES:=$(strip\
  $(INTERMEDIATE_FILES)\
  $(SECONDARY_FILES))
 
+# targets run when executing 'make all'
 ALL_TARGETS:=$(strip\
  $(PRECIOUS_FILES))
 
 
 # ##############################################################################
-# PHONY targets (not actual files)
+# targets
 # ##############################################################################
 
 .PHONY: all
-all : $(ALL_TARGETS); @ ## Runs everything, except clean, help, and info
+all : $(ALL_TARGETS); @ ## runs everything, except clean, help, and info
 
 .PHONY: clean
-clean:; @ ## Removes all generated documents
+clean:; @ ## removes all generated documents
 	@rm $(CLEANUP_FILES)
 	@$(call ok,clean)
 
 .PHONY: documents
-documents:: ; @ ## Create the documents (md, pdf, txt, epub?)
+documents:: ; @ ## create the documents (md, pdf, txt, epub?)
 documents:: $(OUTPUT_DOCS) $(THIS_MAKEFILE)
 	@$(call ok,documents)
 
 .PHONY: help
 help: $(THIS_MAKEFILE); @ ## (default) show this help message and exit
-# Display any lines that start with ##
+# display any lines that start with ##
 	@sed -n 's/^##//p' $<
-# Find target rules and format them accordingly
+# find target rules and format them accordingly
 	@awk -F ':|##' $(AWK_PRINT) $<
-# Display footer
+# display footer
 	@$(call print,$(HELP))
 
 .PHONY: info
 info:; @ ## show environment information and exit
 # os and environment info
 	@$(call title,os and environment info)
-	@$(call print_variables,OS WHICH_SH MAKEFLAGS MAKECMDGOALS)
+	@$(call print_variables,OS WHICH_SH .SHELLFLAGS MAKEFLAGS MAKECMDGOALS)
 # pandoc
 	@$(call title,pandoc)
 	@$(call print_variables,PANDOC PANDOC_VERSION PANDOC_OPTIONS)
@@ -362,16 +367,16 @@ license:; @ ## show license information and exit
 	@$(call print,$(LICENSE))
 
 .PHONY: version
-version:; @ ## show program's version number and exit
+version:; @ ## show program version number and exit
 	@$(call print,$(VERSION))
 
-# TODO Create tests
+# TODO create tests
 # .PHONY: test
-# tests:: ; @ # Perform Makefile, abp/pp, emacs, pandoc, and git tests
-# tests:: test-help test-info test-git test-pp test-pandoc test-clean
+# tests:: ; @ # perform Makefile, emacs, and pandoc tests
+# tests:: test-help test-info test-emacs test-pandoc test-clean
 
-# TODO Review Meta-Programming via eval and call functions
-# Perhaps we might be able to reduce the size of this Makefile
+# TODO review Meta-Programming via eval and call functions
+# perhaps we might be able to reduce the size of this Makefile
 # https://make.mad-scientist.net/the-eval-function/
 
 
@@ -379,7 +384,7 @@ version:; @ ## show program's version number and exit
 # pattern matching and conversions
 # ##############################################################################
 
-%.md : %.org $(THIS_MAKEFILE); @ ## [pandoc] parse %.org to %.md file(s)
+%.md : %.org $(THIS_MAKEFILE); @ ## [pandoc] convert %.org to %.md file(s)
 	$(PANDOC_MD) $< -o $@
 	@$(call ok,$@)
 
