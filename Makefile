@@ -54,7 +54,7 @@
 # ensure reproducible behaviour across make instances
 .POSIX:
 
-# only use one shell (when used with .POSIX, it breaks '@' prefixes)
+# only use one shell (it may break '@' prefixes with .POSIX)
 .ONESHELL:
 
 # ensure that we display the help message when nothing is specified with make
