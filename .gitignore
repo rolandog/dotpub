@@ -1,10 +1,18 @@
 # emacs backup files
 **/.+~
+
 # emacs autosave files
 \#.*\#
+
+# log files
+*.log
+
+# audio files
+*.wav
 
 # generated file
 git/.config/git/global.gitignore
 
 # intermediate files
 gpg/**/*.tex
+

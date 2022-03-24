@@ -4,7 +4,8 @@ RCS
 .+,v
 
 CVS
-\.\#.+       # CVS conflict files / emacs lock files
+# CVS conflict files / emacs lock files
+\.\#.+
 \.cvsignore
 
 \.svn
@@ -13,9 +14,12 @@ _darcs
 
 \.git
 \.gitignore
+git
 
-.+~          # emacs backup files
-\#.*\#       # emacs autosave files
+# emacs backup files
+.+~
+# emacs autosave files
+\#.*\#
 
 ^/README.*
 ^/LICENSE.*
@@ -23,3 +27,4 @@ _darcs
 
 \.stow-local-ignore
 
+*.log

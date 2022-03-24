@@ -1,0 +1,9 @@
+# git repository files
+.git
+# example etc configuration
+etc
+# example git configuration
+git
+# example ssh configuration
+ssh
+
