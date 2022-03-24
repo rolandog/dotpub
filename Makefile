@@ -55,7 +55,7 @@
 .POSIX:
 
 # only use one shell (it may break '@' prefixes with .POSIX)
-.ONESHELL:
+#.ONESHELL:
 
 # ensure that we display the help message when nothing is specified with make
 .DEFAULT_GOAL := help
@@ -78,6 +78,8 @@ MAKEFLAGS += --no-builtin-rules
 
 # detect which shell we're running
 WHICH_SH := $(shell command -v $(SHELL))
+
+# detect bash
 FIND_BASH := $(findstring bash,$(WHICH_SH))
 
 # test for bash
@@ -287,10 +289,30 @@ PANDOC_MD = $(strip $(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_MD_OPTIONS))
 # files to process
 # ##############################################################################
 
+# command to join multiple lines with space as separator
+ifeq ($(OS),Darwin)
+PASTE = paste -sd ' ' -
+else
+PASTE = paste -sd ' '
+endif
+
+# directories to ignore
+DO_NOT_STOW = $(shell cat .stow-do-not | grep -E '^[^#]' | $(PASTE))
+
+# the directories
+FIND_DIRS := $(shell find * -maxdepth 0 -type d | $(PASTE))
+
+# stow directories
+STOW_DIRS := $(filter-out $(DO_NOT_STOW),$(FIND_DIRS))
+
+# dependencies
+INPUT_DOCS:=\
+ README.org
+
 # these are the output docs from the script
 OUTPUT_DOCS:=\
- README.md
-# README.txt
+ README.md \
+ README
 
 # track this Makefile
 THIS_MAKEFILE := $(firstword $(MAKEFILE_LIST))
@@ -312,7 +334,25 @@ CLEANUP_FILES:=$(strip\
 
 # targets run when executing 'make all'
 ALL_TARGETS:=$(strip\
- $(PRECIOUS_FILES))
+ install \
+ documents)
+
+
+# ##############################################################################
+# meta-programming
+# ##############################################################################
+
+# callable function to create a rule
+# https://make.mad-scientist.net/the-eval-function/
+define ONERULE
+.PHONY: $1
+$1:
+	stow $$@
+
+endef
+
+# create the rules
+$(eval $(foreach dir,$(STOW_DIRS),$(call ONERULE,$(dir))))
 
 
 # ##############################################################################
@@ -324,7 +364,7 @@ all : $(ALL_TARGETS); @ ## runs everything, except clean, help, and info
 
 .PHONY: clean
 clean:; @ ## removes all generated documents
-	@rm $(CLEANUP_FILES)
+	rm $(CLEANUP_FILES)
 	@$(call ok,clean)
 
 .PHONY: documents
@@ -345,13 +385,16 @@ help: $(THIS_MAKEFILE); @ ## (default) show this help message and exit
 info:; @ ## show environment information and exit
 # os and environment info
 	@$(call title,os and environment info)
-	@$(call print_variables,OS WHICH_SH .SHELLFLAGS MAKEFLAGS MAKECMDGOALS)
+	@$(call print_variables,OS SHELL WHICH_SH .SHELLFLAGS MAKEFLAGS MAKECMDGOALS)
 # pandoc
 	@$(call title,pandoc)
 	@$(call print_variables,PANDOC PANDOC_VERSION PANDOC_OPTIONS)
 # pandoc configuration options
 	@$(call title,pandoc configuration options)
 	@$(call print_list_variables,PANDOC_MD_OPTIONS)
+# stow directories
+	@$(call title,stow)
+	@$(call print_list_variables,DO_NOT_STOW STOW_DIRS)
 # secondary files
 	@$(call title,secondary files)
 	@$(call print_variables,SECONDARY_FILES)
@@ -362,9 +405,17 @@ info:; @ ## show environment information and exit
 	@$(call title,precious files)
 	@$(call print_variables,PRECIOUS_FILES)
 
+.PHONY: install
+install: $(STOW_DIRS); @ ## stows symbolic links to dotfiles
+	@$(call ok,install)
+
 .PHONY: license
 license:; @ ## show license information and exit
 	@$(call print,$(LICENSE))
+
+.PHONY: install
+update-gitignore:; @ ## updates the global gitignore rules
+	make -C git/.config/git/ all
 
 .PHONY: version
 version:; @ ## show program version number and exit
@@ -377,7 +428,6 @@ version:; @ ## show program version number and exit
 
 # TODO review Meta-Programming via eval and call functions
 # perhaps we might be able to reduce the size of this Makefile
-# https://make.mad-scientist.net/the-eval-function/
 
 
 # ##############################################################################
@@ -388,6 +438,10 @@ version:; @ ## show program version number and exit
 	$(PANDOC_MD) $< -o $@
 	@$(call ok,$@)
 
+% : %.org $(THIS_MAKEFILE); @ ## [emacs] convert %.org to % (.txt) file(s)
+	emacs $< --batch -f org-ascii-export-to-ascii --kill 2>/dev/null
+	mv $@.txt $@ 
+	@$(call ok,$@)
 
 # ##############################################################################
 # special targets
