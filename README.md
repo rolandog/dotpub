@@ -27,7 +27,8 @@ cd ~/.dotfiles/.pub
 
 ## Installing dotfiles
 
-A quick way to install all the dotfiles is by running:
+A quick way to install all the dotfiles is by running (the `SHELL`
+part is optional, but allows for the use of colors in the output):
 
 ``` bash
 make install SHELL=/usr/bin/bash

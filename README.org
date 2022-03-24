@@ -24,7 +24,8 @@ This repository is meant to be cloned inside =~.dotfiles/.pub/=:
   cd ~/.dotfiles/.pub
 #+END_SRC
 * Installing dotfiles
-A quick way to install all the dotfiles is by running:
+A quick way to install all the dotfiles is by running (the =SHELL=
+part is optional, but allows for the use of colors in the output):
 
 #+BEGIN_SRC bash :exports code :eval never :dir ~/.dotfiles/.pub :wrap SRC text
   make install SHELL=/usr/bin/bash
