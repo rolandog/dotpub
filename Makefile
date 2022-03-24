@@ -386,6 +386,9 @@ info:; @ ## show environment information and exit
 # os and environment info
 	@$(call title,os and environment info)
 	@$(call print_variables,OS SHELL WHICH_SH .SHELLFLAGS MAKEFLAGS MAKECMDGOALS)
+# targets
+	@$(call title,targets)
+	$(info $(STOW_DIRS))
 # pandoc
 	@$(call title,pandoc)
 	@$(call print_variables,PANDOC PANDOC_VERSION PANDOC_OPTIONS)
@@ -425,9 +428,6 @@ version:; @ ## show program version number and exit
 # .PHONY: test
 # tests:: ; @ # perform Makefile, emacs, and pandoc tests
 # tests:: test-help test-info test-emacs test-pandoc test-clean
-
-# TODO review Meta-Programming via eval and call functions
-# perhaps we might be able to reduce the size of this Makefile
 
 
 # ##############################################################################
