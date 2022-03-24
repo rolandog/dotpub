@@ -8,6 +8,8 @@ CVS
 \.\#.+
 \.cvsignore
 
+etc
+
 \.svn
 _darcs
 \.hg
@@ -28,3 +30,5 @@ git
 \.stow-local-ignore
 
 *.log
+
+ssh
