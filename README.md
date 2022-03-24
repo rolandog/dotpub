@@ -25,132 +25,75 @@ git clone https://git.sr.ht/~rolandog/dotpub ~/.dotfiles/.pub
 cd ~/.dotfiles/.pub
 ```
 
-## Inspecting dotfiles
-
-This is a way to inspect our current repository:
-
-``` bash
-tree \
-    -Flan \
-    -I '.git' \
-    --charset=ascii \
-    --dirsfirst \
-    --noreport \
-    --prune \
-    ~/.dotfiles/.pub
-```
-
-``` text
-/home/rolandog/.dotfiles/.pub
-|-- applications/
-|   `-- .local/
-|       `-- share/
-|           `-- applications/
-|               |-- oh-my-git.desktop
-|               |-- org-protocol.desktop
-|               `-- whatsapp.desktop
-|-- bash/
-|   |-- .config/
-|   |   `-- bash/
-|   |       |-- bash_aliases
-|   |       |-- bash_colors
-|   |       |-- bash_logout
-|   |       |-- bashrc
-|   |       |-- bash_xdg
-|   |       `-- profile
-|   |-- .bash_logout -> .config/bash/bash_logout
-|   |-- .bashrc -> .config/bash/bashrc
-|   `-- .profile -> .config/bash/profile
-|-- emacs/
-|   `-- .config/
-|       `-- emacs/
-|           `-- init.el
-|-- firewall/
-|   `-- .local/
-|       `-- bin/
-|           |-- firewall.sh*
-|           `-- unfirewall.sh*
-|-- git/
-|   `-- .config/
-|       `-- git/
-|           |-- config
-|           |-- config-personal
-|           `-- config-professional
-|-- gpg/
-|   `-- .gnupg/
-|       |-- dirmngr.conf
-|       |-- gpg-agent.conf
-|       `-- gpg.conf
-|-- htop/
-|   `-- .config/
-|       `-- htop/
-|           `-- htoprc
-|-- lynx/
-|   `-- .lynxrc
-|-- org/
-|   `-- .local/
-|       `-- share/
-|           `-- org/
-|               `-- setup/
-|                   |-- en-a4.config
-|                   |-- en-letter.config
-|                   |-- es-a4.config
-|                   |-- es-letter.config
-|                   |-- letter-en-a4.config
-|                   |-- letter-en-letter.config
-|                   |-- letter-es-a4.config
-|                   |-- letter-es-letter.config
-|                   |-- letter-nl-a4.config
-|                   |-- letter-nl-letter.config
-|                   |-- nl-a4.config
-|                   `-- nl-letter.config
-|-- pandoc/
-|   `-- .local/
-|       `-- share/
-|           `-- pandoc/
-|               `-- filters/
-|                   |-- cleanup-markdown-metadata.lua
-|                   |-- increment-header-level.lua
-|                   `-- move-markdown-abstract.lua
-|-- python/
-|   `-- .config/
-|       `-- python/
-|           `-- python_startup.py
-|-- ssh/
-|   `-- .ssh/
-|       |-- config
-|       `-- known_hosts
-|-- stow/
-|   `-- .stow-global-ignore
-|-- user-dirs/
-|   `-- .config/
-|       |-- user-dirs.dirs
-|       `-- user-dirs.locale
-|-- vim/
-|   `-- .vimrc
-|-- youtube-dl/
-|   `-- .config/
-|       `-- youtube-dl/
-|           `-- config
-|-- .build.yml
-|-- COPYING
-|-- .gitignore
-|-- Makefile
-|-- README
-|-- README.md
-|-- README.org
-|-- .stow
-|-- .stow-local-ignore
-`-- .stowrc
-```
-
 ## Installing dotfiles
 
-After cloning, one can "install" the dotfiles of a certain `package`
-by running:
+A quick way to install all the dotfiles is by running:
+
+``` bash
+make install SHELL=/usr/bin/bash
+```
+
+If, however, one wishes to only install a particular set of dotfiles
+for a particular `PACKAGE`, one could run:
 
 ``` bash
 stow PACKAGE
+```
+
+## What dotfiles are installed?
+
+GNU Stow is a handy utility that lets us package a directory structure
+inside a folder, and it will create symbolic links to the files and
+folders inside our virtual package.
+
+In our case, this directory (`$HOME/.dotfiles/.pub/`) is configured to
+have stow treat it as the source, and to treat `$HOME` as its target.
+
+For a given `PACKAGE`:
+
+  - The file `~/.dotfiles/.pub/PACKAGE/.config/hello/world`
+  - Will end in `~/.config/hello/world`
+
+Here is an overview of the 'branches' that will be 'transplanted'.
+
+``` text
+/home/rolandog/.dotfiles/.pub
+|-- applications
+|   `-- .local
+|       `-- share
+|-- bash
+|   `-- .config
+|       `-- bash
+|-- emacs
+|   `-- .config
+|       `-- emacs
+|-- firewall
+|   `-- .local
+|       `-- bin
+|-- gpg
+|   `-- .gnupg
+|-- htop
+|   `-- .config
+|       `-- htop
+|-- lynx
+|-- org
+|   `-- .local
+|       `-- share
+|-- pandoc
+|   `-- .local
+|       `-- share
+|-- python
+|   `-- .config
+|       `-- python
+|-- stow
+|-- user-dirs
+|   `-- .config
+|-- vim
+|   `-- .config
+|       `-- vim
+`-- youtube-dl
+    `-- .config
+        `-- youtube-dl
 ```
 
 ## Pushing local changes

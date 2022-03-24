@@ -23,12 +23,38 @@ This repository is meant to be cloned inside =~.dotfiles/.pub/=:
   git clone https://git.sr.ht/~rolandog/dotpub ~/.dotfiles/.pub
   cd ~/.dotfiles/.pub
 #+END_SRC
-* Inspecting dotfiles
-This is a way to inspect our current repository:
-#+BEGIN_SRC bash :exports both :results output :cache yes :dir ~/.dotfiles/.pub :wrap SRC text
+* Installing dotfiles
+A quick way to install all the dotfiles is by running:
+
+#+BEGIN_SRC bash :exports code :eval never :dir ~/.dotfiles/.pub :wrap SRC text
+  make install SHELL=/usr/bin/bash
+#+END_SRC
+
+If, however, one wishes to only install a particular set of dotfiles
+for a particular =PACKAGE=, one could run:
+
+#+BEGIN_SRC bash :exports code :eval never :dir ~/.dotfiles/.pub :wrap SRC text
+  stow PACKAGE
+#+END_SRC
+* What dotfiles are installed?
+GNU Stow is a handy utility that lets us package a directory structure
+inside a folder, and it will create symbolic links to the files and
+folders inside our virtual package.
+
+In our case, this directory (=$HOME/.dotfiles/.pub/=) is configured to
+have stow treat it as the source, and to treat =$HOME= as its target.
+
+For a given =PACKAGE=:
+- The file =~/.dotfiles/.pub/PACKAGE/.config/hello/world=
+- Will end in =~/.config/hello/world=
+
+Here is an overview of the 'branches' that will be 'transplanted'.
+#+name: tree-overview
+#+BEGIN_SRC bash :exports results :results output :cache yes :dir ~/.dotfiles/.pub :wrap SRC text
   tree \
-      -Flan \
-      -I '.git' \
+      -Fadln \
+      -L 3 \
+      -I '.git|etc|git|ssh' \
       --charset=ascii \
       --dirsfirst \
       --noreport \
@@ -36,118 +62,46 @@ This is a way to inspect our current repository:
       ~/.dotfiles/.pub
 #+END_SRC
 
-#+RESULTS[fa1b7d1417bd9fb7d9c9dceefe031fffa48dbdb0]:
+#+RESULTS[6be72e757d8d1fcfc5baa8021e47c75495a3ed27]: tree-overview
 #+begin_SRC text
 /home/rolandog/.dotfiles/.pub
-|-- applications/
-|   `-- .local/
-|       `-- share/
-|           `-- applications/
-|               |-- oh-my-git.desktop
-|               |-- org-protocol.desktop
-|               `-- whatsapp.desktop
-|-- bash/
-|   |-- .config/
-|   |   `-- bash/
-|   |       |-- bash_aliases
-|   |       |-- bash_colors
-|   |       |-- bash_logout
-|   |       |-- bashrc
-|   |       |-- bash_xdg
-|   |       `-- profile
-|   |-- .bash_logout -> .config/bash/bash_logout
-|   |-- .bashrc -> .config/bash/bashrc
-|   `-- .profile -> .config/bash/profile
-|-- emacs/
-|   `-- .config/
-|       `-- emacs/
-|           `-- init.el
-|-- firewall/
-|   `-- .local/
-|       `-- bin/
-|           |-- firewall.sh*
-|           `-- unfirewall.sh*
-|-- git/
-|   `-- .config/
-|       `-- git/
-|           |-- config
-|           |-- config-personal
-|           `-- config-professional
-|-- gpg/
-|   `-- .gnupg/
-|       |-- dirmngr.conf
-|       |-- gpg-agent.conf
-|       `-- gpg.conf
-|-- htop/
-|   `-- .config/
-|       `-- htop/
-|           `-- htoprc
-|-- lynx/
-|   `-- .lynxrc
-|-- org/
-|   `-- .local/
-|       `-- share/
-|           `-- org/
-|               `-- setup/
-|                   |-- en-a4.config
-|                   |-- en-letter.config
-|                   |-- es-a4.config
-|                   |-- es-letter.config
-|                   |-- letter-en-a4.config
-|                   |-- letter-en-letter.config
-|                   |-- letter-es-a4.config
-|                   |-- letter-es-letter.config
-|                   |-- letter-nl-a4.config
-|                   |-- letter-nl-letter.config
-|                   |-- nl-a4.config
-|                   `-- nl-letter.config
-|-- pandoc/
-|   `-- .local/
-|       `-- share/
-|           `-- pandoc/
-|               `-- filters/
-|                   |-- cleanup-markdown-metadata.lua
-|                   |-- increment-header-level.lua
-|                   `-- move-markdown-abstract.lua
-|-- python/
-|   `-- .config/
-|       `-- python/
-|           `-- python_startup.py
-|-- ssh/
-|   `-- .ssh/
-|       |-- config
-|       `-- known_hosts
-|-- stow/
-|   `-- .stow-global-ignore
-|-- user-dirs/
-|   `-- .config/
-|       |-- user-dirs.dirs
-|       `-- user-dirs.locale
-|-- vim/
-|   `-- .vimrc
-|-- youtube-dl/
-|   `-- .config/
-|       `-- youtube-dl/
-|           `-- config
-|-- .build.yml
-|-- COPYING
-|-- .gitignore
-|-- Makefile
-|-- README
-|-- README.md
-|-- README.org
-|-- .stow
-|-- .stow-local-ignore
-`-- .stowrc
+|-- applications
+|   `-- .local
+|       `-- share
+|-- bash
+|   `-- .config
+|       `-- bash
+|-- emacs
+|   `-- .config
+|       `-- emacs
+|-- firewall
+|   `-- .local
+|       `-- bin
+|-- gpg
+|   `-- .gnupg
+|-- htop
+|   `-- .config
+|       `-- htop
+|-- lynx
+|-- org
+|   `-- .local
+|       `-- share
+|-- pandoc
+|   `-- .local
+|       `-- share
+|-- python
+|   `-- .config
+|       `-- python
+|-- stow
+|-- user-dirs
+|   `-- .config
+|-- vim
+|   `-- .config
+|       `-- vim
+`-- youtube-dl
+    `-- .config
+        `-- youtube-dl
 #+end_SRC
-
-* Installing dotfiles
-After cloning, one can "install" the dotfiles of a certain =package=
-by running:
-
-#+BEGIN_SRC bash :exports code :eval never :dir ~/.dotfiles/.pub :wrap SRC text
-  stow PACKAGE
-#+END_SRC
 
 * Pushing local changes
 The first time we want to push additional changes back:
