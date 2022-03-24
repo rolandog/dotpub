@@ -53,25 +53,26 @@ Here is an overview of the 'branches' that will be 'transplanted'.
 #+name: tree-overview
 #+BEGIN_SRC bash :exports results :results output :cache yes :dir ~/.dotfiles/.pub :wrap SRC text
   tree \
-    --charset=ascii \
-    --noreport \
-    -L 3 \
-    -I '.git|etc|git|ssh' \
-    -alnF \
-    ~/.dotfiles/.pub \
-  | grep --invert-match ' -> ' \
-  | grep  '/'
+    -adlnF  \
+    -I '.git|etc|git|ssh'  \
+    -L 3  \
+    --charset=ascii  \
+    --noreport  \
+    ~/.dotfiles/.pub  \
+  | sed -E  \
+    --posix  \
+    's/(^[`|[:space:]].+)/\1\//'
 #+END_SRC
 
-#+RESULTS[a823c3e1ae9e2463e80eac752ceea592054921f6]: tree-overview
+#+RESULTS[25268a3daf8c04b1039ad1966acbc30dddb8326a]: tree-overview
 #+begin_SRC text
 /home/rolandog/.dotfiles/.pub
 |-- applications/
 |   `-- .local/
 |       `-- share/
 |-- bash/
-|   |-- .config/
-|   |   `-- bash/
+|   `-- .config/
+|       `-- bash/
 |-- emacs/
 |   `-- .config/
 |       `-- emacs/

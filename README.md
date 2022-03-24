@@ -63,8 +63,8 @@ Here is an overview of the 'branches' that will be 'transplanted'.
 |   `-- .local/
 |       `-- share/
 |-- bash/
-|   |-- .config/
-|   |   `-- bash/
+|   `-- .config/
+|       `-- bash/
 |-- emacs/
 |   `-- .config/
 |       `-- emacs/

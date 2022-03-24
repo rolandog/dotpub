@@ -105,8 +105,8 @@ _________________
   | |   `-- .local/
   | |       `-- share/
   | |-- bash/
-  | |   |-- .config/
-  | |   |   `-- bash/
+  | |   `-- .config/
+  | |       `-- bash/
   | |-- emacs/
   | |   `-- .config/
   | |       `-- emacs/
