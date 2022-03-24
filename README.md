@@ -59,42 +59,42 @@ Here is an overview of the 'branches' that will be 'transplanted'.
 
 ``` text
 /home/rolandog/.dotfiles/.pub
-|-- applications
-|   `-- .local
-|       `-- share
-|-- bash
-|   `-- .config
-|       `-- bash
-|-- emacs
-|   `-- .config
-|       `-- emacs
-|-- firewall
-|   `-- .local
-|       `-- bin
-|-- gpg
-|   `-- .gnupg
-|-- htop
-|   `-- .config
-|       `-- htop
-|-- lynx
-|-- org
-|   `-- .local
-|       `-- share
-|-- pandoc
-|   `-- .local
-|       `-- share
-|-- python
-|   `-- .config
-|       `-- python
-|-- stow
-|-- user-dirs
-|   `-- .config
-|-- vim
-|   `-- .config
-|       `-- vim
-`-- youtube-dl
-    `-- .config
-        `-- youtube-dl
+|-- applications/
+|   `-- .local/
+|       `-- share/
+|-- bash/
+|   |-- .config/
+|   |   `-- bash/
+|-- emacs/
+|   `-- .config/
+|       `-- emacs/
+|-- firewall/
+|   `-- .local/
+|       `-- bin/
+|-- gpg/
+|   `-- .gnupg/
+|-- htop/
+|   `-- .config/
+|       `-- htop/
+|-- lynx/
+|-- org/
+|   `-- .local/
+|       `-- share/
+|-- pandoc/
+|   `-- .local/
+|       `-- share/
+|-- python/
+|   `-- .config/
+|       `-- python/
+|-- stow/
+|-- user-dirs/
+|   `-- .config/
+|-- vim/
+|   `-- .config/
+|       `-- vim/
+`-- youtube-dl/
+    `-- .config/
+        `-- youtube-dl/
 ```
 
 ## Pushing local changes

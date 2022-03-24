@@ -53,55 +53,55 @@ Here is an overview of the 'branches' that will be 'transplanted'.
 #+name: tree-overview
 #+BEGIN_SRC bash :exports results :results output :cache yes :dir ~/.dotfiles/.pub :wrap SRC text
   tree \
-      -Fadln \
-      -L 3 \
-      -I '.git|etc|git|ssh' \
-      --charset=ascii \
-      --dirsfirst \
-      --noreport \
-      --prune \
-      ~/.dotfiles/.pub
+    --charset=ascii \
+    --noreport \
+    -L 3 \
+    -I '.git|etc|git|ssh' \
+    -alnF \
+    ~/.dotfiles/.pub \
+  | grep --invert-match ' -> ' \
+  | grep  '/'
 #+END_SRC
 
-#+RESULTS[6be72e757d8d1fcfc5baa8021e47c75495a3ed27]: tree-overview
+#+RESULTS[a823c3e1ae9e2463e80eac752ceea592054921f6]: tree-overview
 #+begin_SRC text
 /home/rolandog/.dotfiles/.pub
-|-- applications
-|   `-- .local
-|       `-- share
-|-- bash
-|   `-- .config
-|       `-- bash
-|-- emacs
-|   `-- .config
-|       `-- emacs
-|-- firewall
-|   `-- .local
-|       `-- bin
-|-- gpg
-|   `-- .gnupg
-|-- htop
-|   `-- .config
-|       `-- htop
-|-- lynx
-|-- org
-|   `-- .local
-|       `-- share
-|-- pandoc
-|   `-- .local
-|       `-- share
-|-- python
-|   `-- .config
-|       `-- python
-|-- stow
-|-- user-dirs
-|   `-- .config
-|-- vim
-|   `-- .config
-|       `-- vim
-`-- youtube-dl
-    `-- .config
-        `-- youtube-dl
+|-- applications/
+|   `-- .local/
+|       `-- share/
+|-- bash/
+|   |-- .config/
+|   |   `-- bash/
+|-- emacs/
+|   `-- .config/
+|       `-- emacs/
+|-- firewall/
+|   `-- .local/
+|       `-- bin/
+|-- gpg/
+|   `-- .gnupg/
+|-- htop/
+|   `-- .config/
+|       `-- htop/
+|-- lynx/
+|-- org/
+|   `-- .local/
+|       `-- share/
+|-- pandoc/
+|   `-- .local/
+|       `-- share/
+|-- python/
+|   `-- .config/
+|       `-- python/
+|-- stow/
+|-- user-dirs/
+|   `-- .config/
+|-- vim/
+|   `-- .config/
+|       `-- vim/
+`-- youtube-dl/
+    `-- .config/
+        `-- youtube-dl/
 #+end_SRC
 
 * Pushing local changes
