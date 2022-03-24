@@ -386,9 +386,6 @@ info:; @ ## show environment information and exit
 # os and environment info
 	@$(call title,os and environment info)
 	@$(call print_variables,OS SHELL WHICH_SH .SHELLFLAGS MAKEFLAGS MAKECMDGOALS)
-# targets
-	@$(call title,targets)
-	$(info $(STOW_DIRS))
 # pandoc
 	@$(call title,pandoc)
 	@$(call print_variables,PANDOC PANDOC_VERSION PANDOC_OPTIONS)
