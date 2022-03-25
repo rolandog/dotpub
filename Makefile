@@ -84,16 +84,34 @@ MAKEFLAGS += --no-builtin-rules
 # SHELL=C:/Windows/System32/cmd.exe
 
 # detect which shell we're running
-WHICH_SH := $(shell command -v $(SHELL))
-
-# detect bash
-FIND_BASH := $(findstring bash,$(WHICH_SH))
+WHICH_SH := $(shell command -v $(SHELL) \
+ | xargs ls -dl $(CMDV_SH) \
+ | grep -Eo '[[:alpha:]]+$$')
 
 # test for bash
-ifeq ($(FIND_BASH),bash)
+ifeq ($(WHICH_SH),bash)
 IS_BASH := true
 else
 IS_BASH := false
+endif
+
+# test for dash
+ifeq ($(WHICH_SH),dash)
+IS_DASH := true
+else
+IS_DASH := false
+endif
+
+# get shell version
+ifeq ($(IS_DASH),true)
+SHELL_VERSION=$(shell\
+ info $(WHICH_SH)\
+ | head -n 8\
+ | grep -Eo '\b([0-9]+\.[.0-9]{1,})\b')
+else
+SHELL_VERSION=$(shell\
+ $(WHICH_SH) --version\
+ | grep -Eo '\b([0-9]+\.[.0-9]{1,})\b')
 endif
 
 # pass options to the shell (detect bash, otherwise infer /bin/sh)
@@ -252,7 +270,7 @@ LICENSE:=$(subst $(newline),\n,${LICENSE_TEXT})
 # text for version info
 define VERSION_TEXT
 $(THIS_FILE) ($(THIS_PROGRAM)) $(VERSION_NO)
-  shell: $(WHICH_SH)
+  shell: $(WHICH_SH), version $(SHELL_VERSION)
 
 Copyright (C) $(YEAR)  $(AUTHOR).
 License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
