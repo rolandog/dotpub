@@ -468,7 +468,8 @@ version:; @ ## show program version number and exit
 # ##############################################################################
 
 # include the definition files to better update intermediate and final goals
-#ifneq ($(MAKECMDGOALS),clean)
+#NON_CREATIVE=clean help info license version
+#ifneq ($(filter-out $(NON_CREATIVE),$(MAKECMDGOALS)),)
 #-include $(wildcard *.d)
 #endif
 
