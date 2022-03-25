@@ -37,14 +37,21 @@
 ##Run common tasks in dotfiles directory.
 ##
 ##Targets:
-#  all                        runs everything, except clean, help, and info
+#  all                        runs install, update-gitignore, and documents
 #  clean                      removes all generated documents
 #  documents                  create the documents (md, pdf, txt, epub?)
 #  help                       (default) show this help message and exit
 #  info                       show environment information and exit
+#  install                    stows symbolic links to dotfiles
 #  license                    show license information and exit
+#  update-gitignore           updates the global gitignore rules
 #  version                    show program version number and exit
-#  %.md                       [pandoc] parse %.org to %.md file(s)
+#  %.md                       [pandoc] convert %.org to %.md file(s)
+#  %                          [emacs] convert %.org to % (.txt) file(s)
+#
+#Report bugs to: <https://todo.sr.ht/~rolandog/dotpub>
+#dotpub home page: <https://sr.ht/~rolandog/dotpub>
+#Source <https://git.sr.ht/~rolandog/dotpub/tree/main/item/Makefile>
 
 
 # ##############################################################################
@@ -306,13 +313,13 @@ FIND_DIRS := $(shell find * -maxdepth 0 -type d | $(PASTE))
 STOW_DIRS := $(filter-out $(DO_NOT_STOW),$(FIND_DIRS))
 
 # dependencies
-INPUT_DOCS:=\
- README.org
+INPUT_DOCS:=$(strip\
+ README.org)
 
 # these are the output docs from the script
-OUTPUT_DOCS:=\
- README.md \
- README
+OUTPUT_DOCS:=$(strip\
+ $(patsubst %.org,%.md,$(INPUT_DOCS)) \
+ $(patsubst %.org,%,$(INPUT_DOCS)))
 
 # track this Makefile
 THIS_MAKEFILE := $(firstword $(MAKEFILE_LIST))
@@ -334,7 +341,8 @@ CLEANUP_FILES:=$(strip\
 
 # targets run when executing 'make all'
 ALL_TARGETS:=$(strip\
- install \
+ install\
+ update-gitignore\
  documents)
 
 
@@ -360,7 +368,7 @@ $(eval $(foreach dir,$(STOW_DIRS),$(call ONERULE,$(dir))))
 # ##############################################################################
 
 .PHONY: all
-all : $(ALL_TARGETS); @ ## runs everything, except clean, help, and info
+all : $(ALL_TARGETS); @ ## runs install, update-gitignore, and documents
 
 .PHONY: clean
 clean:; @ ## removes all generated documents
@@ -425,6 +433,7 @@ version:; @ ## show program version number and exit
 # .PHONY: test
 # tests:: ; @ # perform Makefile, emacs, and pandoc tests
 # tests:: test-help test-info test-emacs test-pandoc test-clean
+#	some-test
 
 
 # ##############################################################################
