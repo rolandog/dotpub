@@ -45,6 +45,11 @@
 #  info                       show environment information and exit
 #  license                    show license information and exit
 #  version                    show program version number and exit
+#
+#Report bugs to: <https://todo.sr.ht/~rolandog/dotpub>
+#dotpub home page: <https://sr.ht/~rolandog/dotpub>
+#Source:
+#  <https://git.sr.ht/~rolandog/dotpub/tree/main/item/git/.config/git/Makefile>
 
 
 # ##############################################################################
@@ -55,7 +60,7 @@
 .POSIX:
 
 # only use one shell (it may break '@' prefixes with .POSIX)
-.ONESHELL:
+#.ONESHELL:
 
 # ensure that we display the help message when nothing is specified with make
 .DEFAULT_GOAL := help
@@ -193,14 +198,16 @@ print_list_variables = $(foreach variable,$(1),$(call print_list_variable,$(vari
 # git
 # ##############################################################################
 
-# requirements for the gitignore file
+# requirements for the global.gitignore file
+# i.e. ~/.local/share/gitignore
 GITIGNORE_DIR:=$(XDG_DATA_HOME)/gitignore
+# i.e. ~/.local/share/gitignore/.git/FETCH_HEAD
 GITIGNORE_FETCH_HEAD:=$(GITIGNORE_DIR)/.git/FETCH_HEAD
 
-# if head is newer than 1 day
-ifeq ($(shell find $(GITIGNORE_FETCH_HEAD) -mmin +1440),)
+# if FETCH_HEAD is newer than 1 day (or if it doesn't exist)
+ifeq ($(shell find $(GITIGNORE_FETCH_HEAD) -mmin +1440 2>/dev/null),)
 DAILY_TARGET:=
-# if head is older than 1 day
+# if FETCH_HEAD is older than 1 day
 else
 DAILY_TARGET:=git-pull-now
 endif
@@ -208,9 +215,8 @@ endif
 # our own custom additions
 GITIGNORE_FILES:=local.gitignore
 
-# append selected files from repository
-GITIGNORE_FILES+=\
- $(addprefix $(GITIGNORE_DIR)/,\
+# github gitignore files from external repository
+GITHUB_GITIGNORE_FILES:=$(strip $(addprefix $(GITIGNORE_DIR)/,\
  community/Linux/Snap.gitignore\
  community/Python/JupyterNotebooks.gitignore\
  community/OpenSSL.gitignore\
@@ -229,7 +235,10 @@ GITIGNORE_FILES+=\
  Global/Windows.gitignore\
  Elisp.gitignore\
  Python.gitignore\
- TeX.gitignore)
+ TeX.gitignore))
+
+# append selected files from repository
+GITIGNORE_FILES += $(GITHUB_GITIGNORE_FILES)
 
 
 # ##############################################################################
@@ -255,14 +264,15 @@ define HELP_TEXT
 
 Report bugs to: <https://todo.sr.ht/~rolandog/$(THIS_PROGRAM)>
 $(THIS_PROGRAM) home page: <https://sr.ht/~rolandog/$(THIS_PROGRAM)>
-Source <https://git.sr.ht/~rolandog/$(THIS_PROGRAM)/tree/main/item/$(THIS_FILE)>
+Source:
+  <https://git.sr.ht/~rolandog/$(THIS_PROGRAM)/tree/main/item/git/.config/git/$(THIS_FILE)>
 endef
 
 HELP:=$(subst $(newline),\n,${HELP_TEXT})
 
 # text for printed license
 define LICENSE_TEXT
-$(THIS_FILE) ($(THIS_PROGRAM)): automating dotfile tasks
+$(THIS_FILE) ($(THIS_PROGRAM)): automating gitignore rules
 Copyright (C) $(YEAR)  $(AUTHOR)
 
 This file is part of $(THIS_PROGRAM).
@@ -335,7 +345,7 @@ all : $(ALL_TARGETS); @ ## make global.gitignore; pulls after >=1 day
 
 .PHONY: clean
 clean:; @ ## removes all generated files
-	@rm $(CLEANUP_FILES)
+	rm $(CLEANUP_FILES)
 	@$(call ok,clean)
 
 # perform 'git pull' inside gitignore dir
@@ -390,32 +400,25 @@ version:; @ ## show program version number and exit
 # .PHONY: test
 # tests:: ; @ # perform Makefile, git, and .gitignore tests
 # tests:: test-help test-info test-git test-clean
-#	
-
-# TODO review meta-programming via eval and call functions
-# Perhaps we might be able to reduce the size of this Makefile
-# https://make.mad-scientist.net/the-eval-function/
+#	some-test
 
 
 # ##############################################################################
 # git related targets (.gitignore file related)
 # ##############################################################################
 
-# empty recipe to avoid false-positive automatic rule generation
-# we're using an order-only pre-requisite that is satisfied at most once per day
-$(GITIGNORE_FILES): | $(GITIGNORE_DIR);
+# order-only pre-requisite satisfied by pulling in gitignore dir once
+$(GITHUB_GITIGNORE_FILES): | $(GITIGNORE_FETCH_HEAD);
 
-# originally an empty recipe to avoid false-positive automatic rule generation,
-# but now we're specifically pulling updates from the repo as a separate step
-$(GITIGNORE_DIR) :
-	[ -n "$(find $@/.git/FETCH_HEAD -mmin +1440)" ] && git -C $@ pull
+# order-only pre-requisite that is satisfied by creating gitignore directory
+$(GITIGNORE_FETCH_HEAD) : $(GITIGNORE_DIR)
+	git -C $< pull
 	@$(call ok,$@)
 
-
-# ##############################################################################
-# pattern matching and conversions
-# ##############################################################################
-
+# clone into specified directory (creates the directory)
+$(GITIGNORE_DIR) :
+	git clone 'https://github.com/github/gitignore.git' $@
+	@$(call ok,$@)
 
 
 # ##############################################################################
