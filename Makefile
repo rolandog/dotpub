@@ -462,14 +462,3 @@ version:; @ ## show program version number and exit
 # tell make that these files are important, as they are costly to produce
 .PRECIOUS: $(PRECIOUS_FILES)
 
-
-# ##############################################################################
-# includes
-# ##############################################################################
-
-# include the definition files to better update intermediate and final goals
-#NON_CREATIVE=clean help info license version
-#ifneq ($(filter-out $(NON_CREATIVE),$(MAKECMDGOALS)),)
-#-include $(wildcard *.d)
-#endif
-
