@@ -4,6 +4,8 @@
 etc
 # example git configuration
 git
+# example make configuration
+make
 # example ssh configuration
 ssh
 
