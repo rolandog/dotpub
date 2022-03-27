@@ -15,4 +15,5 @@ git/.config/git/global.gitignore
 
 # intermediate files
 gpg/**/*.tex
+*.tex
 
