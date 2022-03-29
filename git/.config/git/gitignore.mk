@@ -4,7 +4,7 @@
 # license
 # ##############################################################################
 
-# Makefile (dotpub): automating gitignore tasks
+# gitignore.mk (dotpub): automating gitignore tasks
 # Copyright (C) 2022  Rolando Garza
 
 # This file is part of dotpub.
@@ -49,7 +49,7 @@
 #Report bugs to: <https://todo.sr.ht/~rolandog/dotpub>
 #dotpub home page: <https://sr.ht/~rolandog/dotpub>
 #Source:
-#  <https://git.sr.ht/~rolandog/dotpub/tree/main/item/git/.config/git/Makefile>
+#  <https://git.sr.ht/~rolandog/dotpub/tree/main/item/git/.config/git/gitignore.mk>
 
 
 # ##############################################################################
@@ -339,7 +339,7 @@ endif
 
 # license variables
 AUTHOR = Rolando Garza
-THIS_FILE = Makefile
+THIS_FILE = gitignore.mk
 THIS_PROGRAM = dotpub
 VERSION_NO = 0.0.1
 YEAR := $(shell date -u +'%Y')

@@ -1,1 +1,1 @@
-git/.config/git/gitignore.mk
+gitignore.mk
