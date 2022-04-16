@@ -16,29 +16,37 @@
 #   Absolute path to a command, if it exists
 #######################################
 find_executable() {
+  # if empty
   if [ -z "${1}" ]; then
     false
     return
   fi
 
   #local PREV_IFS
-  #local dir
+  #local PDIR
   PREV_IFS="${IFS}"
   IFS=":"
   export IFS
 
-  for dir in ${PATH}; do
-    if [ -x "${dir}/${1}" ]; then
-      echo "${dir}/${1}"
+  # for each directory in path
+  for PDIR in ${PATH}; do
+    # if the file exists and is executable
+    if [ -x "${PDIR}/${1}" ]; then
+      echo "${PDIR}/${1}"
       IFS="${PREV_IFS}"
       export IFS
+      unset PREV_IFS
+      unset PDIR
       true
       return
     fi
   done
 
+  # otherwise, not found in path
   IFS="${PREV_IFS}"
   export IFS
+  unset PREV_IFS
+  unset PDIR
   # echo "${1} not found"
   false
   return
@@ -53,8 +61,10 @@ find_executable() {
 #######################################
 is_abs_path_and_executable() {
   # if [ "${1}" =~ ^/[-_/.a-zA-Z0-9]+$ ] && [ -x "${1}" ];
-  is_abs="$(echo "${1}" | grep -E '^/[-_/.a-zA-Z0-9]+$' -)"
-  if [ -n "${is_abs}" ] && [ -x "${1}" ]; then
+  #is_abs=
+  # if it looks like an absolute path and is executable
+  if echo "${1}" | grep -qE '^/[-_/.a-zA-Z0-9]+$' -\
+  && [ -x "${1}" ]; then
     true
     return
   else
@@ -82,6 +92,7 @@ pwhich() {
   naive_command="$(command -v "${1}")"
   if is_abs_path_and_executable "${naive_command}"; then
     echo "${naive_command}"
+    unset naive_command
     true
     return
   fi
@@ -94,23 +105,37 @@ pwhich() {
   # for results like: alias foo="bar"; alias baz='/usr/bin/qux --quux'
   #local aliased_command
   #local parsed_alias
-  parsed_alias="$(command -v "${1}" | sed -nE --posix --sandbox -e "${sed_script}")"
+  parsed_alias="$(command -v "${1}" \
+  | sed -nE --posix --sandbox -e "${sed_script}")"
   aliased_command="$(echo "${parsed_alias}" | sh -s)"
   if is_abs_path_and_executable "${aliased_command}"; then
     echo "${aliased_command}"
+    unset aliased_command
+    unset parsed_alias
+    unset sed_script
+    unset regex
     true
     return
   fi
+
+  unset naive_command
+  unset aliased_command
+  unset parsed_alias
+  unset sed_script
+  unset regex
 
   # for results like: alias ls='ls --color=auto'
   #local nested_alias_command
   nested_alias_command="$(find_executable "${1}")"
   if [ -n "${nested_alias_command}" ]; then
     echo "${nested_alias_command}"
+    unset nested_alias_command
     true
     return
   fi
-  
+
+  unset nested_alias_command
+
   # all else has failed, return false
   false
   return
