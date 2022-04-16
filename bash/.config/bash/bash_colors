@@ -72,7 +72,7 @@ else
   if [ "${0}" = "dash" ]; then
     # user @ computer
     PS1='${USER}@${HOSTNAME}'
-    if [ "$(echo "${PWD}" | grep -E "^${HOME}" -)" ]; then
+    if echo "${PWD}" | grep -qE "^${HOME}" -; then
       # user @ computer : ~/foo
       PS1="${PS1}"':~${PWD#${HOME}}'
     else
