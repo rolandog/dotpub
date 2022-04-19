@@ -321,7 +321,7 @@
 (require 'oc-basic)
 (require 'oc-biblatex)
 (require 'oc-csl)
-(require 'oc-natbib)
+;;(require 'oc-natbib)
 
 ;; org-cite global bibliography
 (setq org-cite-global-bibliography '("~/org/references.bib"))
@@ -331,7 +331,7 @@
 
 ;; set export processors by backend; fallback is t
 (setq org-cite-export-processors '(
-   (beamer natbib humannat)
+   (beamer biblatex)
    (latex biblatex)
    (t csl "iso690-numeric-en.csl")))
 
