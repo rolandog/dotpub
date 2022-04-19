@@ -5,11 +5,16 @@
 
 ;; debugging:
 ;;(debug-on-entry 'package-initialize)
+;;(setq debug-on-error t)
 
 ;; disable initial initialization:
 (setq package-enable-at-startup nil)
 
-;; attempt to verify signatures:
+;; attempt to verify signatures; possible values:
+;; - allow-unsigned: signed will be checked, unsigned can still be installed
+;; - t: at least one signature must be valid
+;; - all: all signatures must be valid
+;; - nil: don't check?
 (setq package-check-signature 'allow-unsigned)
 
 ;; add different repositories:
