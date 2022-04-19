@@ -87,6 +87,10 @@
 ;; Enable transient mark mode
 (transient-mark-mode 1)
 
+;; Prevent Extraneous Tabs
+(setq-default indent-tabs-mode nil)
+
+
 ;;; Org mode configuration:
 ;; Enable Org mode:
 (require 'org)
