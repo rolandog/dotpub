@@ -106,6 +106,10 @@
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
+;; weird org-ref error may require org-export backend
+(require 'ox)
+(require 'ox-org)
+
 ;; global key bindings for org-mode
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
@@ -342,6 +346,13 @@
 ;;; org-mode export configurations
 ;; org-export latex
 (require 'ox-latex)
+
+;; set org-ref dialect as biblatex
+(setq bibtex-dialect "biblatex")
+
+;; add cleveref (and natbib?) for org-ref
+(add-to-list 'org-latex-packages-alist '("" "cleveref"))
+;;(add-to-list 'org-latex-packages-alist '("" "natbib"))
 
 ;; tell org to use listings
 (setq org-latex-listings t)
