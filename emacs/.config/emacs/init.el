@@ -109,6 +109,9 @@
 ;; weird org-ref error may require org-export backend
 (require 'ox)
 (require 'ox-org)
+(require 'ob-ipython)
+(require 'ox-ipynb)
+(add-to-list 'org-latex-listings-langs '(ipython "python"))
 
 (autoload 'gnuplot-mode "gnuplot" "Gnuplot major mode" t)
 (autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot-mode" t)
@@ -484,7 +487,7 @@
      ("\\.mkv\\'" . "mpv %s")
      ("\\.mp4\\'" . "mpv %s")))
  '(package-selected-packages
-   '(gnuplot elfeed ob-blockdiag string-inflection citeproc org-roam org-drill org openwith htmlize))
+   '(gnuplot ob-blockdiag string-inflection citeproc org-roam org-drill org openwith htmlize))
  '(reftex-bibpath-environment-variables
    '("BIBINPUTS" "TEXBIB" "/home/rolandog/Documents/references/" "/home/rolandog/org/" "/home/rolandog/org-roam/"))
  '(reftex-default-bibliography '("~/org/references.bib")))
