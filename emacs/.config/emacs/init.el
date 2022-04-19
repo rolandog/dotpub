@@ -110,6 +110,15 @@
 (require 'ox)
 (require 'ox-org)
 
+(autoload 'gnuplot-mode "gnuplot" "Gnuplot major mode" t)
+(autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot-mode" t)
+(add-to-list 'auto-mode-alist '("\.gp\'" . gnuplot-mode))
+(add-to-list 'auto-mode-alist '("\\.gp$" . gnuplot-mode))
+(add-to-list 'auto-mode-alist '("\\.gp\\'" . gnuplot-mode))
+
+;; Enable gnuplot-mode
+(require 'gnuplot)
+
 ;; global key bindings for org-mode
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
@@ -127,16 +136,28 @@
 ;; languages to make available in org-mode
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((emacs-lisp . t)
+ '(
+   (blockdiag . t)
+   (ditaa . t)
+   (dot . t)
+   ;;(emacs-lisp . t)  ;; unknown emacs-lisp mode?
+   (fortran . t)
+   (gnuplot . t)
+   (ipython . t)
+   ;;(ini . t)  ;; no ob-ini, but there's a built-in conf-mode
+   (js . t)
+   (latex . t)
+   (org . t)
    (python . t)
    (shell . t)
-   (blockdiag . t)
-   (dot . t)
-   (js . t)))
+   )
+ )
+
+;; built-in conf/ini mode; does it auto-load?
+;(require 'conf-mode)
 
 ;; fontify code in code blocks
 (setq org-src-fontify-natively t)
-
 
 ;; Allow org-cut-special and org-paste special to paste folded
 ;; subtrees org-cut-special (C-c C-x C-w) to kill the subtree
@@ -282,7 +303,8 @@
     (define-key org-mode-map (kbd "C-c n l") 'org-roam-buffer-toggle)
     (define-key org-mode-map (kbd "C-c n o") 'org-id-get-create)
     (define-key org-mode-map (kbd "C-c n t") 'org-roam-tag-add)
-    (define-key org-mode-map (kbd "C-M-i") 'completion-at-point))
+    (define-key org-mode-map (kbd "C-M-i") 'completion-at-point)
+    (define-key org-mode-map (kbd "C-M-g") 'org-plot/gnuplot))
 
 ;;; org-roam-capture-templates
 ;; C-h v org-roam-capture-templates for more info
@@ -462,7 +484,7 @@
      ("\\.mkv\\'" . "mpv %s")
      ("\\.mp4\\'" . "mpv %s")))
  '(package-selected-packages
-   '(elfeed ob-blockdiag string-inflection citeproc org-roam org-drill org openwith htmlize))
+   '(gnuplot elfeed ob-blockdiag string-inflection citeproc org-roam org-drill org openwith htmlize))
  '(reftex-bibpath-environment-variables
    '("BIBINPUTS" "TEXBIB" "/home/rolandog/Documents/references/" "/home/rolandog/org/" "/home/rolandog/org-roam/"))
  '(reftex-default-bibliography '("~/org/references.bib")))
