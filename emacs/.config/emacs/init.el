@@ -156,6 +156,9 @@
    )
  )
 
+;; display/update images in the buffer after evaluation
+(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+
 ;; built-in conf/ini mode; does it auto-load?
 ;(require 'conf-mode)
 
