@@ -91,6 +91,12 @@
 (setq-default indent-tabs-mode nil)
 
 
+;; Abbreviations
+;; see C-h p abbrev for defined abbrevs, dynamic abbrevs
+;; and hippie expansion
+(setq abbrev-file-name "~/.config/emacs/abbrev_defs")
+
+
 ;;; Org mode configuration:
 ;; Enable Org mode:
 (require 'org)
