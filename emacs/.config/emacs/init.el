@@ -78,7 +78,8 @@
 (let ((default-directory  "~/.config/emacs/lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
-
+;; add path(s) to load-path so they can be required
+;;(add-to-list 'load-path (directory-file-name "~/.config/emacs/path/pkgname"))
 
 ;; Disable the splash screen (to enable it agin, replace the t with nil)
 ;;(setq inhibit-splash-screen t)
