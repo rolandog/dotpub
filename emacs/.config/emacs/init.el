@@ -134,10 +134,10 @@
 (setq org-src-fontify-natively t)
 
 
-;; Allow org-cut-special and org-paste special to paste folded subtrees
-;; org-cut-special (C-c C-x C-w) to kill the subtree initially and then
-;; org-paste-special (C-c C-x C-y) to yank that subtree
-;; from https://emacs.stackexchange.com/a/35858
+;; Allow org-cut-special and org-paste special to paste folded
+;; subtrees org-cut-special (C-c C-x C-w) to kill the subtree
+;; initially and then org-paste-special (C-c C-x C-y) to yank that
+;; subtree (from https://emacs.stackexchange.com/a/35858 )
 (setq org-yank-folded-subtrees t)
 
 ;; Adds timestamp for completion of tasks
