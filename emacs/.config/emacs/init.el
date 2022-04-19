@@ -198,7 +198,7 @@
          "* TODO %?\n  %i\n  %a")
         ("m" "Meeting" entry (file+headline "~/org/gtd.org" "Meetings")
          "* MEET %?\n %i\n  %T\n  %a")
-        ("j" "Journal" entry (file+datetree "~/org/journal.org")
+        ("j" "Journal" entry (file+olp+datetree "~/org/journal.org")
          "* %?\n  Entered on %U\n  %i\n  %a")
         ("s" "Selection" entry (file+headline "~/org/capture.org" "Selections from Links")
          "* %a %^g\n %?\n %T\n %i")))
