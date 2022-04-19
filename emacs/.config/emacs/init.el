@@ -1,4 +1,4 @@
-;; -*- mode: elisp -*-
+;; -*- coding: utf-8; mode: emacs-lisp; -*-
 
 ;;; PACKAGE MAGAGEMENT:
 (require 'package)
