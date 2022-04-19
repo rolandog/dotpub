@@ -102,7 +102,9 @@
 (require 'org)
 
 ;; Make Org mode work with files ending in .org
+(add-to-list 'auto-mode-alist '("\.org\'" . org-mode))
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
 ;; global key bindings for org-mode
 (global-set-key (kbd "C-c l") 'org-store-link)
