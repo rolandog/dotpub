@@ -33,8 +33,8 @@
 ;; list the packages you want:
 (setq package-list
     '(
-        citeproc
-        dash
+        ;;citeproc
+        ;;dash
         ;;dired-x
         emacsql
         emacsql-sqlite
@@ -445,7 +445,7 @@
      ("\\.mkv\\'" . "mpv %s")
      ("\\.mp4\\'" . "mpv %s")))
  '(package-selected-packages
-   '(elfeed ob-blockdiag citeproc-org string-inflection citeproc org-roam org-drill org openwith htmlize)))
+   '(elfeed ob-blockdiag string-inflection citeproc org-roam org-drill org openwith htmlize)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
