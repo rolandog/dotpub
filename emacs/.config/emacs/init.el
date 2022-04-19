@@ -527,6 +527,8 @@
      ("\\.mp4\\'" . "mpv %s")))
  '(org-global-properties
    '(("Effort_ALL" . "0 0:05 0:10 0:25 1:00 2:00 4:00 8:00 16:00")))
+ '(org-modules
+   '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m org-annotate-file org-checklist))
  '(package-selected-packages
    '(gnuplot mexican-holidays ob-blockdiag string-inflection citeproc org-roam org-drill org openwith htmlize))
  '(reftex-bibpath-environment-variables
