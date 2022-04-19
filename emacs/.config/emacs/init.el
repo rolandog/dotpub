@@ -335,13 +335,6 @@
    (latex biblatex)
    (t csl "iso690-numeric-en.csl")))
 
-;; RefTex default bibliography
-(setq reftex-default-bibliography '("~/org/references.bib"))
-
-;; RefTex Environment variables, paths separated by colons
-(setq reftex-bibpath-environment-variables
-  '("/home/rolandog/Documents/references/:/home/rolandog/org/"))
-
 
 ;;; org-mode export configurations
 ;; org-export latex
@@ -469,7 +462,10 @@
      ("\\.mkv\\'" . "mpv %s")
      ("\\.mp4\\'" . "mpv %s")))
  '(package-selected-packages
-   '(elfeed ob-blockdiag string-inflection citeproc org-roam org-drill org openwith htmlize)))
+   '(elfeed ob-blockdiag string-inflection citeproc org-roam org-drill org openwith htmlize))
+ '(reftex-bibpath-environment-variables
+   '("BIBINPUTS" "TEXBIB" "/home/rolandog/Documents/references/" "/home/rolandog/org/" "/home/rolandog/org-roam/"))
+ '(reftex-default-bibliography '("~/org/references.bib")))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
