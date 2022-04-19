@@ -178,6 +178,31 @@
 ;; subtree (from https://emacs.stackexchange.com/a/35858 )
 (setq org-yank-folded-subtrees t)
 
+;; causes the repeater to be ignored after the deadline
+(setq org-agenda-skip-scheduled-if-deadline-is-shown 'repeated-after-deadline)
+
+;;; clocking work time
+;; assume that I have worked on this task while outside Emacs
+(setq org-clock-persist t)
+
+;; save the clock history across Emacs sessions
+(setq org-clock-persist 'history)
+(org-clock-persistence-insinuate)
+
+;; app to check idle time (/usr/bin/xprintidle)
+(setq org-clock-x11idle-program-name "xprintidle")
+(setq org-clock-idle-time 15)
+
+;; seconds until auto-clockout if I forget to clock-out
+(setq org-clock-auto-clockout-timer 3600)
+(org-clock-auto-clockout-insinuate)
+
+;; default duration for appointments in minutes
+(setq org-agenda-default-appointment-duration 25)
+
+;; include expected effort time in agenda
+(setq org-agenda-columns-add-appointments-to-effort-sum t)
+
 ;; Adds timestamp for completion of tasks
 (setq org-log-done 'time)
 
@@ -491,6 +516,7 @@
  '(holiday-islamic-holidays nil)
  '(org-agenda-files
    '("/home/rolandog/org/schedule.org" "/home/rolandog/org/albeda-a2-studiewijzer.org" "/home/rolandog/org/journal.org" "/home/rolandog/org/projects.org" "/home/rolandog/org/gtd.org" "/home/rolandog/org/dates.org"))
+ '(org-columns-default-format "%40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM")
  '(org-export-backends '(ascii beamer html icalendar latex md odt texinfo))
  '(org-file-apps
    '((auto-mode . emacs)
@@ -499,6 +525,8 @@
      ("\\.pdf\\'" . default)
      ("\\.mkv\\'" . "mpv %s")
      ("\\.mp4\\'" . "mpv %s")))
+ '(org-global-properties
+   '(("Effort_ALL" . "0 0:05 0:10 0:25 1:00 2:00 4:00 8:00 16:00")))
  '(package-selected-packages
    '(gnuplot mexican-holidays ob-blockdiag string-inflection citeproc org-roam org-drill org openwith htmlize))
  '(reftex-bibpath-environment-variables
