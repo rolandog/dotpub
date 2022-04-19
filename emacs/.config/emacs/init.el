@@ -165,6 +165,13 @@
 ;; fontify code in code blocks
 (setq org-src-fontify-natively t)
 
+;; mexican holidays
+(require 'mexican-holidays)
+(customize-set-variable 'holiday-bahai-holidays nil)
+(customize-set-variable 'holiday-hebrew-holidays nil)
+(customize-set-variable 'holiday-islamic-holidays nil)
+(setq calendar-holidays (append calendar-holidays holiday-mexican-holidays))
+
 ;; Allow org-cut-special and org-paste special to paste folded
 ;; subtrees org-cut-special (C-c C-x C-w) to kill the subtree
 ;; initially and then org-paste-special (C-c C-x C-y) to yank that
@@ -479,6 +486,9 @@
  '(ansi-color-names-vector
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(custom-enabled-themes '(manoj-dark))
+ '(holiday-bahai-holidays nil)
+ '(holiday-hebrew-holidays nil)
+ '(holiday-islamic-holidays nil)
  '(org-agenda-files
    '("/home/rolandog/org/schedule.org" "/home/rolandog/org/albeda-a2-studiewijzer.org" "/home/rolandog/org/journal.org" "/home/rolandog/org/projects.org" "/home/rolandog/org/gtd.org" "/home/rolandog/org/dates.org"))
  '(org-export-backends '(ascii beamer html icalendar latex md odt texinfo))
@@ -490,7 +500,7 @@
      ("\\.mkv\\'" . "mpv %s")
      ("\\.mp4\\'" . "mpv %s")))
  '(package-selected-packages
-   '(gnuplot ob-blockdiag string-inflection citeproc org-roam org-drill org openwith htmlize))
+   '(gnuplot mexican-holidays ob-blockdiag string-inflection citeproc org-roam org-drill org openwith htmlize))
  '(reftex-bibpath-environment-variables
    '("BIBINPUTS" "TEXBIB" "/home/rolandog/Documents/references/" "/home/rolandog/org/" "/home/rolandog/org-roam/"))
  '(reftex-default-bibliography '("~/org/references.bib")))
