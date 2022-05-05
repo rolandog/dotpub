@@ -191,10 +191,10 @@
 
 ;; app to check idle time (/usr/bin/xprintidle)
 (setq org-clock-x11idle-program-name "xprintidle")
-(setq org-clock-idle-time 15)
+(setq org-clock-idle-time 60)
 
 ;; seconds until auto-clockout if I forget to clock-out
-(setq org-clock-auto-clockout-timer 3600)
+(setq org-clock-auto-clockout-timer 5400)
 (org-clock-auto-clockout-insinuate)
 
 ;; default duration for appointments in minutes
@@ -511,9 +511,6 @@
  '(ansi-color-names-vector
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(custom-enabled-themes '(manoj-dark))
- '(holiday-bahai-holidays nil)
- '(holiday-hebrew-holidays nil)
- '(holiday-islamic-holidays nil)
  '(org-agenda-files
    '("/home/rolandog/org/schedule.org" "/home/rolandog/org/albeda-a2-studiewijzer.org" "/home/rolandog/org/journal.org" "/home/rolandog/org/projects.org" "/home/rolandog/org/gtd.org" "/home/rolandog/org/dates.org"))
  '(org-columns-default-format "%40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM")
@@ -530,7 +527,7 @@
  '(org-modules
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m org-annotate-file org-checklist))
  '(package-selected-packages
-   '(gnuplot mexican-holidays ob-blockdiag string-inflection citeproc org-roam org-drill org openwith htmlize))
+   '(netherlands-holidays gnuplot mexican-holidays ob-blockdiag string-inflection citeproc org-roam org-drill org openwith htmlize))
  '(reftex-bibpath-environment-variables
    '("BIBINPUTS" "TEXBIB" "/home/rolandog/Documents/references/" "/home/rolandog/org/" "/home/rolandog/org-roam/"))
  '(reftex-default-bibliography '("~/org/references.bib")))
