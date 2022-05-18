@@ -167,9 +167,6 @@
 
 ;; mexican holidays
 (require 'mexican-holidays)
-(customize-set-variable 'holiday-bahai-holidays nil)
-(customize-set-variable 'holiday-hebrew-holidays nil)
-(customize-set-variable 'holiday-islamic-holidays nil)
 (setq calendar-holidays (append calendar-holidays holiday-mexican-holidays))
 
 ;; Allow org-cut-special and org-paste special to paste folded
@@ -190,7 +187,7 @@
 (org-clock-persistence-insinuate)
 
 ;; app to check idle time (/usr/bin/xprintidle)
-(setq org-clock-x11idle-program-name "xprintidle")
+;(setq org-clock-x11idle-program-name "xprintidle")
 (setq org-clock-idle-time 60)
 
 ;; seconds until auto-clockout if I forget to clock-out
