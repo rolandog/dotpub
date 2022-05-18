@@ -167,7 +167,13 @@
 
 ;; mexican holidays
 (require 'mexican-holidays)
+(customize-set-variable 'holiday-bahai-holidays nil)
+(customize-set-variable 'holiday-hebrew-holidays nil)
+(customize-set-variable 'holiday-islamic-holidays nil)
 (setq calendar-holidays (append calendar-holidays holiday-mexican-holidays))
+
+(require 'netherlands-holidays)
+(setq calendar-holidays (append calendar-holidays holiday-netherlands-holidays))
 
 ;; Allow org-cut-special and org-paste special to paste folded
 ;; subtrees org-cut-special (C-c C-x C-w) to kill the subtree
@@ -521,7 +527,7 @@
      ("\\.mp4\\'" . "mpv %s")))
  '(org-global-properties
    '(("Effort_ALL" . "0 0:05 0:10 0:25 1:00 2:00 4:00 8:00 16:00")))
- '(org-habit-graph-column 56)
+ '(org-habit-graph-column 45)
  '(org-modules
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m org-annotate-file org-checklist))
  '(package-selected-packages
