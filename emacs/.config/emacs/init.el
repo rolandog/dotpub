@@ -512,7 +512,7 @@
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(custom-enabled-themes '(manoj-dark))
  '(org-agenda-files
-   '("/home/rolandog/org/schedule.org" "/home/rolandog/org/albeda-a2-studiewijzer.org" "/home/rolandog/org/journal.org" "/home/rolandog/org/projects.org" "/home/rolandog/org/gtd.org" "/home/rolandog/org/dates.org"))
+   '("/home/rolandog/org/capture.org" "/home/rolandog/org/iwt.org" "/home/rolandog/org/schedule.org" "/home/rolandog/org/albeda-a2-studiewijzer.org" "/home/rolandog/org/journal.org" "/home/rolandog/org/projects.org" "/home/rolandog/org/gtd.org" "/home/rolandog/org/dates.org"))
  '(org-columns-default-format "%40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM")
  '(org-export-backends '(ascii beamer html icalendar latex md odt texinfo))
  '(org-file-apps
