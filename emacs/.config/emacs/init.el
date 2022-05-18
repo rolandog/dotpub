@@ -167,9 +167,9 @@
 
 ;; mexican holidays
 (require 'mexican-holidays)
-(customize-set-variable 'holiday-bahai-holidays nil)
-(customize-set-variable 'holiday-hebrew-holidays nil)
-(customize-set-variable 'holiday-islamic-holidays nil)
+(customize-set-variable 'holiday-bahai-holidays t)
+(customize-set-variable 'holiday-hebrew-holidays t)
+(customize-set-variable 'holiday-islamic-holidays t)
 (setq calendar-holidays (append calendar-holidays holiday-mexican-holidays))
 
 (require 'netherlands-holidays)
@@ -514,11 +514,8 @@
  '(ansi-color-names-vector
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(custom-enabled-themes '(manoj-dark))
- '(holiday-bahai-holidays nil)
- '(holiday-hebrew-holidays nil)
- '(holiday-islamic-holidays nil)
  '(org-agenda-files
-   '("~/org/duties.org" "/home/rolandog/org/habits.org" "/home/rolandog/org/chores.org" "/home/rolandog/org/capture.org" "/home/rolandog/org/iwt.org" "/home/rolandog/org/albeda-a2-studiewijzer.org" "/home/rolandog/org/journal.org" "/home/rolandog/org/projects.org" "/home/rolandog/org/gtd.org" "/home/rolandog/org/dates.org"))
+   '("/home/rolandog/org/duties.org" "/home/rolandog/org/habits.org" "/home/rolandog/org/chores.org" "/home/rolandog/org/capture.org" "/home/rolandog/org/iwt.org" "/home/rolandog/org/journal.org" "/home/rolandog/org/projects.org" "/home/rolandog/org/gtd.org" "/home/rolandog/org/dates.org"))
  '(org-columns-default-format "%40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM")
  '(org-export-backends '(ascii beamer html icalendar latex md odt texinfo))
  '(org-file-apps
