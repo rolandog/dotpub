@@ -61,11 +61,14 @@ if [ -n "${BASH_VERSION:-}" ]; then
     xterm*|rxvt*)
       PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]${PS1}"
       ;;
+    "dumb")
+      PS1="> "
+      ;;
     *)
       ;;
   esac
 
-# if running dash
+# if not running bash
 else
   : "${USER=$(id -un)}" "${HOSTNAME=$(uname -n)}"
   # if da(sh)
@@ -85,6 +88,15 @@ else
     else
       PS1="${PS1}\$ "
     fi
+  # test for dumb terminal
+  else
+    case "$TERM" in
+      "dumb")
+        PS1="> "
+        ;;
+      *)
+        ;;
+    esac
   fi
 fi
 
