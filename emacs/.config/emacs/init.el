@@ -514,6 +514,9 @@
  '(ansi-color-names-vector
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(custom-enabled-themes '(manoj-dark))
+ '(holiday-bahai-holidays t)
+ '(holiday-hebrew-holidays t)
+ '(holiday-islamic-holidays t)
  '(org-agenda-files
    '("/home/rolandog/org/duties.org" "/home/rolandog/org/habits.org" "/home/rolandog/org/chores.org" "/home/rolandog/org/capture.org" "/home/rolandog/org/iwt.org" "/home/rolandog/org/journal.org" "/home/rolandog/org/projects.org" "/home/rolandog/org/gtd.org" "/home/rolandog/org/dates.org"))
  '(org-columns-default-format "%40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM")
@@ -522,7 +525,7 @@
    '((auto-mode . emacs)
      ("\\.mm\\'" . default)
      ("\\.x?html?\\'" . default)
-     ("\\.pdf\\'" . default)
+     ("\\.pdf\\'" . "evince %s")
      ("\\.mkv\\'" . "mpv %s")
      ("\\.mp4\\'" . "mpv %s")))
  '(org-global-properties
