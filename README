@@ -101,7 +101,7 @@ _________________
 
   Here is an overview of the 'branches' that will be 'transplanted'.
   ,----
-  | /home/rolandog/.dotfiles/.pub
+  | /home/rolandog/.local/share/dotfiles/pub
   | |-- applications/
   | |   `-- .local/
   | |       `-- share/
@@ -120,6 +120,7 @@ _________________
   | |   `-- .config/
   | |       `-- htop/
   | |-- lynx/
+  | |-- make/
   | |-- org/
   | |   `-- .local/
   | |       `-- share/

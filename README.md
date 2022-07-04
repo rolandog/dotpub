@@ -58,7 +58,7 @@ For a given `PACKAGE`:
 Here is an overview of the 'branches' that will be 'transplanted'.
 
 ``` text
-/home/rolandog/.dotfiles/.pub
+/home/rolandog/.local/share/dotfiles/pub
 |-- applications/
 |   `-- .local/
 |       `-- share/
@@ -77,6 +77,7 @@ Here is an overview of the 'branches' that will be 'transplanted'.
 |   `-- .config/
 |       `-- htop/
 |-- lynx/
+|-- make/
 |-- org/
 |   `-- .local/
 |       `-- share/

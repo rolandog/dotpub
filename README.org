@@ -64,9 +64,9 @@ Here is an overview of the 'branches' that will be 'transplanted'.
     's/(^[`|[:space:]].+)/\1\//'
 #+END_SRC
 
-#+RESULTS[25268a3daf8c04b1039ad1966acbc30dddb8326a]: tree-overview
+#+RESULTS[2f96629f6b3716475f3de7e7545880e293be474c]: tree-overview
 #+begin_SRC text
-/home/rolandog/.dotfiles/.pub
+/home/rolandog/.local/share/dotfiles/pub
 |-- applications/
 |   `-- .local/
 |       `-- share/
@@ -85,6 +85,7 @@ Here is an overview of the 'branches' that will be 'transplanted'.
 |   `-- .config/
 |       `-- htop/
 |-- lynx/
+|-- make/
 |-- org/
 |   `-- .local/
 |       `-- share/
