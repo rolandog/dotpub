@@ -17,3 +17,6 @@ git/.config/git/global.gitignore
 gpg/**/*.tex
 *.tex
 
+# local files
+ssh/**/local.conf
+
