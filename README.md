@@ -11,18 +11,18 @@ hopefully be of some use to others.
 
 ### TL;DR?
 
-This repository is meant to be cloned inside `~.dotfiles/.pub/`, and
-from that directory, package's dotfiles are meant to be installed by
-running `stow PACKAGE` inside that subdirectory (using [GNU Stow](https://www.gnu.org/software/stow/manual/stow.html)).
+This repository is meant to be cloned inside
+`~/.local/share/dotfiles/pub/`, and from that directory, package's
+dotfiles are meant to be installed by running `stow PACKAGE` inside
+that subdirectory (using [GNU Stow](https://www.gnu.org/software/stow/manual/stow.html)).
 
 ## Downloading dotfiles
 
-This repository is meant to be cloned inside `~.dotfiles/.pub/`:
+This repository is meant to be cloned inside `~/.local/share/dotfiles/pub/`:
 
 ``` bash
-mkdir -p ~/.dotfiles/.pub
-git clone https://git.sr.ht/~rolandog/dotpub ~/.dotfiles/.pub
-cd ~/.dotfiles/.pub
+git clone https://git.sr.ht/~rolandog/dotpub ~/.local/share/dotfiles/pub
+cd ~/.local/share/dotfiles/pub
 ```
 
 ## Installing dotfiles
@@ -52,7 +52,7 @@ have stow treat it as the source, and to treat `$HOME` as its target.
 
 For a given `PACKAGE`:
 
-  - The file `~/.dotfiles/.pub/PACKAGE/.config/hello/world`
+  - The file `~/.local/share/dotfiles/pub/PACKAGE/.config/hello/world`
   - Will end in `~/.config/hello/world`
 
 Here is an overview of the 'branches' that will be 'transplanted'.

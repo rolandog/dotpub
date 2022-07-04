@@ -12,29 +12,29 @@ basis.
 The intent of sharing this publicly is that these files may
 hopefully be of some use to others.
 ** TL;DR?
-This repository is meant to be cloned inside =~.dotfiles/.pub/=, and
-from that directory, package's dotfiles are meant to be installed by
-running =stow PACKAGE= inside that subdirectory (using [[https://www.gnu.org/software/stow/manual/stow.html][GNU Stow]]).
+This repository is meant to be cloned inside
+=~/.local/share/dotfiles/pub/=, and from that directory, package's
+dotfiles are meant to be installed by running =stow PACKAGE= inside
+that subdirectory (using [[https://www.gnu.org/software/stow/manual/stow.html][GNU Stow]]).
 * Downloading dotfiles
-This repository is meant to be cloned inside =~.dotfiles/.pub/=:
+This repository is meant to be cloned inside =~/.local/share/dotfiles/pub/=:
 
 #+BEGIN_SRC bash :exports code :eval never :dir ~ :wrap SRC text
-  mkdir -p ~/.dotfiles/.pub
-  git clone https://git.sr.ht/~rolandog/dotpub ~/.dotfiles/.pub
-  cd ~/.dotfiles/.pub
+  git clone https://git.sr.ht/~rolandog/dotpub ~/.local/share/dotfiles/pub
+  cd ~/.local/share/dotfiles/pub
 #+END_SRC
 * Installing dotfiles
 A quick way to install all the dotfiles is by running (the =SHELL=
 part is optional, but allows for the use of colors in the output):
 
-#+BEGIN_SRC bash :exports code :eval never :dir ~/.dotfiles/.pub :wrap SRC text
+#+BEGIN_SRC bash :exports code :eval never :dir ~/.local/share/dotfiles/pub :wrap SRC text
   make install SHELL=/usr/bin/bash
 #+END_SRC
 
 If, however, one wishes to only install a particular set of dotfiles
 for a particular =PACKAGE=, one could run:
 
-#+BEGIN_SRC bash :exports code :eval never :dir ~/.dotfiles/.pub :wrap SRC text
+#+BEGIN_SRC bash :exports code :eval never :dir ~/.local/share/dotfiles/pub :wrap SRC text
   stow PACKAGE
 #+END_SRC
 * What dotfiles are installed?
@@ -46,19 +46,19 @@ In our case, this directory (=$HOME/.dotfiles/.pub/=) is configured to
 have stow treat it as the source, and to treat =$HOME= as its target.
 
 For a given =PACKAGE=:
-- The file =~/.dotfiles/.pub/PACKAGE/.config/hello/world=
+- The file =~/.local/share/dotfiles/pub/PACKAGE/.config/hello/world=
 - Will end in =~/.config/hello/world=
 
 Here is an overview of the 'branches' that will be 'transplanted'.
 #+name: tree-overview
-#+BEGIN_SRC bash :exports results :results output :cache yes :dir ~/.dotfiles/.pub :wrap SRC text
+#+BEGIN_SRC bash :exports results :results output :cache yes :dir ~/.local/share/dotfiles/pub :wrap SRC text
   tree \
     -adlnF  \
     -I '.git|etc|git|ssh'  \
     -L 3  \
     --charset=ascii  \
     --noreport  \
-    ~/.dotfiles/.pub  \
+    ~/.local/share/dotfiles/pub  \
   | sed -E  \
     --posix  \
     's/(^[`|[:space:]].+)/\1\//'
@@ -108,7 +108,7 @@ Here is an overview of the 'branches' that will be 'transplanted'.
 * Pushing local changes
 The first time we want to push additional changes back:
 
-#+BEGIN_SRC bash :exports code :eval never :dir ~/.dotfiles/.pub :wrap SRC text
+#+BEGIN_SRC bash :exports code :eval never :dir ~/.local/share/dotfiles/pub :wrap SRC text
   git remote add origin git@git.sr.ht:~rolandog/dotpub
   git push --set-upstream origin main
 #+END_SRC
