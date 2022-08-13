@@ -6,6 +6,9 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+# permissions
+alias perms="stat -c '%a - %n'"
+
 ### neofetch
 if [ -x /usr/bin/neofetch ]; then
   # test for NO_COLOR
