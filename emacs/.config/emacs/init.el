@@ -151,6 +151,7 @@
    (js . t)
    (latex . t)
    (org . t)
+   (php . t)
    (python . t)
    (shell . t)
    )
@@ -472,6 +473,14 @@
 ;(ox-extras-activate '(ignore-headlines))
 
 
+;;; Jinja2
+(require 'jinja2-mode)
+
+;; Make Jinja2 mode work with files ending in .jinja
+(add-to-list 'auto-mode-alist '("\.jinja\'" . jinja2-mode))
+(add-to-list 'auto-mode-alist '("\\.jinja$" . jinja2-mode))
+(add-to-list 'auto-mode-alist '("\\.jinja\\'" . jinja2-mode))
+
 ;;; Formatting
 ;; add es-MX and nl quotation marks to org-export-smart-quotes-alist
 (push
@@ -539,7 +548,7 @@
  '(org-modules
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
  '(package-selected-packages
-   '(netherlands-holidays gnuplot mexican-holidays string-inflection openwith htmlize))
+   '(citeproc gnuplot htmlize jinja2-mode mexican-holidays netherlands-holidays ob-blockdiag ob-php ob-sql-mode openwith org org-drill org-roam org-roam-bibtex string-inflection))
  '(reftex-bibpath-environment-variables
    '("BIBINPUTS" "TEXBIB" "/home/rolandog/Documents/references/" "/home/rolandog/org/" "/home/rolandog/org-roam/"))
  '(reftex-default-bibliography '("~/org/references.bib")))
