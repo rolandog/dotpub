@@ -19,14 +19,14 @@
 
 ;; add different repositories:
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
-(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
+;(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 ;; set repository priority:
 (setq package-archive-priorities
       '(("gnu" . 15)
-        ("org" . 10)
+        ;("org" . 10)
         ("melpa-stable" . 5)
         ("melpa" . 0)))
 
@@ -42,8 +42,8 @@
         f
         git-commit
         htmlize
-        magit
-        magit-section
+        ;magit
+        ;magit-section
         ;;oc-csl
         openwith
         org
@@ -109,9 +109,9 @@
 ;; weird org-ref error may require org-export backend
 (require 'ox)
 (require 'ox-org)
-(require 'ob-ipython)
-(require 'ox-ipynb)
-(add-to-list 'org-latex-listings-langs '(ipython "python"))
+;(require 'ob-ipython)
+;(require 'ox-ipynb)
+;(add-to-list 'org-latex-listings-langs '(ipython "python"))
 
 (autoload 'gnuplot-mode "gnuplot" "Gnuplot major mode" t)
 (autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot-mode" t)
@@ -146,7 +146,7 @@
    ;;(emacs-lisp . t)  ;; unknown emacs-lisp mode?
    (fortran . t)
    (gnuplot . t)
-   (ipython . t)
+   ;(ipython . t)
    ;;(ini . t)  ;; no ob-ini, but there's a built-in conf-mode
    (js . t)
    (latex . t)
@@ -374,7 +374,7 @@
 
 ;;; Magit
 ;; global key binding for magit
-(global-set-key (kbd "C-x g") 'magit-status)
+;(global-set-key (kbd "C-x g") 'magit-status)
 
 
 ;;; Bibliography
@@ -466,10 +466,10 @@
 
 ;;; ox-extras
 ;; require the package
-(require 'ox-extra)
+;(require 'ox-extras)
 
 ;; ignore headings
-(ox-extras-activate '(ignore-headlines))
+;(ox-extras-activate '(ignore-headlines))
 
 
 ;;; Formatting
@@ -503,6 +503,9 @@
 ;; display column numbers in mode line
 (setq column-number-mode t)
 
+;;; removed packages
+; modules:
+; org-annotate-file org-checklist
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -513,6 +516,7 @@
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
+ '(column-number-mode t)
  '(custom-enabled-themes '(manoj-dark))
  '(holiday-bahai-holidays t)
  '(holiday-hebrew-holidays t)
@@ -533,9 +537,9 @@
  '(org-habit-graph-column 45)
  '(org-loop-over-headlines-in-active-region t)
  '(org-modules
-   '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m org-annotate-file org-checklist))
+   '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
  '(package-selected-packages
-   '(netherlands-holidays gnuplot mexican-holidays ob-blockdiag string-inflection citeproc org-roam org-drill org openwith htmlize))
+   '(netherlands-holidays gnuplot mexican-holidays string-inflection openwith htmlize))
  '(reftex-bibpath-environment-variables
    '("BIBINPUTS" "TEXBIB" "/home/rolandog/Documents/references/" "/home/rolandog/org/" "/home/rolandog/org-roam/"))
  '(reftex-default-bibliography '("~/org/references.bib")))
