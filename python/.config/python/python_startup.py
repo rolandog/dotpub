@@ -30,6 +30,6 @@ try:
 except FileNotFoundError:
     # if $XDG_STATE_HOME/python/ does not exist, create it
     if not os.path.isdir(os.path.dirname(histfile)):
-        os.path.mkdirs(os.path.dirname(histfile), mode=0o700)
+        os.makedirs(os.path.dirname(histfile), mode=0o700)
 
 atexit.register(readline.write_history_file, histfile)
