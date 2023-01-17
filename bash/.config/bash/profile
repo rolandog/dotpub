@@ -48,6 +48,41 @@ if [ -d "${XDG_DATA_HOME}" ] ; then
   XDG_DATA_DIRS="${XDG_DATA_HOME}:${XDG_DATA_DIRS}"
 fi
 
+
+### guix
+# setting environment variables for guix
+if [ -e ~/.guix-profile ]; then
+     export GUIX_PROFILE="${HOME}/.guix-profile"
+     . "${GUIX_PROFILE}/etc/profile"
+fi
+
+# setting environment variables for glibc-locales
+if [ -d ~/.guix-profile/lib/locale ]; then
+    export GUIX_LOCPATH="${HOME}/.guix-profile/lib/locale"
+fi
+
+# adding guix to PATH
+if [ -e ~/.config/guix/current/bin ]; then
+    export PATH="${HOME}/.config/guix/current/bin:${PATH}"
+fi
+
+# adding guix info to INFOPATH
+if [ -d ~/.config/guix/current/share/info ]; then
+    export INFOPATH="${HOME}/.config/guix/current/share/info:${INFOPATH}"
+fi
+
+
+### guix nss-certs
+if [ -d ~/.guix-profile/etc/ssl/certs ]; then
+    export SSL_CERT_DIR="${HOME}/.guix-profile/etc/ssl/certs"
+fi
+
+if [ -e ~/.guix-profile/etc/ssl/certs/ca-certificates.crt ]; then
+    export SSL_CERT_FILE="${HOME}/.guix-profile/etc/ssl/certs/ca-certificates.crt"
+    export GIT_SSL_CAINFO="${SSL_CERT_FILE}"
+    export CURL_CA_BUNDLE="${SSL_CERT_FILE}"
+fi
+
 ### vim
 GVIMINIT='let $MYGVIMRC = !has("nvim") ? '
 GVIMINIT="${GVIMINIT}"'"$XDG_CONFIG_HOME/vim/gvimrc" : '
