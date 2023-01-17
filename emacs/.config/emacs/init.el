@@ -286,7 +286,8 @@
 (require 'openwith)
 (openwith-mode t)
 (setq openwith-associations
-      '(("\\.mp3\\'" "mpv" (file))
+      '(("\\.html\\'" "firefox" (file))
+        ("\\.mp3\\'" "mpv" (file))
         ("\\.mp4\\'" "mpv" (file))
         ("\\.webm\\'" "mpv" (file))))
 
