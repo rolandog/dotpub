@@ -38,9 +38,9 @@
         ;;dired-x
         emacsql
         emacsql-sqlite
-        emacsql-sqlite3
+        ; emacsql-sqlite3
         f
-        git-commit
+        ; git-commit
         htmlize
         ;magit
         ;magit-section
@@ -55,8 +55,8 @@
         persist
         s
         string-inflection
-        transient
-        with-editor
+        ; transient
+        ; with-editor
         ))
 
 ;; activate all the packages;
@@ -515,6 +515,8 @@
 ;;; removed packages
 ; modules:
 ; org-annotate-file org-checklist
+; selected-packages:
+; with-editor transient git-commit emacsql-sqlite3
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
