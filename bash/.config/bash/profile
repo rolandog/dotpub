@@ -33,6 +33,11 @@ if [ -d "${XDG_BIN_HOME}" ] ; then
   PATH="${XDG_BIN_HOME}:${PATH}"
 fi
 
+# set PATH so it includes user's private games folder if it exists
+if [ -d "${XDG_GAMES_HOME}" ] ; then
+  PATH="${XDG_GAMES_HOME}:${PATH}"
+fi
+
 # set XDG_CONFIG_DIRS so it includes XDG_CONFIG_HOME if it exists
 if [ -d "${XDG_CONFIG_HOME}" ] ; then
   XDG_CONFIG_DIRS="${XDG_CONFIG_HOME}:${XDG_CONFIG_DIRS}"
@@ -61,4 +66,3 @@ export VISUAL
 
 EDITOR="$(command -v nano)"
 export EDITOR
-
