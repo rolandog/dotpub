@@ -550,7 +550,7 @@
  '(org-modules
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
  '(package-selected-packages
-   '(biblio citeproc gnuplot htmlize jinja2-mode mexican-holidays netherlands-holidays ob-blockdiag ob-php ob-sql-mode openwith org org-drill org-roam org-roam-bibtex string-inflection))
+   '(lsp-mode poetry biblio citeproc gnuplot htmlize jinja2-mode mexican-holidays netherlands-holidays ob-blockdiag ob-php ob-sql-mode openwith org org-drill org-roam org-roam-bibtex string-inflection))
  '(reftex-bibpath-environment-variables
    '("BIBINPUTS" "TEXBIB" "/home/rolandog/Documents/references/" "/home/rolandog/org/" "/home/rolandog/org-roam/"))
  '(reftex-default-bibliography '("~/org/references.bib")))
