@@ -437,6 +437,9 @@
 ;; don't export with priority keywords
 (setq org-export-with-priority nil)
 
+;; don't export with tags
+(setq org-export-with-tags nil)
+
 ;; don't export with todo keywords
 (setq org-export-with-todo-keywords nil)
 
