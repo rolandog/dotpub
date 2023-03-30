@@ -9,8 +9,11 @@ GenericName=Spyder
 GenericName[en]=Spyder
 GenericName[es]=Spyder
 GenericName[nl]=Spyder
-TryExec=env PIPENV_PIPFILE=/home/rolandog/projects/spyder/Pipfile PIPENV_CUSTOM_VENV_NAME=spyder-env pipenv run spyder
-Exec=env PIPENV_PIPFILE=/home/rolandog/projects/spyder/Pipfile PIPENV_CUSTOM_VENV_NAME=spyder-env pipenv run spyder %F
+TryExec=spyder
+Exec=spyder %F
+Path=/usr/bin/
+#TryExec=env PIPENV_PIPFILE=/home/rolandog/projects/spyder/Pipfile PIPENV_CUSTOM_VENV_NAME=spyder-env pipenv run spyder
+#Exec=env PIPENV_PIPFILE=/home/rolandog/projects/spyder/Pipfile PIPENV_CUSTOM_VENV_NAME=spyder-env pipenv run spyder %F
 #Path=/home/rolandog/projects/spyder/
 Terminal=false
 MimeType=text/x-python;
