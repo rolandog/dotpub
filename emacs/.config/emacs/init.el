@@ -286,8 +286,7 @@
 (require 'openwith)
 (openwith-mode t)
 (setq openwith-associations
-      '(("\\.html\\'" "firefox" (file))
-        ("\\.mp3\\'" "mpv" (file))
+      '(("\\.mp3\\'" "mpv" (file))
         ("\\.mp4\\'" "mpv" (file))
         ("\\.webm\\'" "mpv" (file))))
 
@@ -511,6 +510,12 @@
 ;; set org-indent-mode
 (setq org-startup-indented t)
 
+;; format marginpar drawer
+(setq org-latex-format-drawer-function
+      (lambda (name contents)
+              (cond ((string= name "marginpar")
+                     (format "\\marginpar{%s}" contents))
+                    (t (format "\\textbf{Note}: %s" contents)))))
 
 ;;; Columns
 ;; display column numbers in mode line

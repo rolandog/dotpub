@@ -1,0 +1,21 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Version=1.5
+Name=Spyder
+Comment=The Scientific Python Development Environment
+Icon=/home/rolandog/.local/share/Spyder/logo/spyder.svg
+GenericName=Spyder
+GenericName[en]=Spyder
+GenericName[es]=Spyder
+GenericName[nl]=Spyder
+TryExec=env PIPENV_PIPFILE=/home/rolandog/projects/spyder/Pipfile PIPENV_CUSTOM_VENV_NAME=spyder-env pipenv run spyder
+Exec=env PIPENV_PIPFILE=/home/rolandog/projects/spyder/Pipfile PIPENV_CUSTOM_VENV_NAME=spyder-env pipenv run spyder %F
+#Path=/home/rolandog/projects/spyder/
+Terminal=false
+MimeType=text/x-python;
+Categories=Science;IDE;Qt;
+Keywords=Development;Science;IDE;Qt;
+StartupNotify=true
+StartupWMClass=Spyder
+
