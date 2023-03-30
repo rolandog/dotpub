@@ -136,6 +136,10 @@
 ;; org-babel configurations for the shell
 (require 'ob-shell)
 
+;; add plantuml to lang-modes
+(add-to-list
+  'org-src-lang-modes '("plantuml" . plantuml))
+
 ;; languages to make available in org-mode
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -152,6 +156,7 @@
    (latex . t)
    (org . t)
    (php . t)
+   (plantuml . t)
    (python . t)
    (shell . t)
    )
@@ -178,6 +183,16 @@
 
 ;; fontify code in code blocks
 (setq org-src-fontify-natively t)
+
+;; Sample jar configuration
+(setq plantuml-jar-path "~/.local/bin/plantuml-1.2023.5.jar")
+(setq org-plantuml-jar-path "~/.local/bin/plantuml-1.2023.5.jar")
+;(setq plantuml-default-exec-mode 'jar)
+
+;; Sample executable configuration
+(setq plantuml-executable-path "~/.local/bin/plantuml")
+(setq plantuml-default-exec-mode 'executable)
+
 
 ;; mexican holidays
 (require 'mexican-holidays)
@@ -572,7 +587,7 @@
  '(org-modules
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
  '(package-selected-packages
-   '(lsp-mode poetry biblio citeproc gnuplot htmlize jinja2-mode mexican-holidays netherlands-holidays ob-blockdiag ob-php ob-sql-mode openwith org org-drill org-roam org-roam-bibtex string-inflection))
+   '(plantuml-mode lsp-mode poetry biblio citeproc gnuplot htmlize jinja2-mode mexican-holidays netherlands-holidays ob-blockdiag ob-php ob-sql-mode openwith org org-drill org-roam org-roam-bibtex string-inflection))
  '(reftex-bibpath-environment-variables
    '("BIBINPUTS" "TEXBIB" "/home/rolandog/Documents/references/" "/home/rolandog/org/" "/home/rolandog/org-roam/"))
  '(reftex-default-bibliography '("~/org/references.bib")))
