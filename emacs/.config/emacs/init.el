@@ -160,6 +160,19 @@
 ;; display/update images in the buffer after evaluation
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 
+; thanks gregoryg and Vaddson
+; https://emacs.stackexchange.com/a/64379/36303
+(defun gjg/time-call (time-call &rest args)
+(message "Ohai %s" args)
+(let ((start-time (float-time))
+      (result (apply time-call args)))
+  (message "Function call took %f seconds" (- (float-time) start-time))
+  result))
+(advice-add 'org-babel-execute-src-block :around #'gjg/time-call)
+
+; To remove the advice, execute
+; (advice-remove 'org-babel-execute-src-block #'gjg/time-call)
+
 ;; built-in conf/ini mode; does it auto-load?
 ;(require 'conf-mode)
 
