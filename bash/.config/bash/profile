@@ -51,8 +51,8 @@ fi
 
 ### guix
 # setting environment variables for guix
-if [ -e ~/.guix-profile ]; then
-     export GUIX_PROFILE="${HOME}/.guix-profile"
+if [ -e ~/.config/guix/current ]; then
+     export GUIX_PROFILE="${HOME}/.config/guix/current"
      . "${GUIX_PROFILE}/etc/profile"
 fi
 
@@ -73,12 +73,12 @@ fi
 
 
 ### guix nss-certs
-if [ -d ~/.guix-profile/etc/ssl/certs ]; then
-    export SSL_CERT_DIR="${HOME}/.guix-profile/etc/ssl/certs"
+if [ -d ~/.config/guix/current/etc/ssl/certs ]; then
+    export SSL_CERT_DIR="${HOME}/.config/guix/current/etc/ssl/certs"
 fi
 
-if [ -e ~/.guix-profile/etc/ssl/certs/ca-certificates.crt ]; then
-    export SSL_CERT_FILE="${HOME}/.guix-profile/etc/ssl/certs/ca-certificates.crt"
+if [ -e ~/.config/guix/current/etc/ssl/certs/ca-certificates.crt ]; then
+    export SSL_CERT_FILE="${HOME}/.config/guix/current/etc/ssl/certs/ca-certificates.crt"
     export GIT_SSL_CAINFO="${SSL_CERT_FILE}"
     export CURL_CA_BUNDLE="${SSL_CERT_FILE}"
 fi
