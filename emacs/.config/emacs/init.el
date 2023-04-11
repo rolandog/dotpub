@@ -97,9 +97,52 @@
 (setq abbrev-file-name "~/.config/emacs/abbrev_defs")
 
 
+;;;; Password management (password-store)
+
+(auth-source-pass-enable)
+
+; TODO: test if one can require 'xdg package and call (xdg-data-home)?
+(setq auth-sources (list
+                    (concat (getenv "XDG_DATA_HOME") "/authinfo.gpg")
+                    "~/.authinfo.gpg"))
+
+
 ;;; Org mode configuration:
 ;; Enable Org mode:
 (require 'org)
+
+;; org-ai
+(require 'org-ai)
+(add-hook 'org-mode-hook #'org-ai-mode)
+(setq org-ai-openai-api-token (funcall
+                                (plist-get
+                                  (car
+                                    (auth-source-search
+                                      :host "api.openai.com"
+                                      :user "org-ai"
+                                    )
+                                  )
+                                  :secret
+                                )
+                              )
+)
+
+;(defun znc ()
+;  "Connect to ZNC."
+;  (interactive)
+;  (let ((user "thblt")
+;        (pass (funcall (plist-get
+;                        (car
+;                         (auth-source-search
+;                          :max 1
+;                          :host "znc.thb.lt"))
+;                        :secret))))
+;    (erc-tls
+;     :server "k9.thb.lt"
+;     :port 2002
+;     :nick user
+;     :password (format "%s:%s" user pass))))
+
 
 ;; Make Org mode work with files ending in .org
 (add-to-list 'auto-mode-alist '("\.org\'" . org-mode))
@@ -587,7 +630,7 @@
  '(org-modules
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
  '(package-selected-packages
-   '(plantuml-mode lsp-mode poetry biblio citeproc gnuplot htmlize jinja2-mode mexican-holidays netherlands-holidays ob-blockdiag ob-php ob-sql-mode openwith org org-drill org-roam org-roam-bibtex string-inflection))
+   '(org-ai plantuml-mode lsp-mode poetry biblio citeproc gnuplot htmlize jinja2-mode mexican-holidays netherlands-holidays ob-blockdiag ob-php ob-sql-mode openwith org org-drill org-roam org-roam-bibtex string-inflection))
  '(reftex-bibpath-environment-variables
    '("BIBINPUTS" "TEXBIB" "/home/rolandog/Documents/references/" "/home/rolandog/org/" "/home/rolandog/org-roam/"))
  '(reftex-default-bibliography '("~/org/references.bib")))
