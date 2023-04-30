@@ -6,6 +6,8 @@
 	path = ~/.config/git/config-professional
 [core]
 	editor = emacs
+	eol = lf
+	excludesfile = ~/.config/git/global.gitignore
 [color]
 	status = auto
 	branch = auto
