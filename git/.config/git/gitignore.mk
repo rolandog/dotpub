@@ -484,8 +484,10 @@ git-pull-now:: $(GITIGNORE_DIR)
 	@$(call ok,$@)
 
 # ensure we're up-to-date with current gitignore standards
+# also comment '*.org' rule for OSCP request data from OpenSSL.gitignore
 global.gitignore : $(GITIGNORE_FILES); @ ## concatenate .gitignore files
 	cat $^ > $@
+	sed -i --posix --sandbox 's/*.org/#*.org/g' $@
 	@$(call ok,$@)
 
 .PHONY: help
