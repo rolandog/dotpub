@@ -165,6 +165,10 @@
 ;; Enable gnuplot-mode
 (require 'gnuplot)
 
+;; Enable graphviz-dot-mode
+(require 'graphviz-dot-mode)
+(setq graphviz-dot-indent-width 4)
+
 ;; global key bindings for org-mode
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
@@ -611,7 +615,7 @@
  '(ansi-color-names-vector
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(column-number-mode t)
- '(custom-enabled-themes '(manoj-dark))
+ '(custom-enabled-themes '(leuven))
  '(holiday-bahai-holidays t)
  '(holiday-hebrew-holidays t)
  '(holiday-islamic-holidays t)
@@ -633,7 +637,7 @@
  '(org-modules
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
  '(package-selected-packages
-   '(ox-clip org-contrib org-ai plantuml-mode lsp-mode poetry biblio citeproc gnuplot htmlize jinja2-mode mexican-holidays netherlands-holidays ob-blockdiag ob-php ob-sql-mode openwith org org-drill org-roam org-roam-bibtex string-inflection))
+   '(graphviz-dot-mode ox-clip org-contrib org-ai plantuml-mode lsp-mode poetry biblio citeproc gnuplot htmlize jinja2-mode mexican-holidays netherlands-holidays ob-blockdiag ob-php ob-sql-mode openwith org org-drill org-roam org-roam-bibtex string-inflection))
  '(reftex-bibpath-environment-variables
    '("BIBINPUTS" "TEXBIB" "/home/rolandog/Documents/references/" "/home/rolandog/org/" "/home/rolandog/org-roam/"))
  '(reftex-default-bibliography '("~/org/references.bib")))
