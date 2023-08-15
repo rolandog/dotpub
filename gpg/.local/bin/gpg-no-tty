@@ -1,0 +1,4 @@
+#!/bin/sh
+# https://gist.github.com/saschadoemer/5c1873f44e9188e03d4e044bf22217d7
+/usr/bin/gpg --batch --no-tty "$@"
+
