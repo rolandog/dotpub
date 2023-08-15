@@ -8,4 +8,6 @@ git
 make
 # example ssh configuration
 ssh
+# symbolic user-dirs can cause problems with snaps
+user-dirs
 
