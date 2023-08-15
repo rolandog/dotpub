@@ -9,6 +9,25 @@
 #alias soundalert='notify-send --urgency=low -i "$([[ $? == 0 ]] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*soundalert$//'\'')" && aplay -q $XDG_DATA_HOME/bash/wubba_lubba_dub-dub.wav'
 
 #######################################
+# Does it exist?
+# Arguments:
+#   Function or Command Name
+# Returns:
+#   0 if True or 1 if False
+#######################################
+command_exists() {
+  # if non-empty argument
+  if [ -n "${1}" ]; then
+    if [ -n "$(command -v "${1}")" ]; then
+      true
+      return
+    fi
+  fi
+  false
+  return
+}
+
+#######################################
 # Modified find_path to find command in path
 # Arguments:
 #   Command
@@ -72,6 +91,34 @@ is_abs_path_and_executable() {
     return
   fi
 }
+
+
+#######################################
+# Is it a function?
+# Arguments:
+#   Function Name
+# Returns:
+#   0 if True or 1 if False
+#######################################
+is_function() {
+  # if non-empty argument
+  if [ -z "${1}" ]; then
+    false
+    return
+  fi
+  if [ -z "$(command -v "${1}")" ]; then
+    false
+    return
+  fi
+  # https://stackoverflow.com/a/35820974
+  if command -V "${1}" | sed "s/${1}//" | grep -qwi 'function'; then
+    true
+    return
+  fi
+  false
+  return
+}
+
 
 #######################################
 # POSIXLY correct which implementation
