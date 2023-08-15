@@ -49,6 +49,15 @@ if [ -d "${XDG_DATA_HOME}" ] ; then
 fi
 
 
+### gpg
+# if GPG_TTY is null
+# https://stackoverflow.com/a/42265848
+if [ -z "${GPG_TTY}" ]; then
+    GPG_TTY="$(tty)"
+    export GPG_TTY
+fi
+
+
 ### guix
 # setting environment variables for guix
 if [ -e ~/.config/guix/current ]; then
