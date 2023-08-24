@@ -49,6 +49,20 @@ if [ -d "${XDG_DATA_HOME}" ] ; then
 fi
 
 
+### Emacs
+# if EMAIL is null
+
+if [ -z "${EMAIL}" ]; then
+    EMAIL=""
+    EMAIL="${EMAIL}rolandog"
+    EMAIL="${EMAIL}@"
+    EMAIL="${EMAIL}gmail"
+    EMAIL="${EMAIL}."
+    EMAIL="${EMAIL}com"
+    export EMAIL
+fi
+
+
 ### gpg
 # if GPG_TTY is null
 # https://stackoverflow.com/a/42265848
