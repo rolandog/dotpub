@@ -607,6 +607,12 @@
                      (format "\\marginpar{%s}" contents))
                     (t (format "\\textbf{Note}: %s" contents)))))
 
+
+;;; Yaml
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+
+
 ;;; Columns
 ;; display column numbers in mode line
 (setq column-number-mode t)
