@@ -531,6 +531,18 @@
 ;; global key binding to toggle auto-fill mode
 (global-set-key (kbd "C-c q") 'auto-fill-mode)
 
+;;; Stefan Monnier <foo at acm.org>. It is the opposite of fill-paragraph
+(defun unfill-paragraph (&optional region)
+  "Takes a multi-line paragraph and makes it into a single line of text."
+  (interactive (progn (barf-if-buffer-read-only) '(t)))
+  (let ((fill-column (point-max))
+        ;; This would override `fill-column' if it's an integer.
+        (emacs-lisp-docstring-fill-column t))
+    (fill-paragraph nil region)))
+
+;; Handy key definition
+(define-key global-map "\M-Q" 'unfill-paragraph)
+
 ;; global key binding to copy as formatted text without wrapping
 (global-set-key (kbd "s-w") 'ox-clip-formatted-copy) ; lower case "s" is for super
 
@@ -599,6 +611,70 @@
 ;; display column numbers in mode line
 (setq column-number-mode t)
 
+
+;;; Editar celdas con (mucho) contenido en las tablas de Org Mode
+; gracias Juan Manuel Macías
+; https://gnutas.juanmanuelmacias.com/editar_celdas.html
+(defun reemplaza (antes despues)
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (while (re-search-forward antes nil t)
+      (replace-match despues t nil))))
+
+(defun mi-edicion-celda ()
+  (interactive)
+  (if (not (equal (org-element-type (org-element-at-point)) 'table-row))
+      (error "No estás en una tabla!")
+    (setq mi-buf (current-buffer))
+    (setq desde (save-excursion
+                  (re-search-backward "|" nil t)
+                  (forward-char)
+                  (point)))
+    (setq hasta (save-excursion
+                  (re-search-forward "|" nil t)
+                  (forward-char -1)
+                  (point)))
+    (let ((celda (buffer-substring-no-properties desde hasta)))
+      (when (get-buffer "edit-celda")
+        (kill-buffer "edit-celda"))
+      (get-buffer-create "edit-celda")
+      (set-buffer "edit-celda")
+      (insert celda)
+      (org-mode)
+      (mark-whole-buffer)
+      (org-fill-paragraph)
+      (deactivate-mark)
+      (reemplaza "{{{nl}}}" "{{{nl}}}\n")
+      (reemplaza "{{{par}}}" "{{{par}}}\n")
+      (pop-to-buffer "edit-celda"))))
+
+(defun salir-edicion-celda-y-guardar ()
+  (interactive)
+  (reemplaza "\n\n+" "\n")
+  (save-excursion
+    (goto-char (point-max))
+    (when (looking-at-p "^$")
+      (re-search-backward ".")
+      (end-of-line)
+      (delete-blank-lines)
+      (delete-forward-char 1)))
+  (mark-whole-buffer)
+  (call-interactively 'unfill-paragraph)
+  (deactivate-mark)
+  (setq bufer-edit (buffer-substring-no-properties (point-min) (point-max)))
+  (if (window-full-width-p)
+      (kill-buffer)
+    (kill-buffer-and-window))
+  (switch-to-buffer mi-buf)
+  (save-restriction
+    (narrow-to-region desde hasta)
+    (delete-region (point-min) (point-max))
+    (insert bufer-edit)
+    (save-buffer))
+  (org-table-toggle-column-width))
+
+
 ;;; removed packages
 ; modules:
 ; org-annotate-file org-checklist
@@ -615,7 +691,7 @@
  '(ansi-color-names-vector
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(column-number-mode t)
- '(custom-enabled-themes '(leuven))
+ '(custom-enabled-themes '(leuven-dark))
  '(holiday-bahai-holidays t)
  '(holiday-hebrew-holidays t)
  '(holiday-islamic-holidays t)
