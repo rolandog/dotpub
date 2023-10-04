@@ -14,7 +14,7 @@
 if [ -n "${BASH_VERSION:-}" ]; then
   # include .bashrc if it exists
   if [ -f "${HOME}/.bashrc" ]; then
-  # shellcheck source=.bashrc
+  # shellcheck source=SCRIPTDIR/.bashrc
   . "${HOME}/.bashrc"
   fi
 else
@@ -23,29 +23,37 @@ else
   export NO_COLOR
   # include .bashrc if it exists
   if [ -f "${HOME}/.bashrc" ]; then
-  # shellcheck source=.bashrc
+  # shellcheck source=SCRIPTDIR/.bashrc
   . "${HOME}/.bashrc"
   fi
 fi
 
+# no-op command to set default value of XDG_BIN_HOME, if undefined
+: "${XDG_BIN_HOME:=}"
 # set PATH so it includes user's private bin if it exists
 if [ -d "${XDG_BIN_HOME}" ] ; then
-  PATH="${XDG_BIN_HOME}:${PATH}"
+  export PATH="${XDG_BIN_HOME}:${PATH}"
 fi
 
+# no-op command to set default value of XDG_GAMES_HOME, if undefined
+: "${XDG_GAMES_HOME:=}"
 # set PATH so it includes user's private games folder if it exists
 if [ -d "${XDG_GAMES_HOME}" ] ; then
-  PATH="${XDG_GAMES_HOME}:${PATH}"
+  export PATH="${XDG_GAMES_HOME}:${PATH}"
 fi
 
 # set XDG_CONFIG_DIRS so it includes XDG_CONFIG_HOME if it exists
+# use "${ASDF:+"${ASDF}":}world" format to append to a variable... or,
+# use "world${ASDF:+:"${ASDF}"}" format to prepend to a variable.
 if [ -d "${XDG_CONFIG_HOME}" ] ; then
-  XDG_CONFIG_DIRS="${XDG_CONFIG_HOME}:${XDG_CONFIG_DIRS}"
+  XDG_CONFIG_DIRS="${XDG_CONFIG_HOME}${XDG_CONFIG_DIRS:+:${XDG_CONFIG_DIRS}}"
+  export XDG_CONFIG_DIRS
 fi
 
 # set XDG_DATA_DIRS so it includes XDG_DATA_HOME if it exists
 if [ -d "${XDG_DATA_HOME}" ] ; then
-  XDG_DATA_DIRS="${XDG_DATA_HOME}:${XDG_DATA_DIRS}"
+  XDG_DATA_DIRS="${XDG_DATA_HOME}${XDG_DATA_DIRS:+:${XDG_DATA_DIRS}}"
+  export XDG_DATA_DIRS
 fi
 
 
@@ -74,34 +82,38 @@ fi
 
 ### guix
 # setting environment variables for guix
-if [ -e ~/.config/guix/current ]; then
-     export GUIX_PROFILE="${HOME}/.config/guix/current"
-     . "${GUIX_PROFILE}/etc/profile"
+if [ -d "${HOME}/.config/guix/current" ]; then
+  export GUIX_PROFILE="${HOME}/.config/guix/current"
+  if [ -e "${GUIX_PROFILE}/etc/profile" ]; then
+    # shellcheck disable=SC1090
+    # shellcheck source=SCRIPTDIR/../../../../../.config/guix/current/etc/profile
+    . "${GUIX_PROFILE}/etc/profile"
+  fi
 fi
 
 # setting environment variables for glibc-locales
-if [ -d ~/.guix-profile/lib/locale ]; then
+if [ -d "${HOME}/.guix-profile/lib/locale" ]; then
     export GUIX_LOCPATH="${HOME}/.guix-profile/lib/locale"
 fi
 
 # adding guix to PATH
-if [ -e ~/.config/guix/current/bin ]; then
-    export PATH="${HOME}/.config/guix/current/bin:${PATH}"
+if [ -d "${GUIX_PROFILE}/bin" ]; then
+    export PATH="${GUIX_PROFILE}/bin:${PATH}"
 fi
 
 # adding guix info to INFOPATH
-if [ -d ~/.config/guix/current/share/info ]; then
-    export INFOPATH="${HOME}/.config/guix/current/share/info:${INFOPATH}"
+if [ -d "${GUIX_PROFILE}/share/info" ]; then
+    export INFOPATH="${GUIX_PROFILE}/share/info:${INFOPATH}"
 fi
 
 
 ### guix nss-certs
-if [ -d ~/.config/guix/current/etc/ssl/certs ]; then
-    export SSL_CERT_DIR="${HOME}/.config/guix/current/etc/ssl/certs"
+if [ -d "${GUIX_PROFILE}/etc/ssl/certs" ]; then
+    export SSL_CERT_DIR="${GUIX_PROFILE}/etc/ssl/certs"
 fi
 
-if [ -e ~/.config/guix/current/etc/ssl/certs/ca-certificates.crt ]; then
-    export SSL_CERT_FILE="${HOME}/.config/guix/current/etc/ssl/certs/ca-certificates.crt"
+if [ -e "${GUIX_PROFILE}/etc/ssl/certs/ca-certificates.crt" ]; then
+    export SSL_CERT_FILE="${GUIX_PROFILE}/etc/ssl/certs/ca-certificates.crt"
     export GIT_SSL_CAINFO="${SSL_CERT_FILE}"
     export CURL_CA_BUNDLE="${SSL_CERT_FILE}"
 fi
@@ -112,7 +124,9 @@ export PASSWORD_STORE_DIR="${XDG_DATA_HOME}"/pass
 
 
 ### vim
+# shellcheck disable=SC2016
 export GVIMINIT='let $MYGVIMRC="$XDG_CONFIG_HOME/vim/gvimrc" | source $MYGVIMRC'
+# shellcheck disable=SC2016
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 
 VISUAL="$(command -v emacs)"
