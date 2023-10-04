@@ -119,6 +119,47 @@ if [ -e "${GUIX_PROFILE}/etc/ssl/certs/ca-certificates.crt" ]; then
 fi
 
 
+### guix package --search-paths
+if [ -d  "${HOME}/.guix-profile/bin" ]; then
+    export PATH="${HOME}/.guix-profile/bin:${PATH}"
+fi
+
+if [ -d "${HOME}/.guix-profile/share" ]; then
+    XDG_DATA_DIRS="${XDG_DATA_DIRS:+${XDG_DATA_DIRS}:}${HOME}/.guix-profile/share"
+    export XDG_DATA_DIRS
+fi
+
+if [ -d "${HOME}/.guix-profile/share/emacs/site-lisp" ]; then
+    EMACSLOADPATH="${EMACSLOADPATH:+${EMACSLOADPATH}:}${HOME}/.guix-profile/share/emacs/site-lisp"
+    export EMACSLOADPATH
+fi
+
+if [ -d "${HOME}/.guix-profile/share/info" ]; then
+  INFOPATH="${INFOPATH:+${INFOPATH}:}${HOME}/.guix-profile/share/info"
+  export INFOPATH
+fi
+
+if [ -d "${HOME}/.guix-profile/lib/python3.10/site-packages" ]; then
+    GUIX_PYTHONPATH="${GUIX_PYTHONPATH:+${GUIX_PYTHONPATH}:}${HOME}/.guix-profile/lib/python3.10/site-packages"
+    export GUIX_PYTHONPATH
+fi
+
+if [ -d "${HOME}/.guix-profile/include" ]; then
+    C_INCLUDE_PATH="${C_INCLUDE_PATH:+${C_INCLUDE_PATH}:}${HOME}/.guix-profile/include"
+    export C_INCLUDE_PATH
+fi
+
+if [ -d "${HOME}/.guix-profile/include" ]; then
+    CPLUS_INCLUDE_PATH="${CPLUS_INCLUDE_PATH:+${CPLUS_INCLUDE_PATH}:}${HOME}/.guix-profile/include"
+    export CPLUS_INCLUDE_PATH
+fi
+
+if [ -d "${HOME}/.guix-profile/lib" ]; then
+    LIBRARY_PATH="${LIBRARY_PATH:+${LIBRARY_PATH}:}${HOME}/.guix-profile/lib"
+    export LIBRARY_PATH
+fi
+
+
 ### pass
 export PASSWORD_STORE_DIR="${XDG_DATA_HOME}"/pass
 
