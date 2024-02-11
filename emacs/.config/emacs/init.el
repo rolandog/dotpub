@@ -439,6 +439,12 @@
 
 ; location.href='org-protocol://roam-ref?template=r&ref='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title)
 
+(setq org-roam-graph-executable
+      (executable-find "neato"))
+
+(setq org-roam-graph-extra-config '(("overlap" . "false")))
+
+
 ;;; org-protocol
 ;; start server
 (server-start)
