@@ -716,7 +716,7 @@
  '(holiday-hebrew-holidays t)
  '(holiday-islamic-holidays t)
  '(org-agenda-files
-   '("~/org-work/gtd.org" "/home/rolandog/org/duties.org" "/home/rolandog/org/habits.org" "/home/rolandog/org/chores.org" "/home/rolandog/org/capture.org" "/home/rolandog/org/iwt.org" "/home/rolandog/org/journal.org" "/home/rolandog/org/projects.org" "/home/rolandog/org/gtd.org" "/home/rolandog/org/dates.org"))
+   '("~/org-work/gtd.org" "~/org/duties.org" "~/org/habits.org" "~/org/chores.org" "~/org/capture.org" "~/org/iwt.org" "~/org/journal.org" "~/org/projects.org" "~/org/gtd.org" "~/org/dates.org"))
  '(org-columns-default-format "%40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM")
  '(org-export-backends '(ascii beamer html icalendar latex md odt texinfo))
  '(org-file-apps
@@ -736,7 +736,7 @@
  '(package-selected-packages
    '(tree-sitter-langs markdown-mode php-mode yaml-mode python-black graphviz-dot-mode ox-clip org-contrib org-ai plantuml-mode lsp-mode poetry biblio citeproc gnuplot htmlize jinja2-mode mexican-holidays netherlands-holidays ob-blockdiag ob-php ob-sql-mode openwith org org-drill org-roam org-roam-bibtex string-inflection))
  '(reftex-bibpath-environment-variables
-   '("BIBINPUTS" "TEXBIB" "/home/rolandog/Documents/references/" "/home/rolandog/org/" "/home/rolandog/org-roam/"))
+   '("BIBINPUTS" "TEXBIB" "~/Documents/references/" "~/org/" "~/org-roam/"))
  '(reftex-default-bibliography '("~/org/references.bib")))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
