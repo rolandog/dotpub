@@ -716,7 +716,7 @@
  '(holiday-hebrew-holidays t)
  '(holiday-islamic-holidays t)
  '(org-agenda-files
-   '("/home/rolandog/org/duties.org" "/home/rolandog/org/habits.org" "/home/rolandog/org/chores.org" "/home/rolandog/org/capture.org" "/home/rolandog/org/iwt.org" "/home/rolandog/org/journal.org" "/home/rolandog/org/projects.org" "/home/rolandog/org/gtd.org" "/home/rolandog/org/dates.org"))
+   '("~/org-work/gtd.org" "/home/rolandog/org/duties.org" "/home/rolandog/org/habits.org" "/home/rolandog/org/chores.org" "/home/rolandog/org/capture.org" "/home/rolandog/org/iwt.org" "/home/rolandog/org/journal.org" "/home/rolandog/org/projects.org" "/home/rolandog/org/gtd.org" "/home/rolandog/org/dates.org"))
  '(org-columns-default-format "%40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM")
  '(org-export-backends '(ascii beamer html icalendar latex md odt texinfo))
  '(org-file-apps
