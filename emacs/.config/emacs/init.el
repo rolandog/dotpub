@@ -525,7 +525,7 @@
          ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
 
 ;; PDF export via PDFLaTeX
-(setq org-latex-pdf-process (list "latexmk -bibtex -f -file-line-error -interaction=nonstopmode -output-format=pdf -pdf -shell-escape %f"))
+;(setq org-latex-pdf-process (list "latexmk -bibtex -f -file-line-error -interaction=nonstopmode -output-format=pdf -pdf -shell-escape %f"))
 
 ;; do export with email
 (setq org-export-with-email t)
