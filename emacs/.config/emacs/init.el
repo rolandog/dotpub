@@ -156,6 +156,13 @@
 ;(require 'ox-ipynb)
 ;(add-to-list 'org-latex-listings-langs '(ipython "python"))
 
+(defun my-org-roam-update-id-locations-before-export (backend)
+  "Update org-roam ID locations before exporting."
+  (org-roam-update-org-id-locations))
+
+(add-hook 'org-export-before-processing-hook 'my-org-roam-update-id-locations-before-export)
+
+
 (autoload 'gnuplot-mode "gnuplot" "Gnuplot major mode" t)
 (autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot-mode" t)
 (add-to-list 'auto-mode-alist '("\.gp\'" . gnuplot-mode))
