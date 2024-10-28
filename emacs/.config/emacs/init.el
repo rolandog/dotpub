@@ -246,13 +246,23 @@
 ;; fontify code in code blocks
 (setq org-src-fontify-natively t)
 
-;; Sample jar configuration
-(setq plantuml-jar-path "~/.local/bin/plantuml-1.2023.5.jar")
-(setq org-plantuml-jar-path "~/.local/bin/plantuml-1.2023.5.jar")
-;(setq plantuml-default-exec-mode 'jar)
+;; dynamically find jar path (fallback if not guix)
+(setq org-plantuml-jar-path
+      (expand-file-name
+       (or (string-trim
+            (shell-command-to-string
+             "cat \"$(command -v plantuml)\" | tail -n 1 | awk '{print $3}'"))
+           "~/.local/share/plantuml/plantuml-1.2024.7.jar")))
 
-;; Sample executable configuration
-(setq plantuml-executable-path "~/.local/bin/plantuml")
+;; dynamically find binary (fallback if not guix)
+(setq org-plantuml-jar-pathplantuml-executable-path
+      (expand-file-name
+       (or (string-trim
+            (shell-command-to-string
+             "command -v plantuml"))
+           "~/.local/bin/plantuml")))
+
+;(setq plantuml-default-exec-mode 'jar)
 (setq plantuml-default-exec-mode 'executable)
 
 
