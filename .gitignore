@@ -1,8 +1,12 @@
+# -*- mode: gitignore; -*-
+
 # emacs backup files
+.+~
 **/.+~
 
 # emacs autosave files
-\#.*\#
+\#.+\#
+**/\#.+\#
 
 # log files
 *.log
@@ -10,11 +14,10 @@
 # audio files
 *.wav
 
-# generated file
+# global generated gitignore file
 git/.config/git/global.gitignore
 
-# intermediate files
-gpg/**/*.tex
+# intermediate tex files
 *.tex
 
 # local files
