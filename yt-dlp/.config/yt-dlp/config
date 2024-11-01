@@ -92,6 +92,7 @@
 ### AUTHENTICATION OPTIONS
 # Use .netrc authentication data
 #--netrc
+--netrc-cmd 'gpg --decrypt ~/.authinfo.gpg'
 
 # File to read cookies from and dump cookie jar in
 #--cookies "~/.config/youtube-dl/cookie-jar"
