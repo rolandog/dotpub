@@ -759,6 +759,26 @@
 (anki-editor-reset-cloze-number)
 
 
+;; org-capture templates for anki
+(setq org-my-anki-file
+      (expand-file-name "~/org/anki.org"))
+
+(add-to-list 'org-capture-templates
+             '("a" "Anki basic"
+               entry
+               (file+headline org-my-anki-file "Dispatch Shelf")
+               "* %<%H:%M>   %^g\n:PROPERTIES:\n:ANKI_NOTE_TYPE: Basic\n:ANKI_DECK: Mega\n:END:\n** Front\n%?\n** Back\n%x\n"))
+(add-to-list 'org-capture-templates
+             '("A" "Anki cloze"
+               entry
+               (file+headline org-my-anki-file "Dispatch Shelf")
+               "* %<%H:%M>   %^g\n:PROPERTIES:\n:ANKI_NOTE_TYPE: Cloze\n:ANKI_DECK: Mega\n:END:\n** Text\n%x\n** Extra\n"))
+
+;; allow Emacs to access content from clipboard.
+(setq x-select-enable-clipboard t
+      x-select-enable-primary t)
+
+
 ;;; removed packages
 ; modules:
 ; org-annotate-file org-checklist
