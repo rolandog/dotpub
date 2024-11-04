@@ -92,7 +92,7 @@
 ### AUTHENTICATION OPTIONS
 # Use .netrc authentication data
 #--netrc
---netrc-cmd 'gpg --decrypt ~/.authinfo.gpg'
+--netrc-cmd 'gpg --decrypt ~/.local/share/authinfo.gpg'
 
 # File to read cookies from and dump cookie jar in
 #--cookies "~/.config/youtube-dl/cookie-jar"
@@ -109,8 +109,9 @@
 # Embed thumbnail in the audio as cover art
 #--embed-thumbnail
 
-# Write metadata to the video file
---add-metadata
+# Write metadata to the video file (previously --embed-metadata)
+--embed-metadata
+--compat-options embed-metadata
 
 # Parse additional metadata like song title / artist from the video
 # title.  The format syntax is the same as --output.  Regular
