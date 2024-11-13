@@ -2,3 +2,15 @@
 	name = Rolando Garza
 	email = rolandog@gmail.com
 	signingkey = B2930425550684410803387AE726BC7BEF39923D
+
+[sendemail]
+	annotate = yes
+	from = Rolando Garza <rolandog@gmail.com>
+	smtpserver = smtp.gmail.com
+	smtpuser = rolandog@gmail.com
+	smtpencryption = tls
+	smtpserverport = 587
+
+[credential "smtp://smtp.gmail.com:587"]
+	user = rolandog@gmail.com
+	helper = "!f() { test \"${1}\" = 'get' && echo \"password=$(pass show \"Personal/Email/smtpPass-${HOSTNAME}\" 2> /dev/null)\"; }; f"
