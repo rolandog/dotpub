@@ -518,7 +518,7 @@
 ;;(add-to-list 'org-latex-packages-alist '("" "natbib"))
 
 ;; tell org to use listings
-(setq org-latex-listings t)
+;(setq org-latex-listings t)
 
 ;; add listings as a common dependency, to fontify code exports
 (add-to-list 'org-latex-packages-alist '("" "listingsutf8"))
@@ -813,6 +813,7 @@
  '(org-global-properties
    '(("Effort_ALL" . "0 0:05 0:10 0:25 1:00 2:00 4:00 8:00 16:00")))
  '(org-habit-graph-column 45)
+ '(org-latex-src-block-backend 'verbatim)
  '(org-link-file-path-type 'relative)
  '(org-loop-over-headlines-in-active-region t)
  '(org-modules
