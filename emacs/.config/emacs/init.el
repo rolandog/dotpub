@@ -510,6 +510,45 @@
 ;; org-export latex
 (require 'ox-latex)
 
+;; Helps remove active objects from pdfs
+(defun compress-pdf-after-latex-export (&rest _args)
+  "Compress PDF file after org-latex export using Ghostscript.
+This function removes active content and compresses the PDF file.
+Based on the solution provided at https://tex.stackexchange.com/a/481609/29430.
+
+The compression process removes embedded objects that might be flagged as
+potential security threats in PDFs with active content. This is particularly
+useful when sharing PDFs with others or submitting to systems that may
+flag active content.
+
+The function will only proceed if Ghostscript (gs) is installed on the system."
+  (unless (executable-find "gs")
+    (message "Ghostscript (gs) not found. Please install it to enable PDF compression.")
+    (sleep-for 2)
+    (return-nil))
+
+  ;; Get the PDF file path from the current buffer
+  (let* ((pdf-file (concat (file-name-sans-extension (buffer-file-name)) ".pdf"))
+         (temp-file (concat pdf-file ".temp")))
+    (when (file-exists-p pdf-file)
+      (message "Compressing PDF and removing active content...")
+      (call-process "gs" nil nil nil
+                   "-dNOPAUSE"
+                   "-sDEVICE=pdfwrite"
+                   (concat "-sOUTPUTFILE=" temp-file)
+                   "-dBATCH"
+                   pdf-file)
+      ;; Replace original file with compressed version
+      (if (file-exists-p temp-file)
+          (progn
+            (delete-file pdf-file)
+            (rename-file temp-file pdf-file)
+            (message "PDF compression completed successfully"))
+        (message "PDF compression failed")))))
+
+;; Add advice after org-latex-export-to-pdf
+(advice-add 'org-latex-export-to-pdf :after #'compress-pdf-after-latex-export)
+
 ;; set org-ref dialect as biblatex
 (setq bibtex-dialect "biblatex")
 
