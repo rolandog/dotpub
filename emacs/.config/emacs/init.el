@@ -818,6 +818,16 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
       x-select-enable-primary t)
 
 
+(defun make-orgcapture-frame ()
+    "Create a new frame and run org-capture."
+    (interactive)
+    (make-frame '((name . "org-capture") (window-system . x)))
+    (select-frame-by-name "org-capture")
+    (org-capture)
+    (delete-other-windows)
+    )
+
+
 ;;; removed packages
 ; modules:
 ; org-annotate-file org-checklist
