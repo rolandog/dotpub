@@ -37,7 +37,7 @@
         ;;dash
         ;;dired-x
         emacsql
-        emacsql-sqlite
+        ; emacsql-sqlite
         ; emacsql-sqlite3
         f
         ; git-commit
@@ -832,7 +832,7 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
 ; modules:
 ; org-annotate-file org-checklist
 ; selected-packages
-; with-editor transient magit git-commit emacsql-sqlite3
+; with-editor transient magit git-commit emacsql-sqlite emacsql-sqlite3
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
