@@ -814,8 +814,8 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
                "* %<%H:%M>   %^g\n:PROPERTIES:\n:ANKI_NOTE_TYPE: Cloze\n:ANKI_DECK: Mega\n:END:\n** Text\n%x\n** Extra\n"))
 
 ;; allow Emacs to access content from clipboard.
-(setq x-select-enable-clipboard t
-      x-select-enable-primary t)
+(setq select-enable-clipboard t
+      select-enable-primary t)
 
 
 (defun make-orgcapture-frame ()
