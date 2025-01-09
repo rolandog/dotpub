@@ -556,6 +556,19 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
 (add-to-list 'org-latex-packages-alist '("" "cleveref"))
 ;;(add-to-list 'org-latex-packages-alist '("" "natbib"))
 
+;; Add ability to specify :file-coding utf-8-unix on shell codeblocks
+;; Thanks https://emacs.stackexchange.com/a/28890/36303
+(defadvice org-babel-sh-evaluate (around set-shell activate)
+  "Add header argument :file-coding that sets the buffer-file-coding-system."
+  (let ((file-coding-param (cdr (assoc :file-coding params))))
+    (if file-coding-param
+        (let ((file-coding (intern file-coding-param))
+        (default-file-coding (default-value 'buffer-file-coding-system)))
+          (setq-default buffer-file-coding-system file-coding)
+          ad-do-it
+          (setq-default buffer-file-coding-system default-file-coding))
+      ad-do-it)))
+
 ;; tell org to use listings
 ;(setq org-latex-listings t)
 
