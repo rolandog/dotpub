@@ -840,6 +840,8 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
     (delete-other-windows)
     )
 
+(require 'auto-dark)
+(auto-dark-mode t)
 
 ;;; removed packages
 ; modules:
@@ -856,8 +858,8 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
+ '(auto-dark-themes '((leuven-dark) (leuven)))
  '(column-number-mode t)
- '(custom-enabled-themes '(leuven-dark))
  '(holiday-bahai-holidays t)
  '(holiday-hebrew-holidays t)
  '(holiday-islamic-holidays t)
