@@ -156,6 +156,10 @@
 ;(require 'ox-ipynb)
 ;(add-to-list 'org-latex-listings-langs '(ipython "python"))
 
+;; github-flavored markdown
+(eval-after-load "org"
+  '(require 'ox-gfm nil t))
+
 (defun my-org-roam-update-id-locations-before-export (backend)
   "Update org-roam ID locations before exporting."
   (org-roam-update-org-id-locations))
@@ -860,13 +864,14 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(auto-dark-themes '((leuven-dark) (leuven)))
  '(column-number-mode t)
+ '(custom-enabled-themes nil)
  '(holiday-bahai-holidays t)
  '(holiday-hebrew-holidays t)
  '(holiday-islamic-holidays t)
  '(org-agenda-files
    '("~/org-work/gtd.org" "~/org/duties.org" "~/org/habits.org" "~/org/chores.org" "~/org/capture.org" "~/org/iwt.org" "~/org/journal.org" "~/org/projects.org" "~/org/gtd.org" "~/org/dates.org"))
  '(org-columns-default-format "%40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM")
- '(org-export-backends '(ascii beamer html icalendar latex md odt texinfo))
+ '(org-export-backends '(ascii beamer gfm html icalendar latex md odt texinfo))
  '(org-file-apps
    '((auto-mode . emacs)
      ("\\.mm\\'" . default)
@@ -883,7 +888,7 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
  '(org-modules
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
  '(package-selected-packages
-   '(tablist pg transient anki-editor request tree-sitter-langs markdown-mode php-mode yaml-mode python-black graphviz-dot-mode ox-clip org-contrib org-ai plantuml-mode lsp-mode poetry biblio citeproc gnuplot htmlize jinja2-mode mexican-holidays netherlands-holidays ob-blockdiag ob-php ob-sql-mode openwith org org-drill org-roam org-roam-bibtex string-inflection))
+   '(ox-gfm tablist pg transient anki-editor request tree-sitter-langs markdown-mode php-mode yaml-mode python-black graphviz-dot-mode ox-clip org-contrib org-ai plantuml-mode lsp-mode poetry biblio citeproc gnuplot htmlize jinja2-mode mexican-holidays netherlands-holidays ob-blockdiag ob-php ob-sql-mode openwith org org-drill org-roam org-roam-bibtex string-inflection))
  '(reftex-bibpath-environment-variables
    '("BIBINPUTS" "TEXBIB" "~/Documents/references/" "~/org/" "~/org-roam/"))
  '(reftex-default-bibliography '("~/org/references.bib")))
