@@ -390,9 +390,10 @@
 (require 'openwith)
 (openwith-mode t)
 (setq openwith-associations
-      '(("\\.mp3\\'" "mpv" (file))
-        ("\\.mp4\\'" "mpv" (file))
-        ("\\.webm\\'" "mpv" (file))))
+      '(("\\.pdf\\'" "evince" (file))
+        ("\\.mp3\\'" "rhythmbox-client" ("--play-uri=" file))
+        ("\\.\\(?:mpe?g\\|avi\\|mov\\|mp4\\|webm\\|wmv\\)\\'" "mpv" (file))
+        ("\\.\\(?:jp?g\\|png\\)\\'" "eog" (file))))
 
 ;; set specific browser to open links
 (setq browse-url-browser-function 'browse-url-firefox)
