@@ -897,11 +897,5 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
  ;; If there is more than one, they won't work right.
  )
 
-(eval-after-load "auto-dark"
-  '(defun my-auto-dark-theme-switch ()
-     (load-theme (if (string= auto-dark--last-dark-mode-state "dark")
-                'leuven-dark
-              'leuven))))
-
 (require 'auto-dark)
 (auto-dark-mode t)
