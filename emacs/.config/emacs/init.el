@@ -845,9 +845,6 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
     (delete-other-windows)
     )
 
-(require 'auto-dark)
-(auto-dark-mode t)
-
 ;;; removed packages
 ; modules:
 ; org-annotate-file org-checklist
@@ -899,3 +896,12 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(eval-after-load "auto-dark"
+  '(defun my-auto-dark-theme-switch ()
+     (load-theme (if (string= auto-dark--last-dark-mode-state "dark")
+                'leuven-dark
+              'leuven))))
+
+(require 'auto-dark)
+(auto-dark-mode t)
