@@ -388,12 +388,6 @@
 ;; so, we're using an add-on to help us force use it; we can try
 ;; using mpv or vlc
 (require 'openwith)
-(openwith-mode t)
-(setq openwith-associations
-      '(("\\.pdf\\'" "evince" (file))
-        ("\\.mp3\\'" "rhythmbox-client" ("--play-uri=" file))
-        ("\\.\\(?:mpe?g\\|avi\\|mov\\|mp4\\|webm\\|wmv\\)\\'" "mpv" (file))
-        ("\\.\\(?:jp?g\\|png\\)\\'" "eog" (file))))
 
 ;; set specific browser to open links
 (setq browse-url-browser-function 'browse-url-firefox)
@@ -866,6 +860,16 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
  '(holiday-bahai-holidays t)
  '(holiday-hebrew-holidays t)
  '(holiday-islamic-holidays t)
+ '(openwith-associations
+   '(("\\.pdf\\'" "evince"
+      (file))
+     ("\\.mp3\\'" "rhythmbox-client"
+      ("--play-uri=" file))
+     ("\\.\\(?:mpe?g\\|avi\\|mov\\|mp4\\|webm\\|wmv\\)\\'" "mpv"
+      (file))
+     ("\\.\\(?:jp?g\\|png\\)\\'" "eog"
+      (file))))
+ '(openwith-mode t)
  '(org-agenda-files
    '("~/org-work/gtd.org" "~/org/duties.org" "~/org/habits.org" "~/org/chores.org" "~/org/capture.org" "~/org/iwt.org" "~/org/journal.org" "~/org/projects.org" "~/org/gtd.org" "~/org/dates.org"))
  '(org-columns-default-format "%40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM")
