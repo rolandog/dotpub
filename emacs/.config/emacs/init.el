@@ -568,6 +568,30 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
           (setq-default buffer-file-coding-system default-file-coding))
       ad-do-it)))
 
+;; Add ability to remove links across all org-mode
+;; thanks https://emacs.stackexchange.com/a/68142/36303
+(defun night/org-remove-link-to-desc-at-point ()
+    "Replace an org link by its description or if empty its address"
+  (interactive)
+  (if (org-in-regexp org-link-bracket-re 1)
+      (save-excursion
+        (let ((remove (list (match-beginning 0) (match-end 0)))
+              (description
+               (if (match-end 2)
+                   (org-match-string-no-properties 2)
+                 (org-match-string-no-properties 1))))
+          (apply 'delete-region remove)
+          (insert description)))))
+
+(defun night/org-remove-link-to-desc (beg end)
+  (interactive "r")
+  (save-mark-and-excursion
+    (goto-char beg)
+    (while (re-search-forward org-link-bracket-re end t)
+      (goto-char (match-beginning 0))
+      (night/org-remove-link-to-desc-at-point))))
+
+
 ;; tell org to use listings
 ;(setq org-latex-listings t)
 
