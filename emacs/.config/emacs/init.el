@@ -247,6 +247,9 @@
 ;; built-in conf/ini mode; does it auto-load?
 ;(require 'conf-mode)
 
+(require 'py-isort)
+(add-hook 'before-save-hook 'py-isort-before-save)
+
 ;; fontify code in code blocks
 (setq org-src-fontify-natively t)
 
