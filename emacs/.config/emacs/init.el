@@ -947,6 +947,9 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
  '(org-loop-over-headlines-in-active-region t)
  '(org-modules
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
+ '(org-refile-targets
+   '((org-agenda-files :tag . "")
+     (org-roam-list-files :maxlevel . 2)))
  '(package-selected-packages
    '(llama ox-gfm tablist pg transient anki-editor request tree-sitter-langs markdown-mode php-mode yaml-mode python-black graphviz-dot-mode ox-clip org-contrib plantuml-mode lsp-mode poetry biblio citeproc gnuplot htmlize jinja2-mode mexican-holidays netherlands-holidays ob-blockdiag ob-php ob-sql-mode openwith org org-drill org-roam org-roam-bibtex string-inflection))
  '(reftex-bibpath-environment-variables
