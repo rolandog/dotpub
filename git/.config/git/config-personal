@@ -1,8 +1,7 @@
 [user]
 	name = Rolando Garza
 	email = rolandog@gmail.com
-	signingkey = B2930425550684410803387AE726BC7BEF39923D
-
+	signingkey = BA3115393B86E0A16797D24699198B28A1388B61
 [sendemail]
 	annotate = yes
 	from = Rolando Garza <rolandog@gmail.com>
