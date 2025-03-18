@@ -111,21 +111,52 @@
 ;; Enable Org mode:
 (require 'org)
 
-;; org-ai
-(require 'org-ai)
-(add-hook 'org-mode-hook #'org-ai-mode)
-(setq org-ai-openai-api-token (funcall
-                                (plist-get
-                                  (car
-                                    (auth-source-search
-                                      :host "api.openai.com"
-                                      :user "org-ai"
-                                    )
-                                  )
-                                  :secret
+;;; gptel
+;; enable gptel
+(require 'gptel)
+
+;; gptel config
+(setq
+ gptel-api-key (funcall
+                (plist-get
+                 (car
+                  (auth-source-search
+                   :host "api.openai.com"
+                   :user "apikey"
+                   )
+                  )
+                 :secret
+                 )
+                )
+ gptel-model 'fastgpt
+ gptel-backend (gptel-make-kagi "Kagi"
+                                :key (funcall
+                                      (plist-get
+                                       (car
+                                        (auth-source-search
+                                         :host "kagi.com"
+                                         :user "gptel"
+                                         )
+                                        )
+                                       :secret
+                                       )
+                                      )
                                 )
-                              )
-)
+ gptel-default-mode 'org-mode
+ gptel-crowdsourced-prompts-file "~/.cache/gptel/gptel-crowdsourced-prompts.csv"
+ gptel-org-branching-context t
+ )
+
+;; make the prefix strings for org-mode not Org headings, e.g.
+(setf (alist-get 'org-mode gptel-prompt-prefix-alist) "@user\n")
+(setf (alist-get 'org-mode gptel-response-prefix-alist) "@assistant\n")
+
+;; enable gptel keybinding
+(global-set-key (kbd "C-c RET") 'gptel-send)
+
+;; use saved options without invoking transient menu
+(keymap-global-set "<f6>" "C-u C-c <return> <return>")
+
 
 ;(defun znc ()
 ;  "Connect to ZNC."
@@ -917,7 +948,7 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
  '(org-modules
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
  '(package-selected-packages
-   '(llama ox-gfm tablist pg transient anki-editor request tree-sitter-langs markdown-mode php-mode yaml-mode python-black graphviz-dot-mode ox-clip org-contrib org-ai plantuml-mode lsp-mode poetry biblio citeproc gnuplot htmlize jinja2-mode mexican-holidays netherlands-holidays ob-blockdiag ob-php ob-sql-mode openwith org org-drill org-roam org-roam-bibtex string-inflection))
+   '(llama ox-gfm tablist pg transient anki-editor request tree-sitter-langs markdown-mode php-mode yaml-mode python-black graphviz-dot-mode ox-clip org-contrib plantuml-mode lsp-mode poetry biblio citeproc gnuplot htmlize jinja2-mode mexican-holidays netherlands-holidays ob-blockdiag ob-php ob-sql-mode openwith org org-drill org-roam org-roam-bibtex string-inflection))
  '(reftex-bibpath-environment-variables
    '("BIBINPUTS" "TEXBIB" "~/Documents/references/" "~/org/" "~/org-roam/"))
  '(reftex-default-bibliography '("~/org/references.bib")))
