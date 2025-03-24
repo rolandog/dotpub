@@ -951,7 +951,7 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
    '((org-agenda-files :tag . "")
      (org-roam-list-files :maxlevel . 2)))
  '(package-selected-packages
-   '(llama ox-gfm tablist pg transient anki-editor request tree-sitter-langs markdown-mode php-mode yaml-mode python-black graphviz-dot-mode ox-clip org-contrib plantuml-mode lsp-mode poetry biblio citeproc gnuplot htmlize jinja2-mode mexican-holidays netherlands-holidays ob-blockdiag ob-php ob-sql-mode openwith org org-drill org-roam org-roam-bibtex string-inflection))
+   '(llama ox-gfm tablist transient anki-editor request tree-sitter-langs markdown-mode php-mode yaml-mode python-black graphviz-dot-mode ox-clip org-contrib plantuml-mode lsp-mode poetry biblio citeproc htmlize jinja2-mode mexican-holidays netherlands-holidays ob-blockdiag ob-php ob-sql-mode openwith org org-drill org-roam-bibtex))
  '(reftex-bibpath-environment-variables
    '("BIBINPUTS" "TEXBIB" "~/Documents/references/" "~/org/" "~/org-roam/"))
  '(reftex-default-bibliography '("~/org/references.bib")))
