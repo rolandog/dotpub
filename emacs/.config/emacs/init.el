@@ -897,6 +897,13 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
     (delete-other-windows)
     )
 
+;;; for automatic Project Support (EDE)
+(defun my-ede-project-directories-p (directory)
+  "Return t if DIRECTORY is inside a git repository."
+  (let ((default-directory (expand-file-name directory)))
+    (= 0 (call-process "git" nil nil nil "rev-parse" "--is-inside-work-tree"))))
+
+
 ;;; removed packages
 ; modules:
 ; org-annotate-file org-checklist
@@ -915,6 +922,7 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
  '(auto-dark-themes '((leuven-dark) (leuven)))
  '(column-number-mode t)
  '(custom-enabled-themes nil)
+ '(ede-project-directories #'my-ede-project-directories-p)
  '(holiday-bahai-holidays t)
  '(holiday-hebrew-holidays t)
  '(holiday-islamic-holidays t)
