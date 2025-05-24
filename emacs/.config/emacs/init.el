@@ -15,20 +15,21 @@
 ;; - t: at least one signature must be valid
 ;; - all: all signatures must be valid
 ;; - nil: don't check?
-(setq package-check-signature 'allow-unsigned)
+(setq package-check-signature 't)
 
 ;; add different repositories:
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
 ;(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 ;; set repository priority:
 (setq package-archive-priorities
       '(("gnu" . 15)
-        ;("org" . 10)
-        ("melpa-stable" . 5)
-        ("melpa" . 0)))
+                                        ;("org" . 10)
+                                        ;("melpa-stable" . 5)
+                                        ;("melpa" . 0))
+        ))
 
 ;; list the packages you want:
 (setq package-list
