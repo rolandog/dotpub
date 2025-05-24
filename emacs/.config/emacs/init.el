@@ -108,10 +108,6 @@
                     "~/.authinfo.gpg"))
 
 
-;;; Org mode configuration:
-;; Enable Org mode:
-(require 'org)
-
 ;;; gptel
 ;; enable gptel
 (require 'gptel)
@@ -148,6 +144,8 @@
  gptel-org-branching-context t
  )
 
+;;; Org mode configuration:
+
 ;; make the prefix strings for org-mode not Org headings, e.g.
 (setf (alist-get 'org-mode gptel-prompt-prefix-alist) "@user\n")
 (setf (alist-get 'org-mode gptel-response-prefix-alist) "@assistant\n")
@@ -157,23 +155,6 @@
 
 ;; use saved options without invoking transient menu
 (keymap-global-set "<f6>" "C-u C-c <return> <return>")
-
-
-;(defun znc ()
-;  "Connect to ZNC."
-;  (interactive)
-;  (let ((user "thblt")
-;        (pass (funcall (plist-get
-;                        (car
-;                         (auth-source-search
-;                          :max 1
-;                          :host "znc.thb.lt"))
-;                        :secret))))
-;    (erc-tls
-;     :server "k9.thb.lt"
-;     :port 2002
-;     :nick user
-;     :password (format "%s:%s" user pass))))
 
 
 ;; Make Org mode work with files ending in .org
@@ -430,15 +411,11 @@
 
 ;;; org-roam pre-configuration:
 (setq org-roam-directory (file-truename "~/org-roam"))
+(setq org-roam-completion-everywhere t)
 
 ;; disable warning about using v2
 (setq org-roam-v2-ack t)
 
-;; enable org-roam
-(require 'org-roam)
-
-;; org-roam autosync 
-(org-roam-db-autosync-mode)
 
 ;;; org-roam configuration
 
@@ -449,6 +426,12 @@
             ;;#'org-roam-unlinked-references-section
             ))
 
+(defun my/org-roam-extract-subtree ()
+  "Extract the current subtree as a new org-roam node."
+  (interactive)
+  (org-id-get-create)
+  (org-roam-extract-subtree))
+
 ;; for org-roam-buffer-toggle
 ;; recommendation in the official manual
 (add-to-list 'display-buffer-alist
@@ -458,29 +441,48 @@
                   (window-width . 0.33)
                   (window-height . fit-window-to-buffer)))
 
-;; global key bindings for org-roam
-(global-set-key (kbd "C-c n c") 'org-roam-capture)
-(global-set-key (kbd "C-c n f") 'org-roam-node-find)
-(global-set-key (kbd "C-c n g") 'org-roam-graph)
-(global-set-key (kbd "C-c n r") 'org-roam-node-random)
 
-;; global key bindings for org-roam dailies
-(global-set-key (kbd "C-c n j") 'org-roam-dailies-capture-today)
+;; key binding for org-mode to: perform completions, plot table
+;; using gnuplot
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-M-i") 'completion-at-point)
+  (define-key org-mode-map (kbd "C-M-g") 'org-plot/gnuplot))
+
+;; create and bind the dailies keymap (equivalent to :bind-keymap)
+(defvar org-roam-dailies-map (make-sparse-keymap)
+  "Keymap for org-roam dailies commands.")
+(global-set-key (kbd "C-c n d") org-roam-dailies-map)
 
 ;; key binding for org-roam to: add aliases, insert nodes, toggle buffer
-;; get/create id, add tag, or insert node links using completion
-;; NOTE: Since with-eval-after-load is a macro, not a function, it
-;;     doesn't need quote to prevent arguments evaluation.  By the way,
-;;     the function body doesn't need to be wrapped inside a progn.
-(setq org-roam-completion-everywhere t)
-(with-eval-after-load 'org
-    (define-key org-mode-map (kbd "C-c n a") 'org-roam-alias-add)
-    (define-key org-mode-map (kbd "C-c n i") 'org-roam-node-insert)
-    (define-key org-mode-map (kbd "C-c n l") 'org-roam-buffer-toggle)
-    (define-key org-mode-map (kbd "C-c n o") 'org-id-get-create)
-    (define-key org-mode-map (kbd "C-c n t") 'org-roam-tag-add)
-    (define-key org-mode-map (kbd "C-M-i") 'completion-at-point)
-    (define-key org-mode-map (kbd "C-M-g") 'org-plot/gnuplot))
+;; get/create id, add tag, or insert dailies
+(with-eval-after-load 'org-roam
+  ;; global key bindings for org-roam
+  (global-set-key (kbd "C-c n c") 'org-roam-capture)
+  (global-set-key (kbd "C-c n f") 'org-roam-node-find)
+  (global-set-key (kbd "C-c n g") 'org-roam-graph)
+  (global-set-key (kbd "C-c n m") 'org-roam-refile)
+  (global-set-key (kbd "C-c n r") 'org-roam-node-random)
+  (global-set-key (kbd "C-c n x") #'my/org-roam-extract-subtree)
+
+  ;; org-mode-map-specific key bindings
+  (define-key org-mode-map (kbd "C-c n a") 'org-roam-alias-add)
+  (define-key org-mode-map (kbd "C-c n i") 'org-roam-node-insert)
+  (define-key org-mode-map (kbd "C-c n l") 'org-roam-buffer-toggle)
+  (define-key org-mode-map (kbd "C-c n o") 'org-id-get-create)
+  (define-key org-mode-map (kbd "C-c n t") 'org-roam-tag-add)
+  ;; load dailies and set up its keymap
+  (require 'org-roam-dailies)
+
+  ;; global key bindings for org-roam dailies
+  (global-set-key (kbd "C-c n j") 'org-roam-dailies-capture-today)
+
+  ;; helpful functions to capture yesterday and tomorrow entries
+  (define-key org-roam-dailies-map (kbd "Y") 'org-roam-dailies-capture-yesterday)
+  (define-key org-roam-dailies-map (kbd "T") 'org-roam-dailies-capture-tomorrow)
+
+  ;; enable autosync
+  (org-roam-db-autosync-mode)
+  )
 
 ;;; org-roam-capture-templates
 ;; C-h v org-roam-capture-templates for more info
@@ -503,6 +505,11 @@
 
 (setq org-roam-graph-extra-config '(("overlap" . "false")))
 
+;; Enable Org mode:
+(require 'org)
+
+;; enable org-roam
+(require 'org-roam)
 
 ;;; org-protocol
 ;; start server
@@ -520,7 +527,7 @@
 
 ;;; Bibliography
 ;; require the org-cite library
-(require 'citeproc)
+;(require 'citeproc)
 (require 'oc)
 (require 'oc-basic)
 (require 'oc-biblatex)
@@ -685,7 +692,7 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
 (define-key global-map "\M-Q" 'unfill-paragraph)
 
 ;; global key binding to copy as formatted text without wrapping
-(global-set-key (kbd "s-w") 'ox-clip-formatted-copy) ; lower case "s" is for super
+;(global-set-key (kbd "s-w") 'ox-clip-formatted-copy) ; lower case "s" is for super
 
 ;;; File browsing
 ;; To open all of the marked files at once you need dired-x.el
