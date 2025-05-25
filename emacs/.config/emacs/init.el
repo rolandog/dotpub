@@ -981,3 +981,4 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
 
 (require 'auto-dark)
 (auto-dark-mode t)
+(put 'narrow-to-region 'disabled nil)
