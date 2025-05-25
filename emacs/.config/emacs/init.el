@@ -970,7 +970,8 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
    '(compat dash emacsql reformatter transient magit-section deferred anki-editor gnuplot auto-dark json-mode flymake flymake-mypy flymake-shellcheck gptel tablist plantuml-mode py-isort async magit org-roam company graphviz-dot-mode htmlize jinja2-mode spinner markdown-mode hydra ht f openwith org-contrib ox-gfm pkg-info projectile python-black yaml-mode ob-php ob-blockdiag netherlands-holidays mexican-holidays))
  '(reftex-bibpath-environment-variables
    '("BIBINPUTS" "TEXBIB" "~/Documents/references/" "~/org/" "~/org-roam/"))
- '(reftex-default-bibliography '("~/org/references.bib")))
+ '(reftex-default-bibliography '("~/org/references.bib"))
+ '(safe-local-variable-values '((org-use-property-inheritance . t))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
