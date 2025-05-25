@@ -37,25 +37,25 @@
         ;;citeproc
         ;;dash
         ;;dired-x
-        emacsql
+        ; emacsql
         ; emacsql-sqlite
         ; emacsql-sqlite3
-        f
+        ;f
         ; git-commit
-        htmlize
+        ;htmlize
         ;magit
-        ;magit-section
+        magit-section
         ;;oc-csl
-        openwith
-        org
-        org-drill
+        ;openwith
+        ; org
+        ;;org-drill
         ;;org-protocol
-        org-roam
+        ; org-roam
         ;;org-roam-protocol
         ;;ox-extra
-        persist
-        s
-        string-inflection
+        ;persist
+        ;s
+        ;string-inflection
         ; transient
         ; with-editor
         ))
@@ -967,7 +967,7 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
    '((org-agenda-files :tag . "")
      (org-roam-list-files :maxlevel . 2)))
  '(package-selected-packages
-   '(llama ox-gfm tablist transient anki-editor request tree-sitter-langs markdown-mode php-mode yaml-mode python-black graphviz-dot-mode ox-clip org-contrib plantuml-mode lsp-mode poetry biblio citeproc htmlize jinja2-mode mexican-holidays netherlands-holidays ob-blockdiag ob-php ob-sql-mode openwith org org-drill org-roam-bibtex))
+   '(compat dash emacsql reformatter transient magit-section deferred anki-editor gnuplot auto-dark json-mode flymake flymake-mypy flymake-shellcheck gptel tablist plantuml-mode py-isort async magit org-roam company graphviz-dot-mode htmlize jinja2-mode spinner markdown-mode hydra ht f openwith org-contrib ox-gfm pkg-info projectile python-black yaml-mode ob-php ob-blockdiag netherlands-holidays mexican-holidays))
  '(reftex-bibpath-environment-variables
    '("BIBINPUTS" "TEXBIB" "~/Documents/references/" "~/org/" "~/org-roam/"))
  '(reftex-default-bibliography '("~/org/references.bib")))
