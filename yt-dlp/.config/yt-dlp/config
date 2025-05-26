@@ -95,19 +95,19 @@
 --netrc-cmd 'gpg --decrypt ~/.local/share/authinfo.gpg'
 
 # File to read cookies from and dump cookie jar in
-#--cookies "~/.config/youtube-dl/cookie-jar"
+--cookies "~/.local/state/yt-dlp/cookie-jar"
 
 
 ### POST-PROCESSING OPTIONS
 # Convert video files to audio-only files (requires ffmpeg/avconv and
 # ffprobe/avprobe)
-# --extract-audio
+--extract-audio
 
 # Embed subtitles in the video (only for mp4, webm and mkv videos)
-#--embed-subs
+--embed-subs
 
 # Embed thumbnail in the audio as cover art
-#--embed-thumbnail
+--embed-thumbnail
 
 # Write metadata to the video file (previously --embed-metadata)
 --embed-metadata
