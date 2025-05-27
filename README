@@ -1,13 +1,13 @@
-		      ____________________________
+                      ____________________________
 
-				 DOTPUB
-		       rolandog's public dotfiles
+                                 DOTPUB
+                       rolandog's public dotfiles
 
-			     Rolando Garza
-		      ____________________________
+                             Rolando Garza
+                      ____________________________
 
 
-			       2021-12-03
+                               2021-12-03
 
 
 Table of Contents
@@ -23,9 +23,6 @@ _________________
 6. Online resources
 .. 1. Programmer's dotfiles
 .. 2. Online discussions or tutorials
-
-
-
 
 
 1 What is this?
@@ -138,7 +135,7 @@ _________________
   | |       `-- vim/
   | `-- youtube-dl/
   |     `-- .config/
-  | 	`-- youtube-dl/
+  |         `-- youtube-dl/
   `----
 
 

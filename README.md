@@ -52,8 +52,8 @@ have stow treat it as the source, and to treat `$HOME` as its target.
 
 For a given `PACKAGE`:
 
-  - The file `~/.local/share/dotfiles/pub/PACKAGE/.config/hello/world`
-  - Will end in `~/.config/hello/world`
+- The file `~/.local/share/dotfiles/pub/PACKAGE/.config/hello/world`
+- Will end in `~/.config/hello/world`
 
 Here is an overview of the 'branches' that will be 'transplanted'.
 
@@ -111,12 +111,12 @@ git push --set-upstream origin main
 
 ### Programmer's dotfiles
 
-  - <https://github.com/podiki/dot.me>
-  - <https://github.com/kalkayan/dotfiles>
-  - <https://github.com/gfarrell/dotfiles>
+- <https://github.com/podiki/dot.me>
+- <https://github.com/kalkayan/dotfiles>
+- <https://github.com/gfarrell/dotfiles>
 
 ### Online discussions or tutorials
 
-  - <https://news.ycombinator.com/item?id=11071754>
-  - <https://news.ycombinator.com/item?id=11070797>
-  - <https://www.atlassian.com/git/tutorials/dotfiles>
+- <https://news.ycombinator.com/item?id=11071754>
+- <https://news.ycombinator.com/item?id=11070797>
+- <https://www.atlassian.com/git/tutorials/dotfiles>
