@@ -19,45 +19,45 @@
 
 ;; add different repositories:
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
-;(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
-;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+;; (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
+;; (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+;; (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 ;; set repository priority:
 (setq package-archive-priorities
       '(("gnu" . 15)
-                                        ;("org" . 10)
-                                        ;("melpa-stable" . 5)
-                                        ;("melpa" . 0))
+        ;; ("org" . 10)
+        ;; ("melpa-stable" . 5)
+        ;; ("melpa" . 0))
         ))
 
 ;; list the packages you want:
 (setq package-list
-    '(
-        ;;citeproc
-        ;;dash
-        ;;dired-x
-        ; emacsql
-        ; emacsql-sqlite
-        ; emacsql-sqlite3
-        ;f
-        ; git-commit
-        ;htmlize
-        ;magit
+      '(
+        ;; citeproc
+        ;; dash
+        ;; dired-x
+        ;; emacsql
+        ;; emacsql-sqlite
+        ;; emacsql-sqlite3
+        ;; f
+        ;; git-commit
+        ;; htmlize
+        ;; magit
         magit-section
-        ;;oc-csl
-        ;openwith
-        ; org
-        ;;org-drill
-        ;;org-protocol
-        ; org-roam
-        ;;org-roam-protocol
-        ;;ox-extra
-        ;persist
-        ;s
-        ;string-inflection
-        ; transient
-        ; with-editor
+        ;; oc-csl
+        ;; openwith
+        ;; org
+        ;; org-drill
+        ;; org-protocol
+        ;; org-roam
+        ;; org-roam-protocol
+        ;; ox-extra
+        ;; persist
+        ;; s
+        ;; string-inflection
+        ;; transient
+        ;; with-editor
         ))
 
 ;; activate all the packages;
@@ -102,7 +102,7 @@
 
 (auth-source-pass-enable)
 
-; TODO: test if one can require 'xdg package and call (xdg-data-home)?
+;; TODO: test if one can require 'xdg package and call (xdg-data-home)?
 (setq auth-sources (list
                     (concat (getenv "XDG_DATA_HOME") "/authinfo.gpg")
                     "~/.authinfo.gpg"))
@@ -127,18 +127,18 @@
                 )
  gptel-model 'fastgpt
  gptel-backend (gptel-make-kagi "Kagi"
-                                :key (funcall
-                                      (plist-get
-                                       (car
-                                        (auth-source-search
-                                         :host "kagi.com"
-                                         :user "gptel"
-                                         )
-                                        )
-                                       :secret
-                                       )
-                                      )
-                                )
+                 :key (funcall
+                       (plist-get
+                        (car
+                         (auth-source-search
+                          :host "kagi.com"
+                          :user "gptel"
+                          )
+                         )
+                        :secret
+                        )
+                       )
+                 )
  gptel-default-mode 'org-mode
  gptel-crowdsourced-prompts-file "~/.cache/gptel/gptel-crowdsourced-prompts.csv"
  gptel-org-branching-context t
@@ -165,9 +165,9 @@
 ;; weird org-ref error may require org-export backend
 (require 'ox)
 (require 'ox-org)
-;(require 'ob-ipython)
-;(require 'ox-ipynb)
-;(add-to-list 'org-latex-listings-langs '(ipython "python"))
+;; (require 'ob-ipython)
+;; (require 'ox-ipynb)
+;; (add-to-list 'org-latex-listings-langs '(ipython "python"))
 
 ;; github-flavored markdown
 (eval-after-load "org"
@@ -209,7 +209,7 @@
 
 ;; add plantuml to lang-modes
 (add-to-list
-  'org-src-lang-modes '("plantuml" . plantuml))
+ 'org-src-lang-modes '("plantuml" . plantuml))
 
 ;; languages to make available in org-mode
 (org-babel-do-load-languages
@@ -218,11 +218,11 @@
    (blockdiag . t)
    (ditaa . t)
    (dot . t)
-   ;;(emacs-lisp . t)  ;; unknown emacs-lisp mode?
+   ;; (emacs-lisp . t)  ; unknown emacs-lisp mode?
    (fortran . t)
    (gnuplot . t)
-   ;(ipython . t)
-   ;;(ini . t)  ;; no ob-ini, but there's a built-in conf-mode
+   ;; (ipython . t)
+   ;; (ini . t)  ; no ob-ini, but there's a built-in conf-mode
    (js . t)
    (latex . t)
    (org . t)
@@ -244,21 +244,21 @@
 ;; display/update images in the buffer after evaluation
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 
-; thanks gregoryg and Vaddson
-; https://emacs.stackexchange.com/a/64379/36303
+;; thanks gregoryg and Vaddson
+;; https://emacs.stackexchange.com/a/64379/36303
 (defun gjg/time-call (time-call &rest args)
-(message "Ohai %s" args)
-(let ((start-time (float-time))
-      (result (apply time-call args)))
-  (message "Function call took %f seconds" (- (float-time) start-time))
-  result))
+  (message "Ohai %s" args)
+  (let ((start-time (float-time))
+        (result (apply time-call args)))
+    (message "Function call took %f seconds" (- (float-time) start-time))
+    result))
 (advice-add 'org-babel-execute-src-block :around #'gjg/time-call)
 
-; To remove the advice, execute
-; (advice-remove 'org-babel-execute-src-block #'gjg/time-call)
+;; To remove the advice, execute
+;; (advice-remove 'org-babel-execute-src-block #'gjg/time-call)
 
 ;; built-in conf/ini mode; does it auto-load?
-;(require 'conf-mode)
+;; (require 'conf-mode)
 
 (require 'py-isort)
 (add-hook 'before-save-hook 'py-isort-before-save)
@@ -282,7 +282,7 @@
              "command -v plantuml"))
            "~/.local/bin/plantuml")))
 
-;(setq plantuml-default-exec-mode 'jar)
+;; (setq plantuml-default-exec-mode 'jar)
 (setq plantuml-default-exec-mode 'executable)
 
 
@@ -314,7 +314,7 @@
 (org-clock-persistence-insinuate)
 
 ;; app to check idle time (/usr/bin/xprintidle)
-;(setq org-clock-x11idle-program-name "xprintidle")
+;; (setq org-clock-x11idle-program-name "xprintidle")
 (setq org-clock-idle-time 60)
 
 ;; seconds until auto-clockout if I forget to clock-out
@@ -378,27 +378,26 @@
         ("W" todo "WAITING")
         ("x" agenda)
         ("y" agenda*)
-        ("h" . "@home+Tag searches") ; describe prefix "h"
+        ("h" . "@home+Tag searches")      ; describe prefix "h"
         ("hi" tags "+@home+improvement")
         ("hm" tags "+@home+maintenance")
         ("n" . "nederlands+Tag searches") ; describe prefix "n"
         ("nh" tags "+nederlands+huiswerk")
-        ("o" . "@online+Tag searches") ; describe prefix "o"
+        ("o" . "@online+Tag searches")    ; describe prefix "o"
         ("oc" tags "+@online+courses")
         ("oh" tags "+@online+homework")
         ("om" tags "+@online+meeting")
-        ("w" . "@work+Tag searches") ; describe prefix "w"
+        ("w" . "@work+Tag searches")      ; describe prefix "w"
         ("wi" tags "+@work+improvement")
         ("wj" tags "+@work+jobhunt")
         ("wm" tags "+@work+meeting")))
 
 ;; conversion of LaTeX Maths to MathML
 (setq org-latex-to-mathml-convert-command
- "latexmlmath \"%i\" --presentationmathml=%o")
+      "latexmlmath \"%i\" --presentationmathml=%o")
 
 ;; instead of ODT, use docx
-;(setq org-odt-preferred-output-format "docx")
-
+;; (setq org-odt-preferred-output-format "docx")
 
 ;; couldn't manage to make Emacs open mp4 files with the default option
 ;; so, we're using an add-on to help us force use it; we can try
@@ -423,7 +422,7 @@
 (setq org-roam-mode-section-functions
       (list #'org-roam-backlinks-section
             #'org-roam-reflinks-section
-            ;;#'org-roam-unlinked-references-section
+            ;; #'org-roam-unlinked-references-section
             ))
 
 (defun my/org-roam-extract-subtree ()
@@ -435,11 +434,11 @@
 ;; for org-roam-buffer-toggle
 ;; recommendation in the official manual
 (add-to-list 'display-buffer-alist
-               '("\\*org-roam\\*"
-                  (display-buffer-in-direction)
-                  (direction . right)
-                  (window-width . 0.33)
-                  (window-height . fit-window-to-buffer)))
+             '("\\*org-roam\\*"
+               (display-buffer-in-direction)
+               (direction . right)
+               (window-width . 0.33)
+               (window-height . fit-window-to-buffer)))
 
 
 ;; key binding for org-mode to: perform completions, plot table
@@ -486,19 +485,19 @@
 
 ;;; org-roam-capture-templates
 ;; C-h v org-roam-capture-templates for more info
-;(add-to-list 'org-roam-capture-templates
-;             '(
-;               ;;("d" "default" plain "%?" :if-new
-;               ;;   (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
-;               ;;   :unnarrowed t)
-;               )
-;             '("p" "project" plain
-;               (function org-roam--capture-get-point) "%?"
-;               :file-name "project/%<%Y-%m-%dT%H%M%S>"
-;               :head "#+title: ${title}\n#+created: %<%Y-%m-%dT%H%M%S>"
-;               :unnarrowed t))
+;; (add-to-list 'org-roam-capture-templates
+;;              '(
+;;                ;;("d" "default" plain "%?" :if-new
+;;                ;;   (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+;;                ;;   :unnarrowed t)
+;;                )
+;;              '("p" "project" plain
+;;                (function org-roam--capture-get-point) "%?"
+;;                :file-name "project/%<%Y-%m-%dT%H%M%S>"
+;;                :head "#+title: ${title}\n#+created: %<%Y-%m-%dT%H%M%S>"
+;;                :unnarrowed t))
 
-; location.href='org-protocol://roam-ref?template=r&ref='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title)
+;; location.href='org-protocol://roam-ref?template=r&ref='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title)
 
 (setq org-roam-graph-executable
       (executable-find "neato"))
@@ -522,12 +521,12 @@
 
 ;;; Magit
 ;; global key binding for magit
-;(global-set-key (kbd "C-x g") 'magit-status)
+;; (global-set-key (kbd "C-x g") 'magit-status)
 
 
 ;;; Bibliography
 ;; require the org-cite library
-;(require 'citeproc)
+;; (require 'citeproc)
 (require 'oc)
 (require 'oc-basic)
 (require 'oc-biblatex)
@@ -542,9 +541,9 @@
 
 ;; set export processors by backend; fallback is t
 (setq org-cite-export-processors '(
-   (beamer biblatex)
-   (latex biblatex)
-   (t csl "iso690-numeric-en.csl")))
+                                   (beamer biblatex)
+                                   (latex biblatex)
+                                   (t csl "iso690-numeric-en.csl")))
 
 
 ;;; org-mode export configurations
@@ -574,11 +573,11 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
     (when (file-exists-p pdf-file)
       (message "Compressing PDF and removing active content...")
       (call-process "gs" nil nil nil
-                   "-dNOPAUSE"
-                   "-sDEVICE=pdfwrite"
-                   (concat "-sOUTPUTFILE=" temp-file)
-                   "-dBATCH"
-                   pdf-file)
+                    "-dNOPAUSE"
+                    "-sDEVICE=pdfwrite"
+                    (concat "-sOUTPUTFILE=" temp-file)
+                    "-dBATCH"
+                    pdf-file)
       ;; Replace original file with compressed version
       (if (file-exists-p temp-file)
           (progn
@@ -604,7 +603,7 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
   (let ((file-coding-param (cdr (assoc :file-coding params))))
     (if file-coding-param
         (let ((file-coding (intern file-coding-param))
-        (default-file-coding (default-value 'buffer-file-coding-system)))
+              (default-file-coding (default-value 'buffer-file-coding-system)))
           (setq-default buffer-file-coding-system file-coding)
           ad-do-it
           (setq-default buffer-file-coding-system default-file-coding))
@@ -613,7 +612,7 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
 ;; Add ability to remove links across all org-mode
 ;; thanks https://emacs.stackexchange.com/a/68142/36303
 (defun night/org-remove-link-to-desc-at-point ()
-    "Replace an org link by its description or if empty its address"
+  "Replace an org link by its description or if empty its address"
   (interactive)
   (if (org-in-regexp org-link-bracket-re 1)
       (save-excursion
@@ -635,7 +634,7 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
 
 
 ;; tell org to use listings
-;(setq org-latex-listings t)
+;; (setq org-latex-listings t)
 
 ;; add listings as a common dependency, to fontify code exports
 (add-to-list 'org-latex-packages-alist '("" "listingsutf8"))
@@ -645,14 +644,14 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
 
 ;; include the option to use the "letter" class in LaTeX
 (add-to-list 'org-latex-classes
-        '("letter"
-         "\\documentclass{letter}"
-         ("\\section{%s}" . "\\section*{%s}")
-         ("\\subsection{%s}" . "\\subsection*{%s}")
-         ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+             '("letter"
+               "\\documentclass{letter}"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
 
 ;; PDF export via PDFLaTeX
-;(setq org-latex-pdf-process (list "latexmk -bibtex -f -file-line-error -interaction=nonstopmode -output-format=pdf -pdf -shell-escape %f"))
+;; (setq org-latex-pdf-process (list "latexmk -bibtex -f -file-line-error -interaction=nonstopmode -output-format=pdf -pdf -shell-escape %f"))
 
 ;; do export with email
 (setq org-export-with-email t)
@@ -692,7 +691,7 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
 (define-key global-map "\M-Q" 'unfill-paragraph)
 
 ;; global key binding to copy as formatted text without wrapping
-;(global-set-key (kbd "s-w") 'ox-clip-formatted-copy) ; lower case "s" is for super
+;; (global-set-key (kbd "s-w") 'ox-clip-formatted-copy) ; lower case "s" is for super
 
 ;;; File browsing
 ;; To open all of the marked files at once you need dired-x.el
@@ -751,9 +750,9 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
 ;; format marginpar drawer
 (setq org-latex-format-drawer-function
       (lambda (name contents)
-              (cond ((string= name "marginpar")
-                     (format "\\marginpar{%s}" contents))
-                    (t (format "\\textbf{Note}: %s" contents)))))
+        (cond ((string= name "marginpar")
+               (format "\\marginpar{%s}" contents))
+              (t (format "\\textbf{Note}: %s" contents)))))
 
 
 ;;; Yaml
@@ -767,8 +766,8 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
 
 
 ;;; Editar celdas con (mucho) contenido en las tablas de Org Mode
-; gracias Juan Manuel Macías
-; https://gnutas.juanmanuelmacias.com/editar_celdas.html
+;; gracias Juan Manuel Macías
+;; https://gnutas.juanmanuelmacias.com/editar_celdas.html
 (defun reemplaza (antes despues)
   (interactive)
   (save-excursion
@@ -897,13 +896,13 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
 
 
 (defun make-orgcapture-frame ()
-    "Create a new frame and run org-capture."
-    (interactive)
-    (make-frame '((name . "org-capture") (window-system . x)))
-    (select-frame-by-name "org-capture")
-    (org-capture)
-    (delete-other-windows)
-    )
+  "Create a new frame and run org-capture."
+  (interactive)
+  (make-frame '((name . "org-capture") (window-system . x)))
+  (select-frame-by-name "org-capture")
+  (org-capture)
+  (delete-other-windows)
+  )
 
 ;;; for automatic Project Support (EDE)
 (defun my-ede-project-directories-p (directory)
@@ -913,10 +912,10 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
 
 
 ;;; removed packages
-; modules:
-; org-annotate-file org-checklist
-; selected-packages
-; with-editor transient magit git-commit emacsql-sqlite emacsql-sqlite3
+;; modules:
+;; org-annotate-file org-checklist
+;; selected-packages
+;; with-editor transient magit git-commit emacsql-sqlite emacsql-sqlite3
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
