@@ -431,6 +431,21 @@
   (org-id-get-create)
   (org-roam-extract-subtree))
 
+(defun rg/reload-org-roam-db-and-sync ()
+  "Find org-roam-db and org-roam, import them, and sync db"
+  (when-let*
+      (
+       (guix-emacs-org-roam-path
+        (list (file-name-directory (locate-library "org-roam"))))
+       (found-org-roam-db-el
+        (locate-file "org-roam-db.el" guix-emacs-org-roam-path nil))
+       (found-org-roam-el
+        (locate-file "org-roam.el" guix-emacs-org-roam-path nil))
+       )
+    (load found-org-roam-db-el)
+    (load found-org-roam-el)
+    (org-roam-db-sync)))
+
 ;; for org-roam-buffer-toggle
 ;; recommendation in the official manual
 (add-to-list 'display-buffer-alist
