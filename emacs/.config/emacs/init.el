@@ -156,83 +156,11 @@
 ;; use saved options without invoking transient menu
 (keymap-global-set "<f6>" "C-u C-c <return> <return>")
 
-
-;; Make Org mode work with files ending in .org
-(add-to-list 'auto-mode-alist '("\.org\'" . org-mode))
-(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-
-;; weird org-ref error may require org-export backend
-(require 'ox)
-(require 'ox-org)
-;; (require 'ob-ipython)
-;; (require 'ox-ipynb)
-;; (add-to-list 'org-latex-listings-langs '(ipython "python"))
-
-;; github-flavored markdown
-(eval-after-load "org"
-  '(require 'ox-gfm nil t))
-
-(defun my-org-roam-update-id-locations-before-export (backend)
-  "Update org-roam ID locations before exporting."
-  (org-roam-update-org-id-locations))
-
-(add-hook 'org-export-before-processing-hook 'my-org-roam-update-id-locations-before-export)
-
-
-(autoload 'gnuplot-mode "gnuplot" "Gnuplot major mode" t)
-(autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot-mode" t)
-(add-to-list 'auto-mode-alist '("\.gp\'" . gnuplot-mode))
-(add-to-list 'auto-mode-alist '("\\.gp$" . gnuplot-mode))
-(add-to-list 'auto-mode-alist '("\\.gp\\'" . gnuplot-mode))
-
-;; Enable gnuplot-mode
-(require 'gnuplot)
-
 ;; Enable graphviz-dot-mode
 (require 'graphviz-dot-mode)
 (setq graphviz-dot-indent-width 4)
 
-;; global key bindings for org-mode
-(global-set-key (kbd "C-c l") 'org-store-link)
-(global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c c") 'org-capture)
-
-;; handle tel: links
-(require 'org-dial)
-
-;; use skype to handle tel: links
-(setq org-dial-program "skype callto:")
-
-;; org-babel configurations for the shell
-(require 'ob-shell)
-
-;; add plantuml to lang-modes
-(add-to-list
- 'org-src-lang-modes '("plantuml" . plantuml))
-
-;; languages to make available in org-mode
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '(
-   (blockdiag . t)
-   (ditaa . t)
-   (dot . t)
-   ;; (emacs-lisp . t)  ; unknown emacs-lisp mode?
-   (fortran . t)
-   (gnuplot . t)
-   ;; (ipython . t)
-   ;; (ini . t)  ; no ob-ini, but there's a built-in conf-mode
-   (js . t)
-   (latex . t)
-   (org . t)
-   (php . t)
-   (plantuml . t)
-   (python . t)
-   (shell . t)
-   )
- )
-
+;; Add sh-mode and bash-ts-mode to eglot server programs
 (use-package eglot
   :config
   (add-to-list 'eglot-server-programs '((sh-mode bash-ts-mode) . ("bash-language-server" "start")))
@@ -240,22 +168,6 @@
   :hook
   (sh-mode . eglot-ensure)
   (bash-ts-mode . eglot-ensure))
-
-;; display/update images in the buffer after evaluation
-(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
-
-;; thanks gregoryg and Vaddson
-;; https://emacs.stackexchange.com/a/64379/36303
-(defun gjg/time-call (time-call &rest args)
-  (message "Ohai %s" args)
-  (let ((start-time (float-time))
-        (result (apply time-call args)))
-    (message "Function call took %f seconds" (- (float-time) start-time))
-    result))
-(advice-add 'org-babel-execute-src-block :around #'gjg/time-call)
-
-;; To remove the advice, execute
-;; (advice-remove 'org-babel-execute-src-block #'gjg/time-call)
 
 ;; built-in conf/ini mode; does it auto-load?
 ;; (require 'conf-mode)
@@ -311,7 +223,6 @@
 
 ;; save the clock history across Emacs sessions
 (setq org-clock-persist 'history)
-(org-clock-persistence-insinuate)
 
 ;; app to check idle time (/usr/bin/xprintidle)
 ;; (setq org-clock-x11idle-program-name "xprintidle")
@@ -319,7 +230,6 @@
 
 ;; seconds until auto-clockout if I forget to clock-out
 (setq org-clock-auto-clockout-timer 5400)
-(org-clock-auto-clockout-insinuate)
 
 ;; default duration for appointments in minutes
 (setq org-agenda-default-appointment-duration 25)
@@ -350,9 +260,6 @@
         ("jobhunt" . ?j)
         ("meeting" . ?m)
         ("nederlands" . ?n)))
-
-;; default target file for notes
-(setq org-default-notes-file (concat org-directory "/notes.org"))
 
 ;; capture templates
 (setq org-capture-templates
@@ -407,7 +314,6 @@
 ;; set specific browser to open links
 (setq browse-url-browser-function 'browse-url-firefox)
 
-
 ;;; org-roam pre-configuration:
 (setq org-roam-directory (file-truename "~/org-roam"))
 (setq org-roam-completion-everywhere t)
@@ -416,60 +322,126 @@
 (setq org-roam-v2-ack t)
 
 
-;;; org-roam configuration
-
-;; what is displayed in buffer
-(setq org-roam-mode-section-functions
-      (list #'org-roam-backlinks-section
-            #'org-roam-reflinks-section
-            ;; #'org-roam-unlinked-references-section
-            ))
-
-(defun my/org-roam-extract-subtree ()
-  "Extract the current subtree as a new org-roam node."
-  (interactive)
-  (org-id-get-create)
-  (org-roam-extract-subtree))
-
-(defun rg/reload-org-roam-db-and-sync ()
-  "Find org-roam-db and org-roam, import them, and sync db"
-  (when-let*
-      (
-       (guix-emacs-org-roam-path
-        (list (file-name-directory (locate-library "org-roam"))))
-       (found-org-roam-db-el
-        (locate-file "org-roam-db.el" guix-emacs-org-roam-path nil))
-       (found-org-roam-el
-        (locate-file "org-roam.el" guix-emacs-org-roam-path nil))
-       )
-    (load found-org-roam-db-el)
-    (load found-org-roam-el)
-    (org-roam-db-sync)))
-
-;; for org-roam-buffer-toggle
-;; recommendation in the official manual
-(add-to-list 'display-buffer-alist
-             '("\\*org-roam\\*"
-               (display-buffer-in-direction)
-               (direction . right)
-               (window-width . 0.33)
-               (window-height . fit-window-to-buffer)))
-
-
-;; key binding for org-mode to: perform completions, plot table
-;; using gnuplot
+;; after loading org-mode
 (with-eval-after-load 'org
+  ;; Make Org mode work with files ending in .org
+  (add-to-list 'auto-mode-alist '("\.org\'" . org-mode))
+  (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+  (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+
+  ;; key binding for org-mode to: perform completions, plot table
+  ;; using gnuplot
   (define-key org-mode-map (kbd "C-M-i") 'completion-at-point)
-  (define-key org-mode-map (kbd "C-M-g") 'org-plot/gnuplot))
+  (define-key org-mode-map (kbd "C-M-g") 'org-plot/gnuplot)
 
-;; create and bind the dailies keymap (equivalent to :bind-keymap)
-(defvar org-roam-dailies-map (make-sparse-keymap)
-  "Keymap for org-roam dailies commands.")
-(global-set-key (kbd "C-c n d") org-roam-dailies-map)
+  ;; weird org-ref error may require org-export backend
+  (require 'ox)
+  (require 'ox-org)
 
-;; key binding for org-roam to: add aliases, insert nodes, toggle buffer
-;; get/create id, add tag, or insert dailies
+  ;; (require 'ob-ipython)
+  ;; (require 'ox-ipynb)
+  ;; (add-to-list 'org-latex-listings-langs '(ipython "python"))
+
+  ;; github-flavored markdown
+  '(require 'ox-gfm nil t)
+
+  ;; global key bindings for org-mode
+  (global-set-key (kbd "C-c l") 'org-store-link)
+  (global-set-key (kbd "C-c a") 'org-agenda)
+  (global-set-key (kbd "C-c c") 'org-capture)
+
+  ;; handle tel: links
+  (require 'org-dial)
+
+  ;; TODO: find replacement for Skype
+  ;; use skype to handle tel: links
+  (setq org-dial-program "skype callto:")
+
+  ;; org-babel configurations for the shell
+  (require 'ob-shell)
+
+  ;; add plantuml to lang-modes
+  (add-to-list
+   'org-src-lang-modes '("plantuml" . plantuml))
+
+  ;; Enable gnuplot-mode
+  (require 'gnuplot)
+
+  (autoload 'gnuplot-mode "gnuplot" "Gnuplot major mode" t)
+  (autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot-mode" t)
+  (add-to-list 'auto-mode-alist '("\.gp\'" . gnuplot-mode))
+  (add-to-list 'auto-mode-alist '("\\.gp$" . gnuplot-mode))
+  (add-to-list 'auto-mode-alist '("\\.gp\\'" . gnuplot-mode))
+
+  ;; languages to make available in org-mode
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '(
+     (blockdiag . t)
+     (ditaa . t)
+     (dot . t)
+     ;; (emacs-lisp . t)  ; unknown emacs-lisp mode?
+     (fortran . t)
+     (gnuplot . t)
+     ;; (ipython . t)
+     ;; (ini . t)  ; no ob-ini, but there's a built-in conf-mode
+     (js . t)
+     (latex . t)
+     (org . t)
+     (php . t)
+     (plantuml . t)
+     (python . t)
+     (shell . t)
+     )
+   )
+
+  ;; display/update images in the buffer after evaluation
+  (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+
+  ;; thanks gregoryg and Vaddson
+  ;; https://emacs.stackexchange.com/a/64379/36303
+  (defun gjg/time-call (time-call &rest args)
+    (message "Ohai %s" args)
+    (let ((start-time (float-time))
+          (result (apply time-call args)))
+      (message "Function call took %f seconds" (- (float-time) start-time))
+      result))
+  (advice-add 'org-babel-execute-src-block :around #'gjg/time-call)
+
+  ;; To remove the advice, execute
+  ;; (advice-remove 'org-babel-execute-src-block #'gjg/time-call)
+
+  ;; save the clock history across Emacs sessions
+  (org-clock-persistence-insinuate)
+  ;; seconds until auto-clockout if I forget to clock-out
+  (org-clock-auto-clockout-insinuate)
+
+  ;; default target file for notes
+  (setq org-default-notes-file (concat org-directory "/notes.org"))
+  )
+
+
+;; after loading org-roam
 (with-eval-after-load 'org-roam
+  ;; what is displayed in buffer
+  (setq org-roam-mode-section-functions
+        (list #'org-roam-backlinks-section
+              #'org-roam-reflinks-section
+              #'org-roam-unlinked-references-section
+              ))
+
+  ;; for org-roam-buffer-toggle
+  ;; recommendation in the official manual
+  (add-to-list 'display-buffer-alist
+               '("\\*org-roam\\*"
+                 (display-buffer-in-direction)
+                 (direction . right)
+                 (window-width . 0.33)
+                 (window-height . fit-window-to-buffer)))
+
+  ;; key binding for org-roam to: add aliases, insert nodes, toggle buffer
+  ;; get/create id, add tag, or insert dailies
+
   ;; global key bindings for org-roam
   (global-set-key (kbd "C-c n c") 'org-roam-capture)
   (global-set-key (kbd "C-c n f") 'org-roam-node-find)
@@ -490,12 +462,47 @@
   ;; global key bindings for org-roam dailies
   (global-set-key (kbd "C-c n j") 'org-roam-dailies-capture-today)
 
+  ;; create and bind the dailies keymap (equivalent to :bind-keymap)
+  (defvar org-roam-dailies-map (make-sparse-keymap)
+    "Keymap for org-roam dailies commands.")
+  (global-set-key (kbd "C-c n d") org-roam-dailies-map)
+
   ;; helpful functions to capture yesterday and tomorrow entries
   (define-key org-roam-dailies-map (kbd "Y") 'org-roam-dailies-capture-yesterday)
   (define-key org-roam-dailies-map (kbd "T") 'org-roam-dailies-capture-tomorrow)
 
   ;; enable autosync
   (org-roam-db-autosync-mode)
+
+  ;; help with id: links on export
+  (defun my-org-roam-update-id-locations-before-export (backend)
+    "Update org-roam ID locations before exporting."
+    (org-roam-update-org-id-locations))
+
+  (add-hook
+   'org-export-before-processing-hook
+   'my-org-roam-update-id-locations-before-export)
+
+  (defun my/org-roam-extract-subtree ()
+    "Extract the current subtree as a new org-roam node."
+    (interactive)
+    (org-id-get-create)
+    (org-roam-extract-subtree))
+
+  (defun rg/reload-org-roam-db-and-sync ()
+    "Find org-roam-db and org-roam, import them, and sync db"
+    (when-let*
+        (
+         (guix-emacs-org-roam-path
+          (list (file-name-directory (locate-library "org-roam"))))
+         (found-org-roam-db-el
+          (locate-file "org-roam-db.el" guix-emacs-org-roam-path nil))
+         (found-org-roam-el
+          (locate-file "org-roam.el" guix-emacs-org-roam-path nil))
+         )
+      (load found-org-roam-db-el)
+      (load found-org-roam-el)
+      (org-roam-db-sync)))
   )
 
 ;;; org-roam-capture-templates
