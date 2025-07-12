@@ -41,18 +41,18 @@
 # --no-mtime
 
 # Write video description to a .description file
-#--write-description
+--write-description
 
 # Write video metadata to a .info.json file
-#--write-info-json
+--write-info-json
 
 # Write video annotations to a .annotations.xml file
-#--write-annotations
+--write-annotations
 
 
 ### THUMBNAIL OPTIONS
 # Write thumbnail image to disk
-#--write-thumbnail
+--write-thumbnail
 
 
 ### VERBOSITY / SIMULATION OPTIONS
@@ -99,12 +99,15 @@
 
 
 ### POST-PROCESSING OPTIONS
+# Keep the intermediate video file on disk after post-processing
+--keep-video
+
 # Convert video files to audio-only files (requires ffmpeg/avconv and
 # ffprobe/avprobe)
---extract-audio
+#--extract-audio
 
 # Embed subtitles in the video (only for mp4, webm and mkv videos)
---embed-subs
+#--embed-subs
 
 # Embed thumbnail in the audio as cover art
 --embed-thumbnail
