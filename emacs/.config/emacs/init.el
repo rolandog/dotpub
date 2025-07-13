@@ -338,9 +338,9 @@
   (require 'ox)
   (require 'ox-org)
 
-  ;; (require 'ob-ipython)
-  ;; (require 'ox-ipynb)
-  ;; (add-to-list 'org-latex-listings-langs '(ipython "python"))
+  (require 'ob-ipython)
+  (require 'ox-ipynb)
+  (add-to-list 'org-latex-listings-langs '(ipython "python"))
 
   ;; github-flavored markdown
   '(require 'ox-gfm nil t)
@@ -383,7 +383,7 @@
      ;; (emacs-lisp . t)  ; unknown emacs-lisp mode?
      (fortran . t)
      (gnuplot . t)
-     ;; (ipython . t)
+     (ipython . t)
      ;; (ini . t)  ; no ob-ini, but there's a built-in conf-mode
      (js . t)
      (latex . t)
