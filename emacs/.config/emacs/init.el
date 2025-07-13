@@ -767,7 +767,7 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
 (setq org-export-with-smart-quotes t)
 
 ;; set org-indent-mode
-(setq org-startup-indented t)
+;;(setq org-startup-indented t)
 
 ;; format marginpar drawer
 (setq org-latex-format-drawer-function
@@ -961,8 +961,6 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
      ("\\.mp3\\'" "rhythmbox-client"
       ("--play-uri=" file))
      ("\\.\\(?:mpe?g\\|avi\\|mov\\|mp4\\|webm\\|wmv\\)\\'" "mpv"
-      (file))
-     ("\\.\\(?:jp?g\\|png\\)\\'" "eog"
       (file))))
  '(openwith-mode t)
  '(org-agenda-files
