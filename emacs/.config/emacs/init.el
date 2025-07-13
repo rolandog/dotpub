@@ -947,7 +947,8 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
-   ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
+   ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1"
+    "#e1e1e0"])
  '(auto-dark-themes '((leuven-dark) (leuven)))
  '(column-number-mode t)
  '(custom-enabled-themes nil)
@@ -956,24 +957,22 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
  '(holiday-hebrew-holidays t)
  '(holiday-islamic-holidays t)
  '(openwith-associations
-   '(("\\.pdf\\'" "evince"
-      (file))
-     ("\\.mp3\\'" "rhythmbox-client"
-      ("--play-uri=" file))
+   '(("\\.pdf\\'" "evince" (file))
+     ("\\.mp3\\'" "rhythmbox-client" ("--play-uri=" file))
      ("\\.\\(?:mpe?g\\|avi\\|mov\\|mp4\\|webm\\|wmv\\)\\'" "mpv"
       (file))))
  '(openwith-mode t)
  '(org-agenda-files
-   '("~/org-work/gtd.org" "~/org/duties.org" "~/org/habits.org" "~/org/chores.org" "~/org/capture.org" "~/org/iwt.org" "~/org/journal.org" "~/org/projects.org" "~/org/gtd.org" "~/org/dates.org"))
+   '("~/org-work/gtd.org" "~/org/duties.org" "~/org/habits.org"
+     "~/org/chores.org" "~/org/capture.org" "~/org/iwt.org"
+     "~/org/journal.org" "~/org/projects.org" "~/org/gtd.org"
+     "~/org/dates.org"))
  '(org-columns-default-format "%40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM")
  '(org-export-backends '(ascii beamer gfm html icalendar latex md odt texinfo))
  '(org-file-apps
-   '((auto-mode . emacs)
-     ("\\.mm\\'" . default)
-     ("\\.x?html?\\'" . default)
-     ("\\.pdf\\'" . "evince %s")
-     ("\\.mkv\\'" . "mpv %s")
-     ("\\.mp4\\'" . "mpv %s")))
+   '((auto-mode . emacs) ("\\.mm\\'" . default)
+     ("\\.x?html?\\'" . default) ("\\.pdf\\'" . "evince %s")
+     ("\\.mkv\\'" . "mpv %s") ("\\.mp4\\'" . "mpv %s")))
  '(org-global-properties
    '(("Effort_ALL" . "0 0:05 0:10 0:25 1:00 2:00 4:00 8:00 16:00")))
  '(org-habit-graph-column 45)
@@ -981,14 +980,22 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
  '(org-link-file-path-type 'relative)
  '(org-loop-over-headlines-in-active-region t)
  '(org-modules
-   '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
+   '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus org-habit ol-info
+             ol-irc ol-mhe ol-rmail ol-w3m))
  '(org-refile-targets
-   '((org-agenda-files :tag . "")
-     (org-roam-list-files :maxlevel . 2)))
+   '((org-agenda-files :tag . "") (org-roam-list-files :maxlevel . 2)))
  '(package-selected-packages
-   '(compat dash emacsql reformatter transient magit-section deferred anki-editor gnuplot auto-dark json-mode flymake flymake-mypy flymake-shellcheck gptel tablist plantuml-mode py-isort async magit org-roam company graphviz-dot-mode htmlize jinja2-mode spinner markdown-mode hydra ht f openwith org-contrib ox-gfm pkg-info projectile python-black yaml-mode ob-php ob-blockdiag netherlands-holidays mexican-holidays))
+   '(compat dash emacsql reformatter transient magit-section deferred
+            anki-editor gnuplot auto-dark json-mode flymake
+            flymake-mypy flymake-shellcheck gptel tablist
+            plantuml-mode py-isort async magit org-roam company
+            graphviz-dot-mode htmlize jinja2-mode spinner
+            markdown-mode hydra ht f openwith org-contrib ox-gfm
+            pkg-info projectile python-black yaml-mode ob-php
+            ob-blockdiag netherlands-holidays mexican-holidays))
  '(reftex-bibpath-environment-variables
-   '("BIBINPUTS" "TEXBIB" "~/Documents/references/" "~/org/" "~/org-roam/"))
+   '("BIBINPUTS" "TEXBIB" "~/Documents/references/" "~/org/"
+     "~/org-roam/"))
  '(reftex-default-bibliography '("~/org/references.bib"))
  '(safe-local-variable-values '((org-use-property-inheritance . t))))
 (custom-set-faces
