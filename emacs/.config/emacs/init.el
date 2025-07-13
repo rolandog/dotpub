@@ -160,14 +160,17 @@
 (require 'graphviz-dot-mode)
 (setq graphviz-dot-indent-width 4)
 
-;; Add sh-mode and bash-ts-mode to eglot server programs
-(use-package eglot
-  :config
-  (add-to-list 'eglot-server-programs '((sh-mode bash-ts-mode) . ("bash-language-server" "start")))
+;; Load eglot
+(require 'eglot)
 
-  :hook
-  (sh-mode . eglot-ensure)
-  (bash-ts-mode . eglot-ensure))
+;; Configure eglot after it's loaded
+(with-eval-after-load 'eglot
+  ;; Add sh-mode and bash-ts-mode to eglot server programs
+  (add-to-list 'eglot-server-programs '((sh-mode bash-ts-mode) . ("bash-language-server" "start"))))
+
+;; Set up hooks for automatic eglot activation
+(add-hook 'sh-mode-hook #'eglot-ensure)
+(add-hook 'bash-ts-mode-hook #'eglot-ensure)
 
 ;; built-in conf/ini mode; does it auto-load?
 ;; (require 'conf-mode)
