@@ -431,6 +431,9 @@
 
   ;; default target file for notes
   (setq org-default-notes-file (concat org-directory "/notes.org"))
+
+  ;; scaling up LaTeX previews
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
   )
 
 
