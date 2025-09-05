@@ -170,17 +170,26 @@
 (require 'graphviz-dot-mode)
 (setq graphviz-dot-indent-width 4)
 
-;; Load eglot
-(require 'eglot)
 
 ;; Configure eglot after it's loaded
 (with-eval-after-load 'eglot
-  ;; Add sh-mode and bash-ts-mode to eglot server programs
+  ;; when no longer needed, shut down
+  (setq eglot-autoshutdown t)
+
+  ;; ommit progress messages
+  (setq eglot-report-progress nil)
+
+  ;; add sh-mode and bash-ts-mode to eglot server programs
   (add-to-list 'eglot-server-programs '((sh-mode bash-ts-mode) . ("bash-language-server" "start"))))
 
+;; Define custom hooks to require eglot package
+(defun custom-sh-mode-hook ()
+  ;; Load eglot
+  (require 'eglot))
+
 ;; Set up hooks for automatic eglot activation
-(add-hook 'sh-mode-hook #'eglot-ensure)
-(add-hook 'bash-ts-mode-hook #'eglot-ensure)
+(add-hook 'sh-mode-hook 'custom-sh-mode-hook)
+(add-hook 'bash-ts-mode-hook 'custom-sh-mode-hook)
 
 ;; built-in conf/ini mode; does it auto-load?
 ;; (require 'conf-mode)
