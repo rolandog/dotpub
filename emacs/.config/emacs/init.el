@@ -1,6 +1,14 @@
+;;; init.el --- Emacs configuration file for Rolando Garza
 ;; -*- coding: utf-8; mode: emacs-lisp; -*-
 
+;;; NO DEFAULT INIT
+(setq inhibit-default-init 't)
+
 ;;; PACKAGE MAGAGEMENT:
+
+;;; Commentary:
+;;
+
 (require 'package)
 
 ;; debugging:
@@ -8,6 +16,8 @@
 ;;(setq debug-on-error t)
 
 ;; disable initial initialization:
+;;; Code:
+
 (setq package-enable-at-startup nil)
 
 ;; attempt to verify signatures; possible values:
@@ -582,7 +592,7 @@ This function removes active content and compresses the PDF file.
 Based on the solution provided at https://tex.stackexchange.com/a/481609/29430.
 
 The compression process removes embedded objects that might be flagged as
-potential security threats in PDFs with active content. This is particularly
+potential security threats in PDFs with active content.  This is particularly
 useful when sharing PDFs with others or submitting to systems that may
 flag active content.
 
@@ -624,7 +634,7 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
 ;; Add ability to specify :file-coding utf-8-unix on shell codeblocks
 ;; Thanks https://emacs.stackexchange.com/a/28890/36303
 (defadvice org-babel-sh-evaluate (around set-shell activate)
-  "Add header argument :file-coding that sets the buffer-file-coding-system."
+  "Add header argument :file-coding to set the `buffer-file-coding-system'."
   (let ((file-coding-param (cdr (assoc :file-coding params))))
     (if file-coding-param
         (let ((file-coding (intern file-coding-param))
@@ -637,7 +647,7 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
 ;; Add ability to remove links across all org-mode
 ;; thanks https://emacs.stackexchange.com/a/68142/36303
 (defun night/org-remove-link-to-desc-at-point ()
-  "Replace an org link by its description or if empty its address"
+  "Replace an org link by its description or if empty its address."
   (interactive)
   (if (org-in-regexp org-link-bracket-re 1)
       (save-excursion
@@ -650,6 +660,9 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
           (insert description)))))
 
 (defun night/org-remove-link-to-desc (beg end)
+  "Remove links across `org-mode' text.
+Argument BEG Beginning of region.
+Argument END End of region."
   (interactive "r")
   (save-mark-and-excursion
     (goto-char beg)
@@ -705,7 +718,8 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
 
 ;;; Stefan Monnier <foo at acm.org>. It is the opposite of fill-paragraph
 (defun unfill-paragraph (&optional region)
-  "Takes a multi-line paragraph and makes it into a single line of text."
+  "Takes a multi-line paragraph and make it into a single line of text.
+Optional argument REGION A selection to be un-filled."
   (interactive (progn (barf-if-buffer-read-only) '(t)))
   (let ((fill-column (point-max))
         ;; This would override `fill-column' if it's an integer.
@@ -794,6 +808,9 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
 ;; gracias Juan Manuel Macías
 ;; https://gnutas.juanmanuelmacias.com/editar_celdas.html
 (defun reemplaza (antes despues)
+  "Reemplaza instancias de un texto por otro.
+Argument ANTES Word or symbol to be replaced.
+Argument DESPUES Word or symbol with which to replace ANTES."
   (interactive)
   (save-excursion
     (goto-char (point-min))
@@ -801,6 +818,7 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
       (replace-match despues t nil))))
 
 (defun mi-edicion-celda ()
+  "Replace nl or par macros with newlines or paragraphs."
   (interactive)
   (if (not (equal (org-element-type (org-element-at-point)) 'table-row))
       (error "No estás en una tabla!")
@@ -828,6 +846,7 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
       (pop-to-buffer "edit-celda"))))
 
 (defun salir-edicion-celda-y-guardar ()
+  "Finalizes editing cell and save buffer."
   (interactive)
   (reemplaza "\n\n+" "\n")
   (save-excursion
@@ -873,20 +892,22 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
 
 ;; function definitions
 (defun anki-editor-cloze-region-auto-incr (&optional arg)
-  "Cloze region without hint and increase card number."
+  "Cloze region without hint and increase card number.
+Optional argument ARG Cloze number."
   (interactive)
   (anki-editor-cloze-region my-anki-editor-cloze-number "")
   (setq my-anki-editor-cloze-number (1+ my-anki-editor-cloze-number))
   (forward-sexp))
 
 (defun anki-editor-cloze-region-dont-incr (&optional arg)
-  "Cloze region without hint using the previous card number."
+  "Cloze region without hint using the previous card number.
+Optional argument ARG Cloze number."
   (interactive)
   (anki-editor-cloze-region (1- my-anki-editor-cloze-number) "")
   (forward-sexp))
 
 (defun anki-editor-reset-cloze-number (&optional arg)
-  "Reset cloze number to ARG or 1"
+  "Reset cloze number to ARG or 1."
   (interactive)
   (setq my-anki-editor-cloze-number (or arg 1)))
 
@@ -921,7 +942,7 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
 
 
 (defun make-orgcapture-frame ()
-  "Create a new frame and run org-capture."
+  "Create a new frame and run `org-capture'."
   (interactive)
   (make-frame '((name . "org-capture") (window-system . x)))
   (select-frame-by-name "org-capture")
@@ -1011,3 +1032,7 @@ The function will only proceed if Ghostscript (gs) is installed on the system."
 (require 'auto-dark)
 (auto-dark-mode t)
 (put 'narrow-to-region 'disabled nil)
+
+(provide 'init)
+
+;;; init.el ends here
