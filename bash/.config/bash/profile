@@ -159,6 +159,11 @@ if [ -d "${HOME}/.guix-profile/lib" ]; then
     export LIBRARY_PATH
 fi
 
+if [ -d "${HOME}/.guix-extra-profiles" ]; then
+    GUIX_EXTRA_PROFILES="${HOME}/.guix-extra-profiles"
+    export GUIX_EXTRA_PROFILES
+fi
+
 
 ### pass
 export PASSWORD_STORE_DIR="${XDG_DATA_HOME}"/pass
