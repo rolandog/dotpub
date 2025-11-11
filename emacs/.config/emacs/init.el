@@ -177,6 +177,8 @@
 ;; use saved options without invoking transient menu
 ;; (keymap-global-set "<f6>" "C-u C-c <return> <return>")
 
+
+;;; Graphviz
 ;; Enable graphviz-dot-mode
 (require 'graphviz-dot-mode)
 (setq graphviz-dot-indent-width 4)
