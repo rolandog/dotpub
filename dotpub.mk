@@ -560,7 +560,7 @@ version:; @ ## show program version number and exit
 
 % : %.org $(THIS_MAKEFILE); @ ## [emacs] convert %.org to % (.txt) files
 	emacs $< --batch -f org-ascii-export-to-ascii --kill 2>/dev/null
-	mv $@.txt $@ 
+	mv $@.txt $@
 	@$(call ok,$@)
 
 # ##############################################################################
