@@ -609,7 +609,12 @@
 ;; enable org-roam
 (require 'org-roam)
 
+;;; code-cells
+(add-hook 'python-mode-hook 'code-cells-mode-maybe)
 
+;;(setq code-cells-convert-ipynb-style '(("pandoc" "--to" "ipynb" "--from" "org")
+;;                                       ("pandoc" "--to" "org" "--from" "ipynb" "--extract-media" "./ipynb-images/")
+;;                                       (lambda () #'org-mode)))
 
 ;;; Magit
 ;; global key binding for magit
