@@ -392,6 +392,15 @@
   ;; ignore headings
   (ox-extras-activate '(ignore-headlines))
 
+  ;; Bibliography
+  ;; require the org-cite library
+  ;; (require 'citeproc)
+  (require 'oc)
+  (require 'oc-basic)
+  (require 'oc-biblatex)
+  (require 'oc-csl)
+  ;;(require 'oc-natbib)
+
   ;;(require 'ob-ipython)
   ;;(add-to-list 'org-latex-listings-langs '(ipython "python"))
 
@@ -600,16 +609,7 @@
 ;; global key binding for magit
 ;; (global-set-key (kbd "C-x g") 'magit-status)
 
-
-;;; Bibliography
-;; require the org-cite library
-;; (require 'citeproc)
-(require 'oc)
-(require 'oc-basic)
-(require 'oc-biblatex)
-(require 'oc-csl)
-;;(require 'oc-natbib)
-
+;;; org-cite configuration
 ;; org-cite global bibliography
 (setq org-cite-global-bibliography '("~/org/references.bib"))
 
