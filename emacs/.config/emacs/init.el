@@ -369,6 +369,12 @@
   (define-key org-mode-map (kbd "C-M-i") 'completion-at-point)
   (define-key org-mode-map (kbd "C-M-g") 'org-plot/gnuplot)
 
+  ;;; org-protocol
+  ;; start server
+  (server-start)
+  ;; require protocol packages
+  (require 'org-protocol)
+
   ;; weird org-ref error may require org-export backend
   (require 'ox)
   (require 'ox-org)
@@ -512,6 +518,9 @@
   ;; enable autosync
   (org-roam-db-autosync-mode)
 
+  ;; org-roam-protocol
+  (require 'org-roam-protocol)
+
   ;; help with id: links on export
   (defun my-org-roam-update-id-locations-before-export (backend)
     "Update org-roam ID locations before exporting."
@@ -570,13 +579,6 @@
 ;; enable org-roam
 (require 'org-roam)
 
-;;; org-protocol
-;; start server
-(server-start)
-
-;; require protocol packages
-(require 'org-protocol)
-(require 'org-roam-protocol)
 
 
 ;;; Magit
