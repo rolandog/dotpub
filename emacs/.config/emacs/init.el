@@ -382,6 +382,9 @@
   (require 'ox)
   (require 'ox-org)
 
+  ;; org-export latex
+  (require 'ox-latex)
+
   ;;(require 'ob-ipython)
   ;;(add-to-list 'org-latex-listings-langs '(ipython "python"))
 
@@ -612,11 +615,6 @@
                                    (latex biblatex)
                                    (t csl "iso690-numeric-en.csl")))
 
-
-;;; org-mode export configurations
-;; org-export latex
-(require 'ox-latex)
-
 ;; Helps remove active objects from pdfs
 (defun compress-pdf-after-latex-export (&rest _args)
   "Compress PDF file after org-latex export using Ghostscript.
@@ -720,7 +718,7 @@ Argument END End of region."
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
 
-;; PDF export via PDFLaTeX
+;;; PDF export via PDFLaTeX
 ;; (setq org-latex-pdf-process (list "latexmk -bibtex -f -file-line-error -interaction=nonstopmode -output-format=pdf -pdf -shell-escape %f"))
 
 ;; do export with email
