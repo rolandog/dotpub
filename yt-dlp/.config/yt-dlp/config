@@ -92,10 +92,10 @@
 ### AUTHENTICATION OPTIONS
 # Use .netrc authentication data
 #--netrc
---netrc-cmd 'gpg --decrypt ~/.local/share/authinfo.gpg'
+#--netrc-cmd 'gpg --decrypt ~/.local/share/authinfo.gpg'
 
 # File to read cookies from and dump cookie jar in
---cookies "~/.local/state/yt-dlp/cookie-jar"
+--cookies "${HOME}/.local/state/yt-dlp/cookie-jar"
 
 
 ### POST-PROCESSING OPTIONS
