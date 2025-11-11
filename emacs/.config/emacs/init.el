@@ -85,15 +85,15 @@
 (package-initialize)
 
 ;; refresh the packages descriptions:
-(unless package-archive-contents (package-refresh-contents))
+;; (unless package-archive-contents (package-refresh-contents))
 
 ;; list of packages to load:
-(setq package-load-list '(all))
+;; (setq package-load-list '(all))
 
 ;; install any missing packages:
-(dolist (package package-list)
-  (unless (package-installed-p package)
-    (package-install package)))
+;;(dolist (package package-list)
+;;  (unless (package-installed-p package)
+;;    (package-install package)))
 
 ;; add all descendant directories of a directory to your load-path
 ;; https://www.emacswiki.org/emacs/LoadPath
@@ -131,51 +131,51 @@
 
 ;;; gptel
 ;; enable gptel
-(require 'gptel)
+;; (require 'gptel)
 
 ;; gptel config
-(setq
- gptel-api-key (funcall
-                (plist-get
-                 (car
-                  (auth-source-search
-                   :host "api.openai.com"
-                   :user "apikey"
-                   )
-                  )
-                 :secret
-                 )
-                )
- gptel-model 'fastgpt
- gptel-backend (gptel-make-kagi "Kagi"
-                 :key (funcall
-                       (plist-get
-                        (car
-                         (auth-source-search
-                          :host "kagi.com"
-                          :user "gptel"
-                          )
-                         )
-                        :secret
-                        )
-                       )
-                 )
- gptel-default-mode 'org-mode
- gptel-crowdsourced-prompts-file "~/.cache/gptel/gptel-crowdsourced-prompts.csv"
- gptel-org-branching-context t
- )
+;; (setq
+;;  gptel-api-key (funcall
+;;                 (plist-get
+;;                  (car
+;;                   (auth-source-search
+;;                    :host "api.openai.com"
+;;                    :user "apikey"
+;;                    )
+;;                   )
+;;                  :secret
+;;                  )
+;;                 )
+;;  gptel-model 'fastgpt
+;;  gptel-backend (gptel-make-kagi "Kagi"
+;;                  :key (funcall
+;;                        (plist-get
+;;                         (car
+;;                          (auth-source-search
+;;                           :host "kagi.com"
+;;                           :user "gptel"
+;;                           )
+;;                          )
+;;                         :secret
+;;                         )
+;;                        )
+;;                  )
+;;  gptel-default-mode 'org-mode
+;;  gptel-crowdsourced-prompts-file "~/.cache/gptel/gptel-crowdsourced-prompts.csv"
+;;  gptel-org-branching-context t
+;;  )
 
 ;;; Org mode configuration:
 
 ;; make the prefix strings for org-mode not Org headings, e.g.
-(setf (alist-get 'org-mode gptel-prompt-prefix-alist) "@user\n")
-(setf (alist-get 'org-mode gptel-response-prefix-alist) "@assistant\n")
+;; (setf (alist-get 'org-mode gptel-prompt-prefix-alist) "@user\n")
+;; (setf (alist-get 'org-mode gptel-response-prefix-alist) "@assistant\n")
 
 ;; enable gptel keybinding
-(global-set-key (kbd "C-c RET") 'gptel-send)
+;; (global-set-key (kbd "C-c RET") 'gptel-send)
 
 ;; use saved options without invoking transient menu
-(keymap-global-set "<f6>" "C-u C-c <return> <return>")
+;; (keymap-global-set "<f6>" "C-u C-c <return> <return>")
 
 ;; Enable graphviz-dot-mode
 (require 'graphviz-dot-mode)
