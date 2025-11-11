@@ -1,8 +1,19 @@
-;;; init.el --- Emacs configuration file for Rolando Garza
-;; -*- coding: utf-8; mode: emacs-lisp; -*-
+;;; init.el --- Emacs config. -*- coding: utf-8; mode: emacs-lisp; -*-
+
 
 ;;; NO DEFAULT INIT
 (setq inhibit-default-init 't)
+
+
+;;; UTF8
+;; UTF-8 as default encoding
+(set-language-environment 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-keyboard-coding-system 'utf-8-unix)
+
+;; add this especially on Windows, else python output problem
+(set-terminal-coding-system 'utf-8-unix)
+
 
 ;;; PACKAGE MAGAGEMENT:
 
