@@ -375,6 +375,9 @@
   ;; require protocol packages
   (require 'org-protocol)
 
+  ;; allow alphabetical lists
+  (setq org-list-allow-alphabetical t)
+
   ;; weird org-ref error may require org-export backend
   (require 'ox)
   (require 'ox-org)
