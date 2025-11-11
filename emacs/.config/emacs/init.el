@@ -385,6 +385,13 @@
   ;; org-export latex
   (require 'ox-latex)
 
+  ;; ox-extras
+  ;; require the package
+  (require 'org-contrib)
+  (require 'ox-extra)
+  ;; ignore headings
+  (ox-extras-activate '(ignore-headlines))
+
   ;;(require 'ob-ipython)
   ;;(add-to-list 'org-latex-listings-langs '(ipython "python"))
 
@@ -771,15 +778,6 @@ Optional argument REGION A selection to be un-filled."
 ;;            % g marks files whose contents match a RegExp.
 ;;            * * marks executable files.
 (require 'dired-x)
-
-
-;;; ox-extras
-;; require the package
-(require 'org-contrib)
-(require 'ox-extra)
-
-;; ignore headings
-(ox-extras-activate '(ignore-headlines))
 
 
 ;;; Jinja2
