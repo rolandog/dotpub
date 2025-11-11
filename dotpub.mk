@@ -453,7 +453,7 @@ SECONDARY_FILES :=
 PRECIOUS_FILES := $(OUTPUT_DOCS)
 
 # declare files that may be pre-processed or are intermediary
-INTERMEDIATE_FILES :=
+INTERMEDIATE_FILES := README.md.tmp
 
 # define documents to be removed
 CLEANUP_FILES := $(strip\
@@ -555,7 +555,12 @@ version:; @ ## show program version number and exit
 # ##############################################################################
 
 %.md : %.org $(THIS_MAKEFILE); @ ## [pandoc] convert %.org to %.md files
-	$(PANDOC_MD) $< -o $@
+# use pandoc to convert to markdown
+	$(PANDOC_MD) $< -o $@.tmp
+# remove backslashes
+	sed -i 's/\\//g' $@.tmp
+# chop off the first 7 lines
+	tail -n +7 $@.tmp > $@
 	@$(call ok,$@)
 
 % : %.org $(THIS_MAKEFILE); @ ## [emacs] convert %.org to % (.txt) files
