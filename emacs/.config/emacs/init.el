@@ -382,9 +382,8 @@
   (require 'ox)
   (require 'ox-org)
 
-  (require 'ob-ipython)
-  (require 'ox-ipynb)
-  (add-to-list 'org-latex-listings-langs '(ipython "python"))
+  ;;(require 'ob-ipython)
+  ;;(add-to-list 'org-latex-listings-langs '(ipython "python"))
 
   ;; github-flavored markdown
   '(require 'ox-gfm nil t)
@@ -410,6 +409,9 @@
 
   ;; Enable gnuplot-mode
   (require 'gnuplot)
+
+  ;; Enable exporting as jupyter notebooks
+  (require 'ox-ipynb)
 
   (autoload 'gnuplot-mode "gnuplot" "Gnuplot major mode" t)
   (autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot-mode" t)
