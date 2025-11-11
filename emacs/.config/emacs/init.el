@@ -529,6 +529,7 @@
   (define-key org-mode-map (kbd "C-c n l") 'org-roam-buffer-toggle)
   (define-key org-mode-map (kbd "C-c n o") 'org-id-get-create)
   (define-key org-mode-map (kbd "C-c n t") 'org-roam-tag-add)
+
   ;; load dailies and set up its keymap
   (require 'org-roam-dailies)
 
