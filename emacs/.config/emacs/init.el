@@ -429,6 +429,9 @@
   ;; Enable gnuplot-mode
   (require 'gnuplot)
 
+  ;; Enable emacs-jupyter
+  (require 'jupyter)
+
   ;; Enable exporting as jupyter notebooks
   (require 'ox-ipynb)
 
@@ -448,9 +451,9 @@
      ;; (emacs-lisp . t)  ; unknown emacs-lisp mode?
      (fortran . t)
      (gnuplot . t)
-     (ipython . t)
      ;; (ini . t)  ; no ob-ini, but there's a built-in conf-mode
      (js . t)
+     (jupyter . t)
      (latex . t)
      (org . t)
      (php . t)
@@ -459,6 +462,8 @@
      (shell . t)
      )
    )
+
+  (org-babel-jupyter-override-src-block "python")
 
   ;; display/update images in the buffer after evaluation
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
