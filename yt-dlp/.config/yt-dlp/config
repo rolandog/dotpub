@@ -126,7 +126,7 @@
 
 # Write metadata to the video file (previously --embed-metadata)
 --embed-metadata
---compat-options embed-metadata
+#--compat-options embed-metadata
 
 # Parse additional metadata like song title / artist from the video
 # title.  The format syntax is the same as --output.  Regular
