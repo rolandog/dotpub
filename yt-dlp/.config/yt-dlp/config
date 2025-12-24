@@ -12,7 +12,7 @@
 
 # Do not emit color codes in output
 # NOTE: to be used when passing text output to another script
---no-color
+#--color "auto"
 
 
 ### NETWORK OPTIONS
