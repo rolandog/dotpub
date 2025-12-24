@@ -108,6 +108,9 @@
 
 
 ### POST-PROCESSING OPTIONS
+# Remux the video into another container if necessary
+--remux-video mkv
+
 # Keep the intermediate video file on disk after post-processing
 --keep-video
 
