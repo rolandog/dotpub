@@ -23,6 +23,7 @@
 
 
 ### DOWNLOAD OPTIONS
+# TODO: deprecated, remove
 # Set file xattribute ytdl.filesize with expected file size
 #--xattr-set-filesize
 
@@ -46,8 +47,9 @@
 # Write video metadata to a .info.json file
 --write-info-json
 
+# TODO: deprecated, remove
 # Write video annotations to a .annotations.xml file
---write-annotations
+#--write-annotations
 
 
 ### THUMBNAIL OPTIONS
@@ -56,8 +58,9 @@
 
 
 ### VERBOSITY / SIMULATION OPTIONS
+# TODO: deprecated, remove
 # Do NOT contact the youtube-dl server for debugging
---no-call-home
+#--no-call-home
 
 
 ### VIDEO FORMAT OPTIONS
