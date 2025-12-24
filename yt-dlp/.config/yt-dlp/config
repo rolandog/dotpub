@@ -81,7 +81,10 @@
 
 ### SUBTITLE OPTIONS
 # Write subtitle file
-#--write-sub
+--write-subs
+
+# Write automatically generated subtitle file
+--write-auto-subs
 
 # Download all the available subtitles of the video
 #--all-subs
@@ -92,7 +95,7 @@
 
 # Languages of the subtitles to download (optional) separated by
 # commas, use --list-subs for available language tags
-# --sub-lang "en,es,nl"
+--sub-langs "en.*,es.*,nl"
 
 
 ### AUTHENTICATION OPTIONS
