@@ -405,7 +405,7 @@
 
   ;; Bibliography
   ;; require the org-cite library
-  ;; (require 'citeproc)
+  (require 'citeproc)
   (require 'oc)
   (require 'oc-basic)
   (require 'oc-biblatex)
@@ -637,13 +637,15 @@
 (setq org-cite-global-bibliography '("~/org/references.bib"))
 
 ;; help citeproc find CSL citation styles
-(setq org-cite-csl-styles-dir (file-truename "~/.local/share/csl"))
+;;(setq org-cite-csl-styles-dir (file-truename "~/.local/share/csl"))
+(setq org-cite-csl-styles-dir "~/.local/share/csl/styles")
+(setq org-cite-csl-locales-dir "~/.local/share/csl/locales")
 
 ;; set export processors by backend; fallback is t
 (setq org-cite-export-processors '(
                                    (beamer biblatex)
                                    (latex biblatex)
-                                   (t csl "iso690-numeric-en.csl")))
+                                   (t csl "ieee.csl")))
 
 ;; Helps remove active objects from pdfs
 (defun compress-pdf-after-latex-export (&rest _args)
