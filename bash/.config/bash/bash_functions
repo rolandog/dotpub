@@ -187,3 +187,42 @@ pwhich() {
   false
   return
 }
+
+
+export PREFERRED_COLOR_SCHEME="${PREFERRED_COLOR_SCHEME:-dark}"
+
+#######################################
+# Set the preferred color scheme
+# Arguments:
+#   theme
+#######################################
+set_preferred_interface_color_scheme() {
+    if [ 'light' = "${1}"  ]; then
+        COLOR_SCHEME='prefer-light'
+        GTK_THEME='Pop'
+        PICTURE_URI='/usr/share/backgrounds/pop/kate-hazen-pop-retro1.png'
+        PICTURE_OPTIONS='zoom'
+        gsettings set org.gnome.desktop.background picture-uri "${PICTURE_URI}"
+    else
+        COLOR_SCHEME='prefer-dark'
+        GTK_THEME='Pop-dark'
+        PICTURE_URI='/usr/share/backgrounds/pop/kate-hazen-pop-retro2.png'
+        PICTURE_OPTIONS='zoom'
+        gsettings set org.gnome.desktop.background picture-uri-dark "${PICTURE_URI}"
+    fi
+    gsettings set org.gnome.desktop.interface color-scheme "${COLOR_SCHEME}" \
+        && gsettings set org.gnome.desktop.interface gtk-theme "${GTK_THEME}" \
+        && gsettings set org.gnome.desktop.background picture-options 'zoom'
+}
+
+#######################################
+# Toggle between light and dark theme
+#######################################
+toggle_interface_color_scheme() {
+    if [ 'dark' = "${PREFERRED_COLOR_SCHEME}" ]; then
+        export PREFERRED_COLOR_SCHEME='light'
+    else
+        export PREFERRED_COLOR_SCHEME='dark'
+    fi
+    set_preferred_interface_color_scheme "${PREFERRED_COLOR_SCHEME}"
+}
