@@ -37,6 +37,9 @@
 # spaces in filenames
 --restrict-filenames
 
+# Do not overwrite any files
+--no-overwrites
+
 # Do not use the Last-modified header to set the file modification
 # time
 # --no-mtime
