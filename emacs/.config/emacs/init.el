@@ -624,6 +624,10 @@
 ;;; code-cells
 (add-hook 'python-mode-hook 'code-cells-mode-maybe)
 
+(setq code-cells-convert-ipynb-style '(("jupytext" "--to" "ipynb" "--from" "py:percent")
+                                       ("jupytext" "--to" "py:percent" "--from" "ipynb")
+                                       (lambda () #'python-mode)))
+
 ;;(setq code-cells-convert-ipynb-style '(("pandoc" "--to" "ipynb" "--from" "org")
 ;;                                       ("pandoc" "--to" "org" "--from" "ipynb" "--extract-media" "./ipynb-images/")
 ;;                                       (lambda () #'org-mode)))
