@@ -444,7 +444,7 @@
   (require 'jupyter)
 
   ;; Enable exporting as jupyter notebooks
-  (require 'ox-ipynb)
+  ;; (require 'ox-ipynb)
 
   (autoload 'gnuplot-mode "gnuplot" "Gnuplot major mode" t)
   (autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot-mode" t)
