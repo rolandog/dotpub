@@ -12,4 +12,4 @@
 
 [credential "smtp://smtp.gmail.com:587"]
 	user = rolandog@gmail.com
-	helper = "!f() { test \"${1}\" = 'get' && echo \"password=$(pass show \"Personal/Email/smtpPass-${HOSTNAME}\" 2> /dev/null)\"; }; f"
+	helper = "!f() { test \"${1}\" = 'get' && echo \"password=$(pass show \"email/smtpPass-gmail-${HOSTNAME}\" 2> /dev/null)\"; }; f"
