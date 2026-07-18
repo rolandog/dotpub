@@ -229,9 +229,9 @@ PANDOC_OPTIONS := \
  --wrap=preserve
 
 PANDOC_MD_OPTIONS := \
- --atx-headers\
  --lua-filter cleanup-markdown-metadata.lua\
  --lua-filter increment-header-level.lua\
+ --markdown-headings=atx\
  --standalone\
  --to=gfm+smart+task_lists
 #--to=markdown+citations+footnotes+smart+task_lists+tex_math_dollars+yaml_metadata_block
