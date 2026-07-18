@@ -475,6 +475,7 @@
      )
    )
 
+  ;; restore by calling (org-babel-jupyter-restore-src-block "python")
   (org-babel-jupyter-override-src-block "python")
 
   ;; display/update images in the buffer after evaluation
