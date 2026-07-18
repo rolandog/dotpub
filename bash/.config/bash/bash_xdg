@@ -38,3 +38,6 @@ fi
 PYTHONSTARTUP="${XDG_CONFIG_HOME}/python/python_startup.py"
 export PYTHONSTARTUP
 
+### wine
+WINEPREFIX="${XDG_DATA_HOME}/wineprefixes/default"
+export WINEPREFIX
