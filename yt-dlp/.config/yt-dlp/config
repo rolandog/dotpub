@@ -10,6 +10,16 @@
 # in a playlist
 --ignore-errors
 
+# Remote components to allow yt-dlp to fetch when required.  This
+# option is currently not needed if you are using an official
+# executable or have the requisite version of the yt-dlp-ejs package
+# installed.  You can use this option multiple times to allow
+# multiple components.  Supported values: ejs:npm (external
+# JavaScript components from npm), ejs:github (external JavaScript
+# components from yt-dlp-ejs GitHub).  By default, no remote
+# components are allowed
+--remote-components ejs:github
+
 # Do not emit color codes in output
 # NOTE: to be used when passing text output to another script
 #--color "auto"
