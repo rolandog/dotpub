@@ -1057,9 +1057,12 @@ Optional argument ARG Cloze number."
       (file))))
  '(openwith-mode t)
  '(org-agenda-files
-   '("~/org-work/gtd.org" "~/org/duties.org" "~/org/habits.org"
-     "~/org/chores.org" "~/org/capture.org" "~/org/iwt.org"
-     "~/org/journal.org" "~/org/projects.org" "~/org/gtd.org"
+   '("~/org-roam/20250809145815-gtd.org"
+     "~/org-work/gtd.org" "~/org/duties.org"
+     "~/org/habits.org" "~/org/chores.org"
+     "~/org/capture.org" "~/org/iwt.org"
+     "~/org/journal.org"
+     "~/org/projects.org" "~/org/gtd.org"
      "~/org/dates.org"))
  '(org-columns-default-format "%40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM")
  '(org-export-backends '(ascii beamer gfm html icalendar latex md odt texinfo))
