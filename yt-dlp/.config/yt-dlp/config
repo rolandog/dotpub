@@ -37,6 +37,15 @@
 # Set file xattribute ytdl.filesize with expected file size
 #--xattr-set-filesize
 
+# Time to sleep between retries in seconds (optionally) prefixed by
+# the type of retry (http (default), fragment, file_access,
+# extractor) to apply the sleep to. EXPR can be a number,
+# linear=START[:END[:STEP=1]] or exp=START[:END[:BASE=2]]. This
+# option can be used multiple times to set the sleep for the
+# different retry types, e.g. --retry-sleep linear=1::2
+# --retry-sleep fragment:exp=1:20
+--retry-sleep exp=1:32
+
 
 ### FILESYSTEM OPTIONS
 # Output filename template, see the "OUTPUT TEMPLATE" for all the info
@@ -74,6 +83,24 @@
 # TODO: deprecated, remove
 # Do NOT contact the youtube-dl server for debugging
 #--no-call-home
+
+
+### WORKAROUNDS
+
+# Number of seconds to sleep between requests during data extraction
+--sleep-requests 4
+
+# Number of seconds to sleep before each download. This is the
+# minimum time to sleep when used along with --max-sleep-interval
+# (Alias: --min-sleep-interval)
+--sleep-interval 16
+
+# Maximum number of seconds to sleep. Can only be used along with
+# --min-sleep-interval
+--max-sleep-interval 32
+
+# Number of seconds to sleep before each subtitle download
+--sleep-subtitles 5
 
 
 ### VIDEO FORMAT OPTIONS
