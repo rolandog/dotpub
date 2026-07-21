@@ -504,6 +504,21 @@
 
   ;; scaling up LaTeX previews
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+
+  ;; for circuitikz
+  ;; thanks https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-LaTeX.html
+  (setq org-babel-latex-preamble
+        (lambda (_params)
+          (concat
+           "\\documentclass[preview]{standalone}\n"
+           "\\usepackage[european, EFvoltages]{circuitikz}\n"
+           "\\usetikzlibrary{positioning}\n"
+           "\\usetikzlibrary{arrows.meta}\n")))
+  (setq org-babel-latex-pdf-svg-process "pdf2svg %F %O")
+  (defmacro by-backend (&rest body)
+    "Handle LaTeX code block differently depending on the export backend.
+  Optional argument BODY the body."
+    `(pcase (if (boundp 'backend) (org-export-backend-name backend) nil) ,@body))
   )
 
 
