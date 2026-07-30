@@ -347,7 +347,7 @@
 
 ;; conversion of LaTeX Maths to MathML
 (setq org-latex-to-mathml-convert-command
-      "latexmlmath \"%i\" --presentationmathml=%o")
+      "latexmlmath \"%i\" --presentationmathml=\"%o\"")
 
 ;; instead of ODT, use docx
 ;; (setq org-odt-preferred-output-format "docx")
